@@ -3,6 +3,14 @@
   <head>
     <title>Stormhaul</title>
     <link rel="stylesheet" href="css/style.css" />
+    <script>
+      console.log("hi");
+      window.onload = function() {
+        console.log("ready");
+        let logo = document.getElementById('logo');
+        logo.classList.add('move-to-corner');
+      }
+    </script>
   </head>
   <body>
     <div id="header">
@@ -11,10 +19,12 @@
         <div id="anvil"></div>
       </div>
       <div id="navigation"></div>
+      <div id="play-message">While you wait you could play a fun game of snake.</div>
     </div>
     <div style="width: 1000px; margin: 0 auto; user-select: none; text-align: center">
       <h1>Coming Soon to a Dank River Valley Near You!</h1>
       <p>Kudo's if you get the reference, but seriously this place is under construction.</p>
     </div>
+
   </body>
 </html>
