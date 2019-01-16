@@ -10,9 +10,14 @@ let configuration = {
   apple_radius: 5,
   border_color: '#fff',
   border_width: 1,
-  tick_delay: 50
+  tick_delay: 100
 }
 
 function maxViewSquare() {
   return Math.min(window.innerHeight - 55, window.innerWidth);
 }
+
+setTimeout(function() {
+  let g = new GameController(configuration);
+  g.loop();
+}, 7000);
