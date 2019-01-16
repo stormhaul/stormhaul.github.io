@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: #000;
+  color: #ddd;
+}
+
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+#navigation {
+
+}
+
+#logo {
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+}
+
+#hammer {
+  background: url('../img/one-hammer-svgrepo-com.svg');
+  width:50px;
+  height: 50px;
+  animation: swing-hammer linear .75s infinite alternate;
+}
+
+#anvil {
+  background: url('../img/anvil-svgrepo-com.svg');
+  width: 100;
+  height: 100;
+}
+
+@keyframes swing-hammer {
+  0%   {transform-origin: left; transform: rotate(-15deg) translate(-10%, 15%);}
+  100% {transform-origin: left; transform: rotate(40deg) translate(50%, 0%);}
+}
