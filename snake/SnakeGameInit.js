@@ -9,7 +9,8 @@ let configuration = {
   apple_color: '#00ff88',
   apple_radius: 5,
   border_color: '#fff',
-  border_width: 1
+  border_width: 1,
+  tick_delay: 50
 }
 
 function maxViewSquare() {
