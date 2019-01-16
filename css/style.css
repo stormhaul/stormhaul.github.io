@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: #000;
+  color: #ddd;
+}
+
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+#navigation {
+
+}
+
+#logo {
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+}
