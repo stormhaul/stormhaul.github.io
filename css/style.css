@@ -28,7 +28,7 @@
   background: url('../img/one-hammer-svgrepo-com.svg');
   width:50px;
   height: 50px;
-  animation: swing-hammer linear 1s infinite alternate;
+  animation: swing-hammer linear .75s infinite alternate;
 }
 
 #anvil {
@@ -39,5 +39,5 @@
 
 @keyframes swing-hammer {
   0%   {transform-origin: left; transform: rotate(-15deg) translate(-10%, 15%);}
-  100% {transform-origin: left; transform: rotate(40deg) translate(50%, 30%);}
+  100% {transform-origin: left; transform: rotate(40deg) translate(50%, 0%);}
 }
