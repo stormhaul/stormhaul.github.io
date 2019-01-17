@@ -7,11 +7,14 @@ class RenderingWrapper {
     this._configuration = configuration;
   }
 
-  requestFrame (segments, apple_position) {
+  requestFrame (segments, apple_position, collided = false) {
     this.wipe();
     this.drawBorder();
     this.drawSnake(segments);
     this.drawApple(apple_position);
+    if (collided) {
+      this.drawCollision(segments.head);
+    }
   }
 
   wipe () {
@@ -53,9 +56,10 @@ class RenderingWrapper {
   }
 
   drawCollision (position) {
+    console.log('drawCollision at', position, this._configuration.collided_color, this._configuration.snake_width);
     this.ctx.fillStyle = this._configuration.collided_color;
     this.ctx.beginPath();
-    this.ctx.arc(position.x, position.y, this._configuration.snake_width, 0, Math.PI * 2);
+    this.ctx.arc(position.x, position.y, 100, 0, Math.PI * 2);
     this.ctx.fill();
   }
 }

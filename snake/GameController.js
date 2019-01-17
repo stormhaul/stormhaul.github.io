@@ -6,11 +6,10 @@ class GameController {
     this._configuration = configuration;
 
     this.user = new UserInput(configuration);
+    this.render = new RenderingWrapper(configuration);
     this.snake = new SnakeController(configuration, function(){
       that.collided = true;
-      that.render.drawCollision(that.snake.position);
     });
-    this.render = new RenderingWrapper(configuration);
 
     this.collided = false;
   }
@@ -22,7 +21,7 @@ class GameController {
       let next_pos = that.addVector(that.snake.position, that.user.command);
       let ate = that.distance(that.snake.position, that.snake.apple_position) <= (that._configuration.snake_width + that._configuration.apple_radius);
       that.snake.advanceSnake(next_pos, ate);
-      that.render.requestFrame(that.snake.segments, that.snake.apple_position);
+      that.render.requestFrame(that.snake.segments, that.snake.apple_position, that.collided);
       if (!that.collided) {
         that.loop();
       }

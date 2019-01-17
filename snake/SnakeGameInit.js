@@ -12,7 +12,8 @@ let configuration = {
   border_color: '#fff',
   border_width: 1,
   tick_delay: 20,
-  step_size: 10
+  step_size: 10,
+  collided_color: '#900'
 }
 
 function maxViewSquare() {
