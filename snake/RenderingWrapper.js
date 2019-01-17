@@ -8,34 +8,54 @@ class RenderingWrapper {
   }
 
   requestFrame (segments, apple_position) {
+    this.wipe();
     this.drawBorder();
     this.drawSnake(segments);
     this.drawApple(apple_position);
   }
 
+  wipe () {
+    this.ctx.fillStyle = '#000'
+    this.ctx.beginPath();
+    this.ctx.rect(0, 0, this._configuration.width, this._configuration.height);
+    this.ctx.fill();
+  }
+
   drawBorder () {
     this.ctx.strokeStyle = this._configuration.border_color;
     this.ctx.lineWidth = this._configuration.border_width;
-    this.drawRect(0, 0, this._configuration.width - 1, this._configuration.height - 1);
+    this.ctx.beginPath();
+    this.ctx.rect(0, 0, this._configuration.width - 2 * this._configuration.border_width, this._configuration.height - 2 * this._configuration.border_width);
+    this.ctx.stroke();
   }
 
   drawSnake (segments) {
     this.ctx.strokeStyle = this._configuration.snake_color;
     this.ctx.lineWidth = this._configuration.snake_width;
     this.ctx.beginPath();
-    for (let i in segments) {
-      if (i == 0) {
-        this.ctx.moveTo(segment[i]);
-        continue;
+    let cur = segments.head;
+    while (cur != null) {
+      if (cur == segments.head) {
+        this.ctx.moveTo(cur.value.x, cur.value.y);
+      } else {
+        this.ctx.lineTo(cur.value.x, cur.value.y);
       }
-      this.ctx.lineTo(segment[i]);
+      cur = cur.next;
     }
     this.ctx.stroke();
   }
 
   drawApple (position) {
     this.ctx.fillStyle = this._configuration.apple_color;
+    this.ctx.beginPath();
     this.ctx.arc(position.x, position.y, this._configuration.apple_radius, 0, Math.PI * 2);
+    this.ctx.fill();
+  }
+
+  drawCollision (position) {
+    this.ctx.fillStyle = this._configuration.collided_color;
+    this.ctx.beginPath();
+    this.ctx.arc(position.x, position.y, this._configuration.snake_width, 0, Math.PI * 2);
     this.ctx.fill();
   }
 }

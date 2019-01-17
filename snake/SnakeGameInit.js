@@ -1,16 +1,18 @@
 "using strict";
 
 let configuration = {
-  width: maxViewSquare(),
-  height: maxViewSquare(),
+  width: 1000,
+  height: 1000,
   canvas_id: 'canvas',
   snake_width: 10,
   snake_color: '#fff',
+  snake_segment_length: 10,
   apple_color: '#00ff88',
   apple_radius: 5,
   border_color: '#fff',
   border_width: 1,
-  tick_delay: 100
+  tick_delay: 20,
+  step_size: 5
 }
 
 function maxViewSquare() {
