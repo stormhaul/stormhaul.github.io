@@ -29,7 +29,6 @@ class UserInput {
     document.addEventListener('keydown', function (e) {
       for (let direction in that.keys) {
         if (that.keys[direction].indexOf(e.keyCode) !== -1 && !that.opposite(that.command, that.vectors[direction])) {
-          console.log(direction, that.keys[direction], e.keyCode);
           that.command = that.vectors[direction];
         }
       }
