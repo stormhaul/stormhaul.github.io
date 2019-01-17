@@ -23,7 +23,6 @@ class LinkedList {
     }
 
     if (this.contains[this.posToString(pos)] !== undefined || this.oob(pos)) {
-      console.log(this.contains, pos, this.oob(pos));
       this.collided();
     }
     this.contains[this.posToString(pos)] = pos;
