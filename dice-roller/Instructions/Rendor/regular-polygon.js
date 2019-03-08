@@ -1,7 +1,7 @@
 "using strict";
 
-class Pool {
+class RegularPolygon {
   constructor() {
-
+    
   }
 }
