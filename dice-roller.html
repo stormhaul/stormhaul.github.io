@@ -1,0 +1,32 @@
+<html>
+
+  <head>
+    <title>Stormhaul :: Dice Roller</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script>
+      window.onload = function() {
+        let logo = document.getElementById('logo');
+        logo.classList.add('move-to-corner');
+      }
+    </script>
+  </head>
+  <body>
+    <div id="header">
+      <div id="logo">
+        <div id="hammer"></div>
+        <div id="anvil"></div>
+      </div>
+      <div id="navigation"></div>
+      <div id="play-message">Would you like to roll some dice?</div>
+    </div>
+    <div style="width: 1000px; margin: 0 auto; user-select: none; text-align: center">
+      <h1>Coming Soon to a Dank River Valley Near You!</h1>
+      <p>Kudo's if you get the reference, but seriously this place is under construction.</p>
+    </div>
+    <div id="canvas_wrapper">
+      <canvas id='canvas' width='1000' height='1000'></canvas>
+    </div>
+  </body>
+
+  <script type="text/javascript" src="dice-roller/include.js"></script>
+</html>
