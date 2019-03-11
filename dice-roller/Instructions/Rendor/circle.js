@@ -2,8 +2,7 @@
 
 class Circle {
   constructor(pos, radius, color) {
-    this.x      = pos.x;
-    this.y      = pos.y;
+    this.pos    = pos;
     this.radius = radius;
     this.color  = color;
   }
