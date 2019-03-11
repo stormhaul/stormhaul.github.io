@@ -6,6 +6,8 @@ class RegularPolygon extends CoordinateMath{
       throw new Error('Invalid parameters for a RegularPolygon');
     }
 
+    super();
+
     this.sides = sides;
     this.length = length;
     this.pos = pos;
@@ -13,6 +15,7 @@ class RegularPolygon extends CoordinateMath{
     this.stroke = stroke;
 
     this.generateInstructions();
+    console.log(this);
   }
 
   generateInstructions() {

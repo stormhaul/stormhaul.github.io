@@ -1,13 +1,15 @@
 let includes = [
+  'Helpers/aggregation.js',
   'Helpers/angle-math.js',
   'Helpers/vector-math.js',
-  'Helpers/coordiate-math.js',
+  'Helpers/coordinate-math.js',
   'Instructions/Rendor/circle.js',
   'Instructions/Rendor/number.js',
   'Instructions/Rendor/regular-polygon.js',
   'die.js',
   'face.js',
-  'pool.js'
+  'pool.js',
+  'init.js',
 ];
 
 loadScripts(includes);

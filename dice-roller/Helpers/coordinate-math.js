@@ -1,6 +1,6 @@
 "using strict";
 
-class CoordinateMath extends AngleMath, VectorMath{
+class CoordinateMath extends aggregation(AngleMath, VectorMath) {
   getCoordFromStartRadiansLength(start, radians, length) {
     let vector = this.getVectorFromLengthRadians(length, radians);
 

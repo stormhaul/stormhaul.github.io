@@ -9,7 +9,8 @@ class Die {
         this.faces.push(i);
       }
     } else {
-      for (let value, count in faces) {
+      for (let value in faces) {
+        let count = faces[value];
         for (let i = 0; i < count; i++) {
           this.faces.push(value);
         }
