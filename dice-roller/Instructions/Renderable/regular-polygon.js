@@ -1,6 +1,12 @@
-"using strict";
+"use strict";
 
-class RegularPolygon extends CoordinateMath{
+define("Instructions/Renderable/RegularPolygon",
+  ["CoordinateMath"],
+  function() {
+
+  }
+);
+class RegularPolygon extends CoordinateMath {
   constructor(pos, sides, length, fill = null, stroke = null) {
     if (sides < 3 || length < 3) {
       throw new Error('Invalid parameters for a RegularPolygon');

@@ -1,4 +1,4 @@
-"using strict";
+"use strict";
 
 class AngleMath {
   convertD2R (degrees) {

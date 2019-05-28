@@ -1,4 +1,4 @@
-"using strict";
+"use strict";
 
 class Die {
   // faces should follow {face_value: face_ct};

@@ -1,4 +1,4 @@
-"using strict";
+"use strict";
 
 class Circle {
   constructor(pos, radius, color) {

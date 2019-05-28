@@ -1,4 +1,4 @@
-"using strict";
+"use strict";
 
 let configuration = {
   width: 1000,

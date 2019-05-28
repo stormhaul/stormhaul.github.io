@@ -1,4 +1,4 @@
-"using strict";
+"use strict";
 
 class CoordinateMath extends aggregation(AngleMath, VectorMath) {
   getCoordFromStartRadiansLength(start, radians, length) {

@@ -3,12 +3,15 @@ let includes = [
   'Helpers/angle-math.js',
   'Helpers/vector-math.js',
   'Helpers/coordinate-math.js',
-  'Instructions/Rendor/circle.js',
-  'Instructions/Rendor/number.js',
-  'Instructions/Rendor/regular-polygon.js',
+  'Instructions/Renderable/circle.js',
+  'Instructions/Renderable/number.js',
+  'Instructions/Renderable/regular-polygon.js',
   'die.js',
   'face.js',
   'pool.js',
+  'renderer.js',
+
+  // Leave last, begins script
   'init.js',
 ];
 

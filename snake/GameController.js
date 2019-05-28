@@ -1,4 +1,4 @@
-"using strict";
+"use strict";
 
 class GameController {
   constructor (configuration) {
