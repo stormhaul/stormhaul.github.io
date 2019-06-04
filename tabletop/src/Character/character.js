@@ -1,15 +1,5 @@
 "use strict";
 
-class Character {
-    constructor() {
-        this.stats = false;
-    }
+function Character() {
 
-    setAttributes(attributes = {}) {
-        if (attributes === {}) {
-
-        }
-    }
-
-    _roll
 }
