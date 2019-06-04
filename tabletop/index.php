@@ -20,5 +20,6 @@
     </head>
     <body>
         <canvas id="c"></canvas>
+        <img id="background" src="https://tsmith-zzounds.dev.mbira.com:8001/slide-images/xlg.jpg" alt="background image" style="display:none" />
     </body>
 </html>
