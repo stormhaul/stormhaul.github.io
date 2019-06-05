@@ -13,6 +13,10 @@ function BackgroundImage(image) {
         let ctx = perspective.ctx;
         let position = perspective.calculateRelativePosition({x:0, y:0});
 
-        ctx.drawImage(this.element, position.x, position.y);
+        let scale = perspective.getScaleFactor();
+        let inverted = 1 / perspective.getScaleFactor();
+        ctx.scale(scale, scale);
+        ctx.drawImage(this.element, position.x, position.y, this.width, this.height);
+        ctx.scale(inverted, inverted);
     };
 }

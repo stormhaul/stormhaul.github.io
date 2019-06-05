@@ -11,6 +11,7 @@ function Perspective(renderer, centerPoint, angle, height) {
     this.currentHeight = height;
 
     this.moveVelocity = 10;
+    this.scrollRate = 10;
 
     this.viewPort = this.buildViewPort();
     this.createControlEvents();
@@ -40,25 +41,29 @@ Perspective.prototype.calculateRelativePosition = function(truePosition) {
     return {x: truePosition.x - this.position.x - (this.viewPort.width / 2), y: truePosition.y - this.position.y - (this.viewPort.height / 2)};
 };
 
+Perspective.prototype.getScaleFactor = function () {
+    return this.currentHeight > 0 ? this.height / this.currentHeight : 100;
+};
+
 Perspective.prototype.createControlEvents = function() {
     let that = this;
     document.addEventListener("keydown", function(event) {
         switch(event.code) {
             case 'KeyA':
             case 'ArrowLeft':
-                that.position.x -= that.moveVelocity;
+                that.position.x -= that.moveVelocity * (1 / that.getScaleFactor());
                 break;
             case 'KeyW':
             case 'ArrowUp':
-                that.position.y -= that.moveVelocity;
+                that.position.y -= that.moveVelocity * (1 / that.getScaleFactor());
                 break;
             case 'KeyD':
             case 'ArrowRight':
-                that.position.x += that.moveVelocity;
+                that.position.x += that.moveVelocity * (1 / that.getScaleFactor());
                 break;
             case 'KeyS':
             case 'ArrowDown':
-                that.position.y += that.moveVelocity;
+                that.position.y += that.moveVelocity * (1 / that.getScaleFactor());
                 break;
         }
 
@@ -66,13 +71,10 @@ Perspective.prototype.createControlEvents = function() {
     });
 
     document.addEventListener("wheel", function(event) {
-        console.log("Invert: ", Math.max(.01, that.currentHeight / that.height), "Scale: ", Math.max(.01, that.height / that.currentHeight));
-        that.ctx.scale(Math.max(.01, that.currentHeight / that.height), Math.max(.01, that.currentHeight / that.height));
-        that.currentHeight += event.deltaY;
-        that.ctx.scale(Math.max(.01, that.height / that.currentHeight), Math.max(.01, that.height / that.currentHeight));
+        that.currentHeight += event.deltaY > 0 ? that.scrollRate : -1 * that.scrollRate;
+        that.currentHeight = Math.max (0, that.currentHeight);
         let e = new Event('scaleChanged');
-        e.scale = Math.max(.01, that.height / that.currentHeight);
-        console.log(that.currentHeight, e);
+        e.scale = Math.max(that.getScaleFactor());
         document.dispatchEvent(e);
         document.dispatchEvent(new Event('rerender'));
     });

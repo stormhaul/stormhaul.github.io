@@ -9,6 +9,10 @@ function SquareGrid(width, height, radius) {
      * @param perspective Perspective
      */
     this.render = function(perspective) {
+        let scale = perspective.getScaleFactor();
+        let inverted = 1 / perspective.getScaleFactor();
+        perspective.ctx.scale(scale, scale);
+
         for (let i = 0; i < Math.ceil(this.w / this.cell); i++) {
             let start = perspective.calculateRelativePosition({x: i * this.cell, y: 0});
             let end   = perspective.calculateRelativePosition({x: i * this.cell, y: this.h});
@@ -22,6 +26,8 @@ function SquareGrid(width, height, radius) {
 
             this.drawGridLine(perspective.ctx, start, end);
         }
+
+        perspective.ctx.scale(inverted, inverted);
     };
 
     this.drawGridLine = function(ctx, start, end, style = 'white') {

@@ -18,7 +18,7 @@ class Renderer {
      * @param perspective Perspective
      */
     render(perspective) {
-        this._wipeCanvas();
+        this._wipeCanvas(perspective);
         for (let i in this.renderables) {
             this.renderables[i].render(perspective);
         }
