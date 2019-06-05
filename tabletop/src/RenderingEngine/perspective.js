@@ -8,8 +8,12 @@ function Perspective(renderer, centerPoint, angle, height) {
     this.ha = angle;
     this.va = this.ha * this.ch / this.cw;
     this.height = height;
+    this.currentHeight = height;
+
+    this.moveVelocity = 10;
 
     this.viewPort = this.buildViewPort();
+    this.createControlEvents();
 }
 
 Perspective.prototype.buildViewPort = function() {
@@ -34,4 +38,39 @@ Perspective.prototype.changePosition = function(offsetPosition) {
 
 Perspective.prototype.calculateRelativePosition = function(truePosition) {
     return {x: truePosition.x - this.position.x - (this.viewPort.width / 2), y: truePosition.y - this.position.y - (this.viewPort.height / 2)};
+};
+
+Perspective.prototype.createControlEvents = function() {
+    let that = this;
+    document.addEventListener("keydown", function(event) {
+        switch(event.code) {
+            case 'KeyA':
+            case 'ArrowLeft':
+                that.position.x -= that.moveVelocity;
+                break;
+            case 'KeyW':
+            case 'ArrowUp':
+                that.position.y -= that.moveVelocity;
+                break;
+            case 'KeyD':
+            case 'ArrowRight':
+                that.position.x += that.moveVelocity;
+                break;
+            case 'KeyS':
+            case 'ArrowDown':
+                that.position.y += that.moveVelocity;
+                break;
+        }
+
+        document.dispatchEvent(new Event('rerender'));
+    });
+
+    document.addEventListener("wheel", function(event) {
+        that.currentHeight += event.deltaY;
+        that.ctx.scale(Math.max(0, that.height / that.currentHeight), Math.max(0, that.height / that.currentHeight));
+        let e = new Event('scaleChanged');
+        e.scale = Math.max(0, that.height / that.currentHeight);
+        document.dispatchEvent(e);
+        document.dispatchEvent(new Event('rerender'));
+    });
 };

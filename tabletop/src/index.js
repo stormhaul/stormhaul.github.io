@@ -19,6 +19,12 @@ function init() {
     let map = mapFactory.buildMap({element: document.getElementById('background'), width: 1245, height: 623, pixelsPerUnit: 100}, 'square');
 
     map.render(p);
+
+    r.addRenderable(map);
+
+    document.addEventListener('rerender', function() {
+        r.render(p);
+    });
 }
 
 document.addEventListener("DOMContentLoaded", function() {

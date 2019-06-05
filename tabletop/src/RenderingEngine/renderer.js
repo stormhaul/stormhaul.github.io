@@ -6,6 +6,26 @@ class Renderer {
         this._attachCanvas();
         this._wipeCanvas();
         this.attachResizeEvent();
+        this.renderables = [];
+
+        let that = this;
+        document.addEventListener("scaleChanged", function(event) {
+            that._wipeCanvas(event.scale);
+        });
+    }
+
+    /**
+     * @param perspective Perspective
+     */
+    render(perspective) {
+        this._wipeCanvas();
+        for (let i in this.renderables) {
+            this.renderables[i].render(perspective);
+        }
+    }
+
+    addRenderable(item) {
+        this.renderables.push(item);
     }
 
     attachResizeEvent() {
@@ -68,8 +88,14 @@ class Renderer {
         this.updateCanvasResolution();
     }
 
-    _wipeCanvas() {
+    _wipeCanvas(scale = null) {
+        if (scale !== null) {
+            this.ctx.scale(1/scale,1/scale);
+        }
         this.ctx.fillStyle = this.canvasColor;
         this.ctx.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
+        if (scale !== null) {
+            this.ctx.scale(scale, scale);
+        }
     }
 }
