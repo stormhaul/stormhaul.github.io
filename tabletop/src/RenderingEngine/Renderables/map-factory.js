@@ -5,7 +5,7 @@ function MapFactory() {
 }
 
 /**
- * @param image {img, width, height, pixelsPerUnit};
+ * @param image {HTMLElement, width, height, pixelsPerUnit};
  * @param gridType
  */
 MapFactory.prototype.buildMap = function(image, gridType) {
