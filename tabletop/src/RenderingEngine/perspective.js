@@ -66,10 +66,13 @@ Perspective.prototype.createControlEvents = function() {
     });
 
     document.addEventListener("wheel", function(event) {
+        console.log("Invert: ", Math.max(.01, that.currentHeight / that.height), "Scale: ", Math.max(.01, that.height / that.currentHeight));
+        that.ctx.scale(Math.max(.01, that.currentHeight / that.height), Math.max(.01, that.currentHeight / that.height));
         that.currentHeight += event.deltaY;
-        that.ctx.scale(Math.max(0, that.height / that.currentHeight), Math.max(0, that.height / that.currentHeight));
+        that.ctx.scale(Math.max(.01, that.height / that.currentHeight), Math.max(.01, that.height / that.currentHeight));
         let e = new Event('scaleChanged');
-        e.scale = Math.max(0, that.height / that.currentHeight);
+        e.scale = Math.max(.01, that.height / that.currentHeight);
+        console.log(that.currentHeight, e);
         document.dispatchEvent(e);
         document.dispatchEvent(new Event('rerender'));
     });
