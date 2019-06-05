@@ -32,6 +32,7 @@ function CharacterBuilder(character = null) {
     this.maxHp = 0;
     this.currentHp = 0;
     this.deathSaves = {successes: 0, failures: 0};
+    this.hitDice = [];
     this.equipment = [];
     this.proficiencies = [];
     this.spells = [];
