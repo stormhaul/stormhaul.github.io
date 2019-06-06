@@ -74,8 +74,15 @@ Perspective.prototype.createControlEvents = function() {
     });
 
     document.addEventListener("wheel", function(event) {
+        let old = that.currentHeight;
         that.currentHeight += event.deltaY > 0 ? that.scrollRate : -1 * that.scrollRate;
         that.currentHeight = Math.max (0, that.currentHeight);
+        let delta = that.currentHeight - old;
+
+        console.log(delta, -.5 * delta * Math.tan(that.ha) / that.getScaleFactor(), -.5 * delta * Math.tan(that.va) / that.getScaleFactor());
+        that.position.x -= delta * Math.tan(that.ha);
+        that.position.y -= delta * Math.tan(that.va);
+
         let e = new Event('scaleChanged');
         e.scale = Math.max(that.getScaleFactor());
         document.dispatchEvent(e);

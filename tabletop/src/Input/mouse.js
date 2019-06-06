@@ -1,8 +1,8 @@
 "use strict";
 
-const LEFTCLICK = "left-click";
-const MIDDLECLICK = "middle-click";
-const RIGHTCLICK = "right-click";
+const LEFTCLICK = 1;
+const MIDDLECLICK = 2;
+const RIGHTCLICK = 3;
 
 function Mouse() {
     let that = this;
@@ -13,14 +13,14 @@ function Mouse() {
 
     document.addEventListener("mouseup", function(e) {
         switch(e.which) {
-            case that.clickConstants[LEFTCLICK]:
-                console.log(LEFTCLICK + " up");
+            case LEFTCLICK:
+                console.log("left click up");
                 break;
-            case that.clickConstants[MIDDLECLICK]:
-                console.log(MIDDLECLICK + " up");
+            case MIDDLECLICK:
+                console.log("middle click up");
                 break;
-            case that.clickConstants[RIGHTCLICK]:
-                console.log(RIGHTCLICK + " up");
+            case RIGHTCLICK:
+                console.log("right click up");
                 break;
             default:
                 console.log("Unknown mouse button: " + e.which);
@@ -28,14 +28,14 @@ function Mouse() {
     });
     document.addEventListener("mousedown", function(e) {
         switch(e.which) {
-            case that.clickConstants[LEFTCLICK]:
-                console.log(LEFTCLICK + " down");
+            case LEFTCLICK:
+                console.log("left click down");
                 break;
-            case that.clickConstants[MIDDLECLICK]:
-                console.log(MIDDLECLICK + " down");
+            case MIDDLECLICK:
+                console.log("middle click down");
                 break;
-            case that.clickConstants[RIGHTCLICK]:
-                console.log(RIGHTCLICK + " down");
+            case RIGHTCLICK:
+                console.log("right click down");
                 break;
             default:
                 console.log("Unknown mouse button: " + e.which);
