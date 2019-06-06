@@ -1,6 +1,9 @@
 "use strict";
 
+var keys = {};
+
 function init() {
+    console.log(keys);
     let r = new Renderer();
 
     let d = new DicePool();
@@ -25,6 +28,9 @@ function init() {
     document.addEventListener('rerender', function() {
         r.render(p);
     });
+
+    let keyboard = new Keyboard();
+    let mouse = new Mouse();
 }
 
 document.addEventListener("DOMContentLoaded", function() {

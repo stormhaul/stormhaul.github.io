@@ -38,7 +38,10 @@ Perspective.prototype.changePosition = function(offsetPosition) {
 };
 
 Perspective.prototype.calculateRelativePosition = function(truePosition) {
-    return {x: truePosition.x - this.position.x - (this.viewPort.width / 2), y: truePosition.y - this.position.y - (this.viewPort.height / 2)};
+    return {
+        x: truePosition.x - this.position.x - (this.viewPort.width / 2),
+        y: truePosition.y - this.position.y - (this.viewPort.height / 2)
+    };
 };
 
 Perspective.prototype.getScaleFactor = function () {
