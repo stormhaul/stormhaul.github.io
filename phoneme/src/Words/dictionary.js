@@ -6,11 +6,13 @@ function Dictionary() {
         smith: new Word('s:null m:ih th:null'),
         hello: new Word('h:eh l:o'),
         world: new Word('w:o r:null l:null d:null'),
-        rob: new Word('r:ah'),
+        rob: new Word('r:ah b:null'),
         nice: new Word('n:i s:null'),
         my: new Word('m:i'),
         name: new Word('n:a m:uh'),
-        is: new Word('null:ih z:null')
+        is: new Word('null:ih z:null'),
+        zoo: new Word('z:oo'),
+        coy: new Word('k:oi')
     };
 
     this.lookupWord = function(word) {

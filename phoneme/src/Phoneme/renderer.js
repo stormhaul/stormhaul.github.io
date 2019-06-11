@@ -45,6 +45,11 @@ function Renderer() {
         }
     };
 
+    this.newLine = function() {
+        this.cursor.x = 0;
+        this.cursor.y++;
+    };
+
     /**
      * @param point {Point}
      * @returns {Point}
@@ -65,6 +70,20 @@ function Renderer() {
         this.ctx.moveTo(start.x, start.y);
         this.ctx.lineTo(end.x, end.y);
         this.ctx.stroke();
+    };
+
+    this.drawSentence = function(sentence, dictionary, factory) {
+        for (let i in sentence) {
+            let a = sentence[i];
+
+            let word = dictionary.lookupWord(a);
+            let phonemes = factory.phonemeWord(word);
+
+            if (this.cursor.x + phonemes.length >= this.charactersPerLine && phonemes.length < this.charactersPerLine) {
+                this.newLine();
+            }
+            this.drawWord(phonemes);
+        }
     };
 
     /**

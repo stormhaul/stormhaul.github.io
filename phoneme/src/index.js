@@ -1,19 +1,13 @@
 "use strict";
 
 function init() {
-    let sentence = "hello rob nice my name is timothy smith".split(' ');
+    let sentence = "hello rob nice my name is timothy smith coy zoo".split(' ');
 
     let dictionary = new Dictionary();
     let factory = new PhonemeFactory();
     let renderer = new Renderer();
 
-    sentence.map(function(a) {
-        let word = dictionary.lookupWord(a);
-        let phonemes = factory.phonemeWord(word);
-
-        renderer.drawWord(phonemes);
-        console.log(phonemes);
-    });
+    renderer.drawSentence(sentence, dictionary, factory);
 
     console.log(sentence);
 }
