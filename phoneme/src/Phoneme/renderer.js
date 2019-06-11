@@ -20,7 +20,7 @@ function Renderer() {
     this.theta = 108 * Math.PI / 180;
 
     this.sideLength = 100;
-    this.radius = this.sideLength / 2 * Math.cos(this.theta / 2);
+    this.radius = this.sideLength / 2 / Math.cos(this.theta / 2);
     this.characterWidth = this.sideLength + 2 * this.radius * Math.cos(this.phi);
     this.linePadding = 1;
     this.characterPadding = 1;
@@ -123,18 +123,36 @@ function Renderer() {
          * Midpoints of each line are keyed under the alphabetic ordering of two vertices.
          *  eg midpoint of top left line would be: ab
          */
-        return {
+        console.log(center, this.sideLength);
+        let pentagon = {
             a: new Point(center.x - this.radius * Math.sin(this.phi), center.y - this.radius * Math.cos(this.phi)),
             b: new Point(center.x, center.y - this.radius),
             c: new Point(center.x + this.radius * Math.sin(this.phi), center.y - this.radius * Math.cos(this.phi)),
             d: new Point(center.x + (this.sideLength / 2), center.y + this.sideLength / 2 * Math.tan(this.theta / 2)),
-            e: new Point(center.x - (this.sideLength / 2), center.y + this.sideLength / 2 * Math.tan(this.theta / 2)),
-            // ab:,
-            // bc:,
-            // cd:,
-            // de:,
-            // ae:,
-        }
+            e: new Point(center.x - (this.sideLength / 2), center.y + this.sideLength / 2 * Math.tan(this.theta / 2))
+        };
+
+        pentagon.ab = this.getMidpoint(pentagon.a, pentagon.b);
+        pentagon.bc = this.getMidpoint(pentagon.c, pentagon.b);
+        pentagon.cd = this.getMidpoint(pentagon.c, pentagon.d);
+        pentagon.de = this.getMidpoint(pentagon.d, pentagon.e);
+        pentagon.ae = this.getMidpoint(pentagon.a, pentagon.e);
+
+        return pentagon;
+    };
+
+    /**
+     * Returns the midpoint between two points.
+     *
+     * @param start {Point}
+     * @param end {Point}
+     * @returns {Point}
+     */
+    this.getMidpoint = function(start, end) {
+         return {
+             x: (end.x + start.x) / 2,
+             y: (end.y + start.y) / 2
+         };
     };
 
     /**
@@ -257,4 +275,9 @@ function Renderer() {
     this.drawLine(pent.c, pent.d);
     this.drawLine(pent.e, pent.d);
     this.drawLine(pent.a, pent.e);
+
+    let center = this.getCenter(this.cursor);
+    this.ctx.beginPath();
+    this.ctx.arc(center.x, center.y, 10, 0, Math.PI * 2);
+    this.ctx.stroke();
 }
