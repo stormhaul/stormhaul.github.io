@@ -6,6 +6,7 @@ function Renderer() {
     const BOTRIGHT = 0b00100;
     const BOTTOM = 0b00010;
     const BOTLEFT = 0b00001;
+    const NULLLINE = 0b00000;
 
     this.canvas = document.getElementById('c');
 
@@ -19,7 +20,7 @@ function Renderer() {
     //interior angle of a regular polygon
     this.theta = 108 * Math.PI / 180;
 
-    this.sideLength = 100;
+    this.sideLength = 10;
     this.radius = this.sideLength / 2 / Math.cos(this.theta / 2);
     this.characterWidth = this.sideLength + 2 * this.radius * Math.cos(this.phi);
     this.linePadding = 1;
@@ -51,6 +52,16 @@ function Renderer() {
     };
 
     /**
+     * @param phonemes {Array: {Phoneme}}
+     */
+    this.drawWord = function(phonemes) {
+        for (let i in phonemes) {
+            this.drawPhoneme(phonemes[i]);
+            this.cursor.x++;
+        }
+    };
+
+    /**
      * @param phoneme {Phoneme}
      */
     this.drawPhoneme = function(phoneme) {
@@ -65,20 +76,21 @@ function Renderer() {
      * @param center {Point}
      */
     this.drawOuter = function(bitMask, center) {
+        let pentagon = this.getPentagon(center);
         if (bitMask & TOPLEFT) {
-            this.drawOuterTopLeft(center);
+            this.drawLine(pentagon.a, pentagon.b);
         }
         if (bitMask & TOPRIGHT) {
-            this.drawOuterTopRight(center);
+            this.drawLine(pentagon.b, pentagon.c);
         }
         if (bitMask & BOTRIGHT) {
-            this.drawOuterBotRight(center);
+            this.drawLine(pentagon.c, pentagon.d);
         }
         if (bitMask & BOTTOM) {
-            this.drawOuterBottom(center);
+            this.drawLine(pentagon.d, pentagon.e);
         }
         if (bitMask & BOTLEFT) {
-            this.drawOuterBotLeft(center);
+            this.drawLine(pentagon.a, pentagon.e);
         }
     };
 
@@ -87,20 +99,24 @@ function Renderer() {
      * @param center {Point}
      */
     this.drawInner = function(bitMask, center) {
+        let pentagon = this.getPentagon(center);
         if (bitMask & TOPLEFT) {
-            this.drawInnerTopLeft(center);
+            this.drawLine(pentagon.ab, center);
         }
         if (bitMask & TOPRIGHT) {
-            this.drawInnerTopRight(center);
+            this.drawLine(pentagon.bc, center);
         }
         if (bitMask & BOTRIGHT) {
-            this.drawInnerBotRight(center);
+            this.drawLine(pentagon.cd, center);
         }
         if (bitMask & BOTTOM) {
-            this.drawInnerBottom(center);
+            this.drawLine(pentagon.de, center);
         }
         if (bitMask & BOTLEFT) {
-            this.drawInnerBotLeft(center);
+            this.drawLine(pentagon.ae, center);
+        }
+        if (bitMask === NULLLINE) {
+            this.drawDot(center);
         }
     };
 
@@ -156,128 +172,26 @@ function Renderer() {
     };
 
     /**
-     * @param center {Point}
+     * @param point
      */
-    this.drawOuterTopLeft = function(center) {
-        let start = new Point(center.x, center.y - this.characterWidth / 2);
-        let end = new Point(center.x - this.characterWidth / 2, center.y);
+    this.drawDot = function(point) {
+        let ctx = this.ctx;
+        ctx.beginPath();
+        ctx.arc(point.x, point.y, 1, 0, 2 * Math.PI);
+        ctx.fill();
+    }
 
-        this.drawLine(start, end);
-    };
-
-    /**
-     * @param center {Point}
-     */
-    this.drawOuterTopRight = function(center) {
-        let start = new Point(center.x, center.y - this.characterWidth / 2);
-        let end = new Point(center.x + this.characterWidth / 2, center.y);
-
-        this.drawLine(start, end);
-    };
-
-    /**
-     * @param center {Point}
-     */
-    this.drawOuterBotRight = function(center) {
-        let start = new Point(center.x + this.characterWidth / 2, center.y);
-        let end = new Point(
-            center.x + (this.characterWidth / 2) * Math.sin(37.5 * Math.PI / 180),
-            center.y + (this.characterWidth / 2) * Math.cos(37.5 * Math.PI / 180)
-        );
-
-        this.drawLine(start, end);
-    };
-
-    /**
-     * @param center {Point}
-     */
-    this.drawOuterBottom = function(center) {
-        let start = new Point(
-            center.x - (this.characterWidth / 2) * Math.sin(37.5 * Math.PI / 180),
-            center.y + (this.characterWidth / 2) * Math.cos(37.5 * Math.PI / 180)
-        );
-        let end = new Point(
-            center.x + (this.characterWidth / 2) * Math.sin(37.5 * Math.PI / 180),
-            center.y + (this.characterWidth / 2) * Math.cos(37.5 * Math.PI / 180)
-        );
-
-        this.drawLine(start, end);
-    };
-
-    /**
-     * @param center {Point}
-     */
-    this.drawOuterBotLeft = function(center) {
-        let start = new Point(
-            center.x - (this.characterWidth / 2) * Math.sin(37.5 * Math.PI / 180),
-            center.y + (this.characterWidth / 2) * Math.cos(37.5 * Math.PI / 180)
-        );
-        let end = new Point(center.x - this.characterWidth / 2, center.y);
-
-        this.drawLine(start, end);
-    };
-
-    /**
-     * @param center {Point}
-     */
-    this.drawInnerTopLeft = function(center) {
-        let start = new Point(center.x, center.y - this.characterWidth / 2);
-        let end = new Point(center.x - this.characterWidth / 2, center.y);
-
-        this.drawLine(start, end);
-    };
-
-    /**
-     * @param center {Point}
-     */
-    this.drawInnerTopRight = function(center) {
-        let start = new Point(center.x, center.y - this.characterWidth / 2);
-        let end = new Point(center.x + this.characterWidth / 2, center.y);
-
-        this.drawLine(start, end);
-    };
-
-    /**
-     * @param center {Point}
-     */
-    this.drawInnerBotRight = function(center) {
-        let start = new Point(center.x + this.characterWidth / 2, center.y);
-        let end = new Point(center.x + (this.characterWidth / 2) * Math.sin(37.5 * Math.PI / 180), center.y + (this.characterWidth / 2) * Math.cos(37.5 * Math.PI / 180));
-
-        this.drawLine(start, end);
-    };
-
-    /**
-     * @param center {Point}
-     */
-    this.drawInnerBottom = function(center) {
-        let start = new Point(center.x - (this.characterWidth / 2) * Math.sin(37.5 * Math.PI / 180), center.y + (this.characterWidth / 2) * Math.cos(37.5 * Math.PI / 180));
-        let end = new Point(center.x + (this.characterWidth / 2) * Math.sin(37.5 * Math.PI / 180), center.y + (this.characterWidth / 2) * Math.cos(37.5 * Math.PI / 180));
-
-        this.drawLine(start, end);
-    };
-
-    /**
-     * @param center {Point}
-     */
-    this.drawInnerBotLeft = function(center) {
-        let start = new Point(center.x - (this.characterWidth / 2) * Math.sin(37.5 * Math.PI / 180), center.y + (this.characterWidth / 2) * Math.cos(37.5 * Math.PI / 180));
-        let end = new Point(center.x - this.characterWidth / 2, center.y);
-
-        this.drawLine(start, end);
-    };
-
-    let pent = this.getPentagon(this.getCenter(this.cursor));
-    console.log(pent, this.getCenter(this.cursor));
-
-    this.drawLine(pent.a, pent.b);
-    this.drawLine(pent.c, pent.b);
-    this.drawLine(pent.c, pent.d);
-    this.drawLine(pent.e, pent.d);
-    this.drawLine(pent.a, pent.e);
-
-    let center = this.getCenter(this.cursor);
-    this.ctx.beginPath();
-    this.ctx.arc(center.x, center.y, 10, 0, Math.PI * 2);
-    this.ctx.stroke();
+    // let pent = this.getPentagon(this.getCenter(this.cursor));
+    // console.log(pent, this.getCenter(this.cursor));
+    //
+    // this.drawLine(pent.a, pent.b);
+    // this.drawLine(pent.c, pent.b);
+    // this.drawLine(pent.c, pent.d);
+    // this.drawLine(pent.e, pent.d);
+    // this.drawLine(pent.a, pent.e);
+    //
+    // let center = this.getCenter(this.cursor);
+    // this.ctx.beginPath();
+    // this.ctx.arc(center.x, center.y, 10, 0, Math.PI * 2);
+    // this.ctx.stroke();
 }

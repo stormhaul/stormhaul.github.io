@@ -7,20 +7,13 @@ function init() {
     let factory = new PhonemeFactory();
     let renderer = new Renderer();
 
-    // sentence.map(function(a) {
-    //     let word = dictionary.lookupWord(a);
-    //     let phonemes = factory.phonemeWord(word);
-    //
-    //     renderer.drawPhoneme(phonemes[0]);
-    //     console.log(phonemes);
-    // });
+    sentence.map(function(a) {
+        let word = dictionary.lookupWord(a);
+        let phonemes = factory.phonemeWord(word);
 
-
-    let word = dictionary.lookupWord(sentence[0]);
-    let phonemes = factory.phonemeWord(word);
-
-    //renderer.drawPhoneme(phonemes[0]);
-    console.log(phonemes);
+        renderer.drawWord(phonemes);
+        console.log(phonemes);
+    });
 
     console.log(sentence);
 }
