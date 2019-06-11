@@ -10,27 +10,39 @@ function Renderer() {
 
     this.canvas = document.getElementById('c');
 
-    this.canvas.width = 1000;
+    this.canvas.width = 2000;
     this.canvas.height = window.innerHeight / window.innerWidth * this.canvas.width;
 
     this.ctx = this.canvas.getContext('2d');
+    this.ctx.lineWidth = 5;
+    this.dotRadius = 5;
 
     //angle between two spokes of the pentagon
     this.phi = 72 * Math.PI / 180;
     //interior angle of a regular polygon
     this.theta = 108 * Math.PI / 180;
 
-    this.sideLength = 10;
+    this.sideLength = 100;
     this.radius = this.sideLength / 2 / Math.cos(this.theta / 2);
     this.characterWidth = this.sideLength + 2 * this.radius * Math.cos(this.phi);
-    this.linePadding = 5;
-    this.characterPadding = 2;
+    this.linePadding = 15;
+    this.characterPadding = 5;
     this.lineHeight = (this.radius + (this.sideLength / 2 * Math.tan(this.theta / 2))) + (2 * this.linePadding);
+
+    this.charactersPerLine = Math.floor(this.canvas.width / (this.characterWidth + 2 * this.characterPadding));
 
     this.cursor = new Point(0,0);
 
     this.endWord = function() {
+        this.incrementCursor();
+    };
+
+    this.incrementCursor = function() {
         this.cursor.x++;
+        if (this.cursor.x >= this.charactersPerLine) {
+            this.cursor.x -= this.charactersPerLine;
+            this.cursor.y++;
+        }
     };
 
     /**
@@ -61,7 +73,7 @@ function Renderer() {
     this.drawWord = function(phonemes) {
         for (let i in phonemes) {
             this.drawPhoneme(phonemes[i]);
-            this.cursor.x++;
+            this.incrementCursor();
         }
         this.endWord();
     };
@@ -182,7 +194,7 @@ function Renderer() {
     this.drawDot = function(point) {
         let ctx = this.ctx;
         ctx.beginPath();
-        ctx.arc(point.x, point.y, 1, 0, 2 * Math.PI);
+        ctx.arc(point.x, point.y, this.dotRadius, 0, 2 * Math.PI);
         ctx.fill();
     }
 
