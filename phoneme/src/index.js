@@ -1,7 +1,7 @@
 "use strict";
 
 function init() {
-    let sentence = "hello world timothy smith".split(' ');
+    let sentence = "hello rob nice my name is timothy smith".split(' ');
 
     let dictionary = new Dictionary();
     let factory = new PhonemeFactory();

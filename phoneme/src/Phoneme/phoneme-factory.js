@@ -24,7 +24,8 @@ function PhonemeFactory() {
         sh: new Consonant('sh'),
         th: new Consonant('th'),
         ng: new Consonant('ng'),
-        y: new Consonant('y')
+        y: new Consonant('y'),
+        null: new Consonant('null')
     };
 
     this.vowels = {
@@ -59,7 +60,7 @@ function PhonemeFactory() {
     };
 
     this.buildPhoneme = function(string) {
-        let split = string.split(';');
+        let split = string.split(':');
         let con = split[0];
         let vow = split[1];
 

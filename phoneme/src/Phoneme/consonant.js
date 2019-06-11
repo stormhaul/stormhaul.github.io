@@ -28,7 +28,8 @@ function Consonant(sound) {
         sh: 0b11101,
         th: 0b11111,
         ng: 0b10100,
-        y: 0b01001
+        y: 0b01001,
+        null: 0b00000
     };
 
     if (this.sounds[sound] === undefined) {
