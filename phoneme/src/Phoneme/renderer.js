@@ -23,11 +23,15 @@ function Renderer() {
     this.sideLength = 10;
     this.radius = this.sideLength / 2 / Math.cos(this.theta / 2);
     this.characterWidth = this.sideLength + 2 * this.radius * Math.cos(this.phi);
-    this.linePadding = 1;
-    this.characterPadding = 1;
+    this.linePadding = 5;
+    this.characterPadding = 2;
     this.lineHeight = (this.radius + (this.sideLength / 2 * Math.tan(this.theta / 2))) + (2 * this.linePadding);
 
     this.cursor = new Point(0,0);
+
+    this.endWord = function() {
+        this.cursor.x++;
+    };
 
     /**
      * @param point {Point}
@@ -59,6 +63,7 @@ function Renderer() {
             this.drawPhoneme(phonemes[i]);
             this.cursor.x++;
         }
+        this.endWord();
     };
 
     /**
