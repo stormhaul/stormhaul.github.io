@@ -22,11 +22,11 @@ function Renderer() {
     //interior angle of a regular polygon
     this.theta = 108 * Math.PI / 180;
 
-    this.sideLength = 100;
+    this.sideLength = 35;
     this.radius = this.sideLength / 2 / Math.cos(this.theta / 2);
     this.characterWidth = this.sideLength + 2 * this.radius * Math.cos(this.phi);
-    this.linePadding = 15;
-    this.characterPadding = 5;
+    this.linePadding = 2;
+    this.characterPadding = 1;
     this.lineHeight = (this.radius + (this.sideLength / 2 * Math.tan(this.theta / 2))) + (2 * this.linePadding);
 
     this.charactersPerLine = Math.floor(this.canvas.width / (this.characterWidth + 2 * this.characterPadding));
@@ -72,9 +72,17 @@ function Renderer() {
         this.ctx.stroke();
     };
 
-    this.drawSentence = function(sentence, dictionary, factory) {
+    this.drawSentence = function(sentence, dictionary = null, factory = null) {
         for (let i in sentence) {
             let a = sentence[i];
+
+            if (dictionary === null && factory === null) {
+                if (this.cursor.x + a.length >= this.charactersPerLine && a.length < this.charactersPerLine) {
+                    this.newLine();
+                }
+                this.drawWord(a);
+                continue;
+            }
 
             let word = dictionary.lookupWord(a);
             let phonemes = factory.phonemeWord(word);
@@ -175,7 +183,6 @@ function Renderer() {
          * Midpoints of each line are keyed under the alphabetic ordering of two vertices.
          *  eg midpoint of top left line would be: ab
          */
-        console.log(center, this.sideLength);
         let pentagon = {
             a: new Point(center.x - this.radius * Math.sin(this.phi), center.y - this.radius * Math.cos(this.phi)),
             b: new Point(center.x, center.y - this.radius),
