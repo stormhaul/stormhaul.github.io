@@ -6,6 +6,10 @@ function init() {
     let renderer = new Renderer();
 }
 
+function loop() {
+    requestAnimationFrame(loop);
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     init();
 });

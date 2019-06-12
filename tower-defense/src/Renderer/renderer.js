@@ -10,6 +10,10 @@ function Renderer() {
     this.lineColor   = 'white';
 }
 
+Renderer.prototype.render = function() {
+
+};
+
 Renderer.prototype.wipe = function() {
     let ctx = this.ctx;
 
