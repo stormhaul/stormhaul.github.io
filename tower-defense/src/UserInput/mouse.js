@@ -4,7 +4,7 @@ const LEFTCLICK = 1;
 const MIDDLECLICK = 2;
 const RIGHTCLICK = 3;
 
-function Mouse() {
+function Mouse(camera) {
     let that = this;
     this.clickConstants = {};
     this.clickConstants[LEFTCLICK] = 1;
@@ -46,6 +46,7 @@ function Mouse() {
     });
     document.addEventListener("wheel", function(e) {
         console.log(e);
+        camera.zoom(e.deltaY);
     });
 
     document.oncontextmenu = function() {

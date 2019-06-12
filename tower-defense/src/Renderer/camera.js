@@ -8,10 +8,10 @@ function Camera(renderer) {
     this.renderer   = renderer;
     this.viewWidth  = this.renderer.$canvas.width;
     this.viewHeight = this.renderer.$canvas.height;
-    this.position   = {x: this.viewWidth / 2, y: this.viewHeight / 2};
+    this.position   = {x: -500, y: -40};
 
     this.scrollRate = 10;
-    this.zoomRate = 10;
+    this.zoomRate = 100;
 }
 
 /**
@@ -28,16 +28,33 @@ Camera.prototype.scroll = function(vector) {
  * @param direction {int}
  */
 Camera.prototype.zoom = function(direction) {
-    let dir = direction / Math.abs(direction);
-    let ratio = this.$canvas.height / this.$canvas.width;
-    this.viewWidth -= this.zoomRate * dir;
-    this.viewHeight -= this.zoomRate * dir * ratio;
+    // prevent extreme zooming
+    if (
+        ((this.viewHeight >= this.renderer.$canvas.height || this.viewWidth >= this.renderer.$canvas.width) && direction > 0) ||
+        ((this.viewHeight <= this.renderer.$canvas.height / 2 || this.viewWidth <= this.renderer.$canvas.width / 2) && direction < 0)
+    ) {
+        return;
+    }
 
-    this.position.x += this.zoomRate / 2 * dir;
-    this.position.y += this.zoomRate / 2 * dir * ratio;
+    let dir = direction / Math.abs(direction);
+    let ratio = this.renderer.$canvas.height / this.renderer.$canvas.width;
+
+    let delta = {x: this.zoomRate * dir, y: this.zoomRate * dir * ratio};
+    this.viewWidth += delta.x;
+    this.viewHeight += delta.y;
+
+    console.log(this.viewWidth, this.viewHeight, this.position, delta);
+
+    this.position.x -= (delta.x) / 2;
+    this.position.y -= (delta.y) / 2;
 };
 
 Camera.prototype.requestFrame = function() {
-    this.renderer.render();
+    let that = this;
+    let transformationMatrix = {
+        x: function(x) {return x * that.renderer.$canvas.width / that.viewWidth - that.position.x},
+        y: function(y) {return y * that.renderer.$canvas.height / that.viewHeight - that.position.y},
+    };
+    this.renderer.render(transformationMatrix);
 };
 

@@ -5,13 +5,28 @@ function Renderer() {
     this.cWidth  = this.$canvas.width = 1980;
     this.cHeight = this.$canvas.height = this.cWidth * window.innerHeight / window.innerWidth;
     this.ctx     = this.$canvas.getContext('2d');
+    this.ctx.drawLine = function(start, end) {
+        this.beginPath();
+        this.moveTo(start.x, start.y);
+        this.lineTo(end.x, end.y);
+        this.stroke();
+    };
 
     this.canvasColor = 'black';
     this.lineColor   = 'white';
+
+    this.renderables = [];
 }
 
-Renderer.prototype.render = function() {
+Renderer.prototype.addRenderable = function(id, renderable) {
+    this.renderables[id] = renderable;
+};
 
+Renderer.prototype.render = function(transformationMatrix) {
+    let that = this;
+
+    this.wipe();
+    this.renderables.map(a => a.render(transformationMatrix, that.ctx));
 };
 
 Renderer.prototype.wipe = function() {
@@ -20,21 +35,4 @@ Renderer.prototype.wipe = function() {
     ctx.fillStyle = this.canvasColor;
     ctx.rect(0, 0, this.cWidth, this.cHeight);
     ctx.fill();
-};
-
-/**
- * @param start {Point}
- * @param end {Point}
- * @param lineColor {string}
- * @param lineWidth {int}
- */
-Renderer.prototype.drawLine = function(start, end, lineColor = this.lineColor, lineWidth = 1) {
-    let ctx = this.ctx;
-
-    ctx.lineStyle = lineColor;
-    ctx.lineWidth = lineWidth;
-    ctx.beginPath();
-    ctx.moveTo(start.x, start.y);
-    ctx.lineTo(end.x, end.y);
-    ctx.stroke();
 };
