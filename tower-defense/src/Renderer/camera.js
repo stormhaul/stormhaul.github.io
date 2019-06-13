@@ -54,6 +54,7 @@ Camera.prototype.requestFrame = function() {
     let transformationMatrix = {
         x: function(x) {return x * that.renderer.$canvas.width / that.viewWidth - that.position.x},
         y: function(y) {return y * that.renderer.$canvas.height / that.viewHeight - that.position.y},
+        radius: function(radius) {return radius * that.renderer.$canvas.width / that.viewWidth}
     };
     this.renderer.render(transformationMatrix);
 };

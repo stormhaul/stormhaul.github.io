@@ -24,7 +24,7 @@ function Enemy(id, path, wave) {
 
 Enemy.prototype.render = function(transformationMatrix, ctx) {
     ctx.fillStyle = this.color;
-    ctx.drawCircle(new Point(transformationMatrix.x(this.position.x), transformationMatrix.y(this.position.y)), this.radius, true);
+    ctx.drawCircle(new Point(transformationMatrix.x(this.position.x), transformationMatrix.y(this.position.y)), transformationMatrix.radius(this.radius), true);
 };
 
 Enemy.prototype.move = function(){

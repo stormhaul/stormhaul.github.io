@@ -22,3 +22,7 @@ Point.prototype.addPoint = function(point) {
 Point.prototype.mult = function(scalar) {
     return new Point(this.x * scalar, this.y * scalar);
 };
+
+Point.prototype.compare = function(point) {
+    return this.x === point.x && this.y === point.y;
+};

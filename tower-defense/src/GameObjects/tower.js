@@ -4,8 +4,8 @@ function Tower(id, position) {
     this.id = id;
     this.range = 500;
     this.damage = 20;
-    this.attacksPerSecond = .5;
-    this.attackAnimationDuration = 200;
+    this.attacksPerSecond = 2;
+    this.attackAnimationDuration = 20;
     this.position = position;
     this.cooldown = false;
 
@@ -17,10 +17,10 @@ function Tower(id, position) {
 
 Tower.prototype.render = function(transformationMatrix, ctx) {
     ctx.fillStyle = this.outerColor;
-    ctx.drawCircle(new Point(transformationMatrix.x(this.position.x), transformationMatrix.y(this.position.y)), this.radius, true);
+    ctx.drawCircle(new Point(transformationMatrix.x(this.position.x), transformationMatrix.y(this.position.y)), transformationMatrix.radius(this.radius), true);
 
     ctx.fillStyle = this.innerColor;
-    ctx.drawCircle(new Point(transformationMatrix.x(this.position.x), transformationMatrix.y(this.position.y)), this.innerRadius, true);
+    ctx.drawCircle(new Point(transformationMatrix.x(this.position.x), transformationMatrix.y(this.position.y)), transformationMatrix.radius(this.innerRadius), true);
 };
 
 /**
