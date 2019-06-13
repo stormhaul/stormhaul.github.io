@@ -32,7 +32,6 @@ Tower.prototype.findTargets = function(enemies) {
 
     let targets = [];
     enemies.map(function(a) {
-        console.log(a, that.enemyInRange(a));
         if (that.enemyInRange(a)) {
             targets.push(a);
         }
@@ -68,13 +67,11 @@ Tower.prototype.selectTarget = function(targets) {
  * @param renderer {Renderer}
  */
 Tower.prototype.attack = function(enemies, renderer) {
-    console.log(enemies, renderer);
     if (this.cooldown) {
         return;
     }
 
     let targets = this.findTargets(enemies);
-    console.log(targets);
     let selected = this.selectTarget(targets);
 
     selected.removeHealth(this.damage);
@@ -95,6 +92,5 @@ Tower.prototype.setCooldown = function() {
 };
 
 Tower.prototype.enemyInRange = function(enemy) {
-    console.log(this.range, distance(this.position, enemy.position));
     return this.range >= distance(this.position, enemy.position);
 };

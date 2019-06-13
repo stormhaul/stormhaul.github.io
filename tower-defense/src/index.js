@@ -19,6 +19,8 @@ function init() {
 
     camera.requestFrame();
 
+    mouse.addSubscriber(LEFTCLICK, grid);
+
     loop(camera, keyboard, mouse, tower, enemy, renderer);
 }
 

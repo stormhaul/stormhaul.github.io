@@ -8,7 +8,7 @@
  */
 function Enemy(id, path, wave) {
     this.id = id;
-    this.baseHealth = 100000;
+    this.baseHealth = 100;
     this.speed      = 10;
     this.goldValue  = 20;
 

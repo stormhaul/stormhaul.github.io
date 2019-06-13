@@ -11,10 +11,18 @@ function Mouse(camera) {
     this.clickConstants[MIDDLECLICK] = 2;
     this.clickConstants[RIGHTCLICK] = 3;
 
+    this.camera = camera;
+
+    this.subscribers = {};
+    this.subscribers[LEFTCLICK] = [];
+    this.subscribers[MIDDLECLICK] = [];
+    this.subscribers[RIGHTCLICK] = [];
+
     document.addEventListener("mouseup", function(e) {
         switch(e.which) {
             case LEFTCLICK:
                 console.log("left click up");
+                that.dispatchLeftClickEvent(e);
                 break;
             case MIDDLECLICK:
                 console.log("middle click up");
@@ -53,3 +61,14 @@ function Mouse(camera) {
         return false;
     }
 }
+
+Mouse.prototype.addSubscriber = function(type, listener) {
+    this.subscribers[type].push(listener);
+};
+
+Mouse.prototype.dispatchLeftClickEvent = function(e) {
+    let that = this;
+    this.subscribers[LEFTCLICK].map(function(listener) {
+        listener.handle(e, that.camera);
+    });
+};

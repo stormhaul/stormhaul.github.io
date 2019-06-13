@@ -18,6 +18,12 @@ function blockDistance(a, b) {
     return Math.abs(Math.floor(b.x) - Math.floor(a.x)) + Math.abs(Math.floor((b.y)) - Math.floor((b.y)));
 }
 
+/**
+ * @param start {Point}
+ * @param end {Point}
+ * @param distance {number}
+ * @returns {Point}
+ */
 function pointTowardsPosition(start, end, distance) {
     let delta = new Point(end.x - start.x, end.y - start.y).getUnitVector().mult(distance);
 

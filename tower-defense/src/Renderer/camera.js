@@ -49,6 +49,14 @@ Camera.prototype.zoom = function(direction) {
     this.position.y -= (delta.y) / 2;
 };
 
+/**
+ * @param point {Point}
+ * @returns {Point}
+ */
+Camera.prototype.translateCanvasToSpace = function(point) {
+    return new Point((point.x + this.position.x) * this.viewWidth / this.renderer.$canvas.width, (point.y + this.position.y) * this.viewHeight / this.renderer.$canvas.height);
+};
+
 Camera.prototype.requestFrame = function() {
     let that = this;
     let transformationMatrix = {

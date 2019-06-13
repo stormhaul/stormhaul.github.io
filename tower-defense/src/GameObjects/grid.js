@@ -23,7 +23,17 @@ function Grid(id) {
             this.cellGrid[i].push(new Cell(new Point(i, j), this.wayKey[''+i+j] === true));
         }
     }
+
+
 }
+
+Grid.prototype.handle = function(event, camera) {
+    console.log(
+        new Point(event.x, event.y),
+        camera.translateCanvasToSpace(new Point(event.x, event.y)),
+        this.convertPixelToGrid(camera.translateCanvasToSpace(new Point(event.x, event.y)))
+    );
+};
 
 Grid.prototype.buildFullPath = function() {
 
@@ -55,9 +65,17 @@ Grid.prototype.generateWaypoints = function(num) {
     this.waypoints = waypoints;
 };
 
-Grid.prototype.addTower = function() {};
+Grid.prototype.addTower = function() {
 
-Grid.prototype.convertGridToPixel = function(x, y, middle = false) {};
+};
+
+Grid.prototype.convertGridToPixel = function(point) {
+    return new Point(point.x * (this.cellWidth + this.lineWidth), point.y * (this.cellWidth + this.lineWidth));
+};
+
+Grid.prototype.convertPixelToGrid = function(point) {
+    return new Point(Math.floor(point.x / (this.cellWidth + this.lineWidth)), Math.floor(point.y / (this.cellWidth + this.lineWidth)));
+};
 
 Grid.prototype.render = function(transformationMatrix, ctx) {
     ctx.lineWidth = this.lineWidth;
