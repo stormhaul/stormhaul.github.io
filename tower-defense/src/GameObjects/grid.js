@@ -18,7 +18,7 @@ Grid.prototype.render = function(transformationMatrix, ctx) {
     let that = this;
 
     function getLinePixel(n) {
-        return n * (that.cellWidth + that.lineWidth) + 1;
+        return n * (that.cellWidth + that.lineWidth);
     }
 
     let gridWidth  = getLinePixel(this.width);
