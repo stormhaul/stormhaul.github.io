@@ -11,22 +11,43 @@ function Renderer() {
         this.lineTo(end.x, end.y);
         this.stroke();
     };
+    this.ctx.drawCircle = function(position, radius, fill = false) {
+        this.beginPath();
+        this.arc(position.x, position.y, radius, 0, 2 * Math.PI);
+        if (fill) {
+            this.fill();
+        } else {
+            this.stroke();
+        }
+    };
 
     this.canvasColor = 'black';
-    this.lineColor   = 'white';
 
-    this.renderables = [];
+    this.renderableId = 0;
+
+    this.renderables = {};
 }
 
-Renderer.prototype.addRenderable = function(id, renderable) {
-    this.renderables[id] = renderable;
+Renderer.prototype.getRenderableId = function() {
+    return this.renderableId++;
+};
+
+Renderer.prototype.addRenderable = function(renderable) {
+    this.renderables[renderable.id] = renderable;
+};
+
+Renderer.prototype.removeRenderable = function(id) {
+    delete this.renderables[id];
 };
 
 Renderer.prototype.render = function(transformationMatrix) {
     let that = this;
 
     this.wipe();
-    this.renderables.map(a => a.render(transformationMatrix, that.ctx));
+    for (let i in this.renderables) {
+        let r = this.renderables[i];
+        r.render(transformationMatrix, this.ctx);
+    }
 };
 
 Renderer.prototype.wipe = function() {
