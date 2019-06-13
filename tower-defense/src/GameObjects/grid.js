@@ -2,11 +2,11 @@
 
 function Grid(id) {
     this.id = id;
-    this.cellWidth = 100;
+    this.cellWidth = 50;
     this.lineWidth = 1;
     this.lineColor = 'white';
-    this.width = 10;
-    this.height = 10;
+    this.width = 20;
+    this.height = 20;
 }
 
 Grid.prototype.findPath = function(start, end) {};

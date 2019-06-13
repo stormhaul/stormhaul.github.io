@@ -1,22 +1,30 @@
 "use strict";
 
 function init() {
-    let grid = new Grid();
     let renderer = new Renderer();
     let camera = new Camera(renderer);
     let keyboard = new Keyboard();
     let mouse = new Mouse(camera);
 
-    renderer.addRenderable(1, grid);
+    let grid = new Grid(renderer.getRenderableId());
+    let tower = new Tower(renderer.getRenderableId(), new Point(27, 26));
+    let enemy = new Enemy(renderer.getRenderableId(), [new Point(20,20), new Point(50,50)], 1);
+    enemy.position = new Point(100, 100);
 
-    camera.requestFrame()
+    renderer.addRenderable(grid);
+    renderer.addRenderable(tower);
+    renderer.addRenderable(enemy);
 
-    loop(camera, keyboard, mouse);
+    tower.attack([enemy], renderer);
+
+    camera.requestFrame();
+
+    loop(camera, keyboard, mouse, tower, enemy, renderer);
 }
 
-function loop(camera, keyboard, mouse) {
+function loop(camera, keyboard, mouse, tower, enemy, renderer) {
     requestAnimationFrame(function() {
-        loop(camera, keyboard, mouse);
+        loop(camera, keyboard, mouse, tower, enemy, renderer);
     });
 
     let vector = new Point(0,0);
@@ -34,6 +42,8 @@ function loop(camera, keyboard, mouse) {
     }
 
     camera.scroll(vector);
+
+    tower.attack([enemy], renderer);
 
     camera.requestFrame();
 }
