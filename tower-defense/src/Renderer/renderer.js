@@ -26,6 +26,14 @@ function Renderer() {
     this.renderableId = 0;
 
     this.renderables = {};
+
+    let that = this;
+    document.addEventListener('send-ping', function(e) {
+        console.log(e);
+        e.data.ping.renderer = that;
+        that.addRenderable(e.data.ping);
+        console.log(that.renderables);
+    });
 }
 
 Renderer.prototype.getRenderableId = function() {

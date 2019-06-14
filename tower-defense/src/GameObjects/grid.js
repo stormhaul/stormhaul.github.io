@@ -2,7 +2,7 @@
 
 function Grid(id) {
     this.id = id;
-    this.cellWidth = 50;
+    this.cellWidth = 51;
     this.lineWidth = 1;
     this.lineColor = 'white';
     this.width = 20;
@@ -69,12 +69,22 @@ Grid.prototype.addTower = function() {
 
 };
 
-Grid.prototype.convertGridToPixel = function(point) {
-    return new Point(point.x * (this.cellWidth + this.lineWidth), point.y * (this.cellWidth + this.lineWidth));
+Grid.prototype.convertGridToPixel = function(point, middle = false) {
+    if (middle) {
+        point.x += .5;
+        point.y += .5;
+    }
+    let p = new Point(point.x * (this.cellWidth + this.lineWidth), point.y * (this.cellWidth + this.lineWidth));
+
+    return p;
 };
 
 Grid.prototype.convertPixelToGrid = function(point) {
-    return new Point(Math.floor(point.x / (this.cellWidth + this.lineWidth)), Math.floor(point.y / (this.cellWidth + this.lineWidth)));
+    let p = new Point(Math.ceil(point.x / (this.cellWidth + this.lineWidth)), Math.ceil(point.y / (this.cellWidth + this.lineWidth)));
+    console.log(p);
+    document.dispatchEvent(new SendPingEvent(new Ping(this.convertGridToPixel(p, true), 1000)));
+
+    return p;
 };
 
 Grid.prototype.render = function(transformationMatrix, ctx) {

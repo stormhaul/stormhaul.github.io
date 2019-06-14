@@ -14,7 +14,7 @@ function getDirContents($dir, &$results = array()){
 }
 function getInclude(string $localFilePath): string
 {
-    return "<script type='text/javascript' src='$localFilePath'></script>";
+    return "\n<script type='text/javascript' src='$localFilePath' aysnc defer></script>\n";
 }
 $root = __DIR__;
 $src = '';

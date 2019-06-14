@@ -7,7 +7,7 @@ function init() {
     let mouse = new Mouse(camera);
 
     let grid = new Grid(renderer.getRenderableId());
-    let tower = new Tower(renderer.getRenderableId(), new Point(27, 26));
+    let tower = new Tower(renderer.getRenderableId(), new Point(26, 26));
     let enemy = new Enemy(renderer.getRenderableId(), [new Point(20,20), new Point(50,50)], 1);
     enemy.position = new Point(100, 100);
 

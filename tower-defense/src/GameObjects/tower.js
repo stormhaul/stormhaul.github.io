@@ -77,7 +77,7 @@ Tower.prototype.attack = function(enemies, renderer) {
     selected.removeHealth(this.damage);
     this.setCooldown();
 
-    renderer.addRenderable(new TowerAttack(renderer.getRenderableId(), this.position, selected.position, this.attackAnimationDuration, renderer));
+    renderer.addRenderable(new TowerAttack(this.position, selected.position, this.attackAnimationDuration, renderer));
 };
 
 Tower.prototype.setCooldown = function() {

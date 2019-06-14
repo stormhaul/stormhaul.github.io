@@ -1,7 +1,7 @@
 "use strict";
 
-function TowerAttack(id, from, to, duration, renderer) {
-    this.id = id;
+function TowerAttack(from, to, duration, renderer) {
+    this.id = null;
     this.from = from;
     this.to = to;
     this.duration = duration;
