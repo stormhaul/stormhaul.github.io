@@ -7,17 +7,8 @@ function Grid(screenWidth, screenHeight, hexSideLength, rules) {
     let hexPairWidth = this.exampleHex.getNestedWidth();
     let hexPairHeight = this.exampleHex.getNestedHeight();
 
-    console.log(
-        screenWidth,
-        screenHeight,
-        lineWidth,
-        hexPairWidth,
-        hexPairHeight,
-        screenWidth / (hexPairWidth + 2 * lineWidth),
-        screenHeight / (hexPairHeight + 2 * lineWidth)
-    );
-    this.gridWidth = Math.floor(screenWidth / (hexPairWidth + 2 * lineWidth));
-    this.gridHeight = Math.floor(screenHeight / (hexPairHeight + 2 * lineWidth));
+    this.gridWidth = Math.ceil(screenWidth / (hexPairWidth + 2 * lineWidth));
+    this.gridHeight = Math.ceil(screenHeight / (hexPairHeight + 2 * lineWidth));
     this.rules = rules;
 
     this.cells = [];
@@ -29,14 +20,12 @@ function Grid(screenWidth, screenHeight, hexSideLength, rules) {
         }
     }
 
-    console.log(this.cells);
     this.neighborCache = {};
 }
 
 Grid.prototype.getPixelCenter = function(x,y) {
-    console.log(x, y, (this.exampleHex.radius + this.exampleHex.sideLength / 2) * x + this.exampleHex.radius, this.exampleHex.apothem, x % 2 === 0 ? this.exampleHex.apothem * (2 * y + 1) : 2 * this.exampleHex.apothem * (y + 1));
     return new Point(
-        (this.exampleHex.radius + this.exampleHex.sideLength / 2) * x + this.exampleHex.radius,
+        (this.exampleHex.radius + this.exampleHex.sideLength) * x + this.exampleHex.radius,
         x % 2 === 0 ? this.exampleHex.apothem * (2 * y + 1)
                     : 2 * this.exampleHex.apothem * (y + 1)
     );
@@ -82,10 +71,10 @@ Grid.prototype.getNeighborhood = function(x, y) {
 Grid.prototype.iterate = function(ctx) {
     let that = this;
     this.cells.map(function(row, x) {
-        console.log(row, x);
         row.map(function (cell, y) {
             let neighbors = that.getNeighborhood(x, y);
-            let action = that.rules.evaluate(neighbors);
+            let action = that.rules.evaluate(neighbors.sum());
+
             switch (action) {
                 case -1:
                     cell.kill();

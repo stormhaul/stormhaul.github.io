@@ -1,9 +1,9 @@
 "use strict";
 
 function ConwaysRules() {
-    this.underpopulation = 2; //exclusive
-    this.overpopulation = 3; //exclusive
-    this.born = 3; //exact
+    this.underpopulation = 1; //exclusive
+    this.overpopulation = 2; //exclusive
+    this.born = 2; //exact
 }
 
 /**
@@ -17,4 +17,3 @@ function ConwaysRules() {
 ConwaysRules.prototype.evaluate = function(liveNeighbors) {
     return liveNeighbors < this.underpopulation || liveNeighbors > this.overpopulation ? -1 : liveNeighbors === this.born ? 1 : 0;
 };
-
