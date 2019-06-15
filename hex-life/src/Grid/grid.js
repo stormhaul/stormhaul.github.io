@@ -88,7 +88,7 @@ Grid.prototype.iterate = function(ctx) {
         });
     });
 
-    document.dispatchEvent(new Event('nextTurn'));
+	document.dispatchEvent(new Event('nextTurn'));
     this.renderFrame(ctx);
 };
 
