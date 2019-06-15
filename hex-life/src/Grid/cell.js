@@ -30,9 +30,8 @@ Cell.prototype.revive = function() {
 };
 
 Cell.prototype.render = function(ctx) {
-    ctx.fillStyle = this.state ? 'black' : 'white';
-    ctx.strokeStyle = 'black';
+    ctx.fillStyle = this.state ? 'white' : 'black';
+    ctx.strokeStyle = 'white';
 
-    console.log(ctx.fillStyle, ctx.strokeStyle);
     ctx.drawHex(this.hexagon);
 };

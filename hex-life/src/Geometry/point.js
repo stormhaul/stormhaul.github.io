@@ -1,8 +1,8 @@
 "use strict";
 
 function Point(x, y) {
-    this.x = Math.round(x);
-    this.y = Math.round(y);
+    this.x = x;
+    this.y = y;
 }
 
 /**

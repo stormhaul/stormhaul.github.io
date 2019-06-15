@@ -8,7 +8,7 @@ function init() {
     let ctx = canvas.getContext('2d');
 
     ctx.wipe = function() {
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = 'black';
         ctx.rect(0, 0, canvas.width, canvas.height);
         ctx.fill();
     };
@@ -17,18 +17,18 @@ function init() {
      * @param hexagon {Hexagon}
      */
     ctx.drawHex = function(hexagon) {
-        ctx.beginPath();
-        for (let i = 0; i < hexagon.sides; i++) {
+        this.beginPath();
+		let cur = hexagon.vertices[0];
+		this.moveTo(cur.x, cur.y)
+        for (let i = 1; i < hexagon.sides; i++) {
             let cur = hexagon.vertices[i];
-            let next = hexagon.vertices[(i+1) % hexagon.sides];
 
-            ctx.moveTo(cur.x, cur.y);
-            ctx.lineTo(next.x, next.y);
+            this.lineTo(cur.x, cur.y);
         }
 
-        ctx.closePath();
-        ctx.fill();
-        ctx.stroke();
+        this.closePath();
+        this.fill();
+        this.stroke();
 
         // ctx.beginPath();
         // for (let i = 0; i < hexagon.sides; i++) {
@@ -42,19 +42,25 @@ function init() {
         // ctx.stroke();
     };
 
-    let grid = new Grid(canvas.width, canvas.height, 50, new ConwaysRules());
+    let grid = new Grid(canvas.width, canvas.height, 10, new ConwaysRules());
 
     grid.cells[0][0].revive();
     grid.cells[1][0].revive();
     grid.cells[1][1].revive();
+    grid.cells[2][2].revive();
+	document.dispatchEvent(new Event('nextTurn'));
 
-    // grid.iterate(ctx);
-    // grid.iterate(ctx);
+	let func = function() {
+		setTimeout(function(){requestAnimationFrame(func)}, 1000);
 
-    let cell = new Cell(1,1, false, new Hexagon(new Point(100, 100), 50));
-    cell.revive();
-    console.log(cell);
-    cell.render(ctx);
+		grid.iterate(ctx);
+	}
+	requestAnimationFrame(func);
+
+    // let cell = new Cell(1,1, false, new Hexagon(new Point(100, 100), 50));
+    // cell.revive();
+    // console.log(cell);
+    // cell.render(ctx);
 }
 
 document.addEventListener("DOMContentLoaded", function() {
