@@ -53,7 +53,6 @@ function Mouse(camera) {
         console.log(e);
     });
     document.addEventListener("wheel", function(e) {
-        console.log(e);
         camera.zoom(e.deltaY);
     });
 

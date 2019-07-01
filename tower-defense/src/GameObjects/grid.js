@@ -80,7 +80,7 @@ Grid.prototype.convertGridToPixel = function(point, middle = false) {
 };
 
 Grid.prototype.convertPixelToGrid = function(point) {
-    let p = new Point(Math.ceil(point.x / (this.cellWidth + this.lineWidth)), Math.ceil(point.y / (this.cellWidth + this.lineWidth)));
+    let p = new Point(Math.floor(point.x / (this.cellWidth + this.lineWidth)), Math.floor(point.y / (this.cellWidth + this.lineWidth)));
     console.log(p);
     document.dispatchEvent(new SendPingEvent(new Ping(this.convertGridToPixel(p, true), 1000)));
 
@@ -100,6 +100,11 @@ Grid.prototype.render = function(transformationMatrix, ctx) {
     let gridHeight = getLinePixel(this.height);
 
     for (let i = 0; i <= this.width; i++) {
+        if (i === this.width / 2) {
+            ctx.lineWidth = this.lineWidth * 2;
+        } else {
+            ctx.lineWidth = this.lineWidth;
+        }
         ctx.drawLine(
             new Point(
                 transformationMatrix.x(getLinePixel(i)),
@@ -112,6 +117,11 @@ Grid.prototype.render = function(transformationMatrix, ctx) {
         );
     }
     for (let i = 0; i <= this.height; i++) {
+        if (i === this.width / 2) {
+            ctx.lineWidth = this.lineWidth * 2;
+        } else {
+            ctx.lineWidth = this.lineWidth;
+        }
         ctx.drawLine(
             new Point(
                 transformationMatrix.x(0),

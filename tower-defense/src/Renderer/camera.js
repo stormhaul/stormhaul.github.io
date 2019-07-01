@@ -8,7 +8,7 @@ function Camera(renderer) {
     this.renderer   = renderer;
     this.viewWidth  = this.renderer.$canvas.width;
     this.viewHeight = this.renderer.$canvas.height;
-    this.position   = {x: -500, y: -40};
+    this.position   = {x:0, y: 0};//{x: -500, y: -40};
 
     this.scrollRate = 10;
     this.zoomRate = 100;
@@ -43,8 +43,6 @@ Camera.prototype.zoom = function(direction) {
     this.viewWidth += delta.x;
     this.viewHeight += delta.y;
 
-    console.log(this.viewWidth, this.viewHeight, this.position, delta);
-
     this.position.x -= (delta.x) / 2;
     this.position.y -= (delta.y) / 2;
 };
@@ -54,7 +52,18 @@ Camera.prototype.zoom = function(direction) {
  * @returns {Point}
  */
 Camera.prototype.translateCanvasToSpace = function(point) {
-    return new Point((point.x + this.position.x) * this.viewWidth / this.renderer.$canvas.width, (point.y + this.position.y) * this.viewHeight / this.renderer.$canvas.height);
+    let x = (point.x + this.position.x) / (this.renderer.$canvas.width / this.viewWidth);
+    let y = (point.y + this.position.y) / (this.renderer.$canvas.height / this.viewHeight);
+    console.log(
+        "Ratios: ",
+        this.viewWidth / this.renderer.$canvas.width,
+        this.viewHeight / this.renderer.$canvas.height,
+        "Points: ",
+        point,
+        this.position,
+        new Point(x, y)
+    );
+    return new Point(x, y);
 };
 
 Camera.prototype.requestFrame = function() {
