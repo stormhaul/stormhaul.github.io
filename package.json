@@ -73,11 +73,13 @@
       "resolved": "https://registry.npmjs.org/exports-loader/-/exports-loader-0.7.0.tgz",
       "version": "0.7.0"
     },
+    "express": "^4.13.4",
     "graceful-fs": {
       "integrity": "sha512-jpSvDPV4Cq/bgtpndIWbI5hmYxhQGHPC4d4cqBPb4DLniCfhJokdXhwhaDuLBGLQdvvRum/UiX6ECVIPvDXqdg==",
       "resolved": "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.0.tgz",
       "version": "4.2.0"
     },
+    "http": "0.0.0",
     "imports-loader": {
       "dependencies": {
         "source-map": {
@@ -237,6 +239,7 @@
       "resolved": "https://registry.npmjs.org/requizzle/-/requizzle-0.2.2.tgz",
       "version": "0.2.2"
     },
+    "socket.io": "^2.2.0",
     "source-map": {
       "integrity": "sha1-D+llA6yGpa213mP05BKuSHLNvoY=",
       "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.5.0.tgz",
@@ -293,6 +296,7 @@
       "resolved": "https://registry.npmjs.org/util/-/util-0.10.4.tgz",
       "version": "0.10.4"
     },
+    "uws": "^100.0.1",
     "xmlcreate": {
       "integrity": "sha512-MjGsXhKG8YjTKrDCXseFo3ClbMGvUD4en29H2Cev1dv4P/chlpw6KdYmlCWDkhosBVKRDjM836+3e3pm1cBNJA==",
       "resolved": "https://registry.npmjs.org/xmlcreate/-/xmlcreate-2.0.1.tgz",
