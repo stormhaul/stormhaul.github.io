@@ -1,10 +1,34 @@
 let phaser = require('phaser');
 
+let graphics;
+let path;
+var ENEMY_SPEED = 1/10000;
+var CELL_WIDTH = 32;
+var BULLET_DAMAGE = 20;
+var map = [[ 0,-1, 0, 0, 0, 0, 0, 0, 0, 0],
+    [ 0,-1, 0, 0, 0, 0, 0, 0, 0, 0],
+    [ 0,-1,-1,-1,-1,-1,-1,-1, 0, 0],
+    [ 0, 0, 0, 0, 0, 0, 0,-1, 0, 0],
+    [ 0, 0, 0, 0, 0, 0, 0,-1, 0, 0],
+    [ 0, 0, 0, 0, 0, 0, 0,-1, 0, 0],
+    [ 0, 0, 0, 0, 0, 0, 0,-1, 0, 0],
+    [ 0, 0, 0, 0, 0, 0, 0,-1, 0, 0]];
+
+var CANVAS_WIDTH = 640;
+var CANVAS_HEIGHT = 512;
+var MAP_WAYPOINTS = 2;
+var SIDES = {
+    TOP: 0,
+    RIGHT: 1,
+    BOTTOM: 2,
+    LEFT: 3
+};
+
 let config = {
     type: Phaser.AUTO,
     parent: 'content',
-    width: 640,
-    height: 512,
+    width: CANVAS_WIDTH,
+    height: CANVAS_HEIGHT,
     physics: {
         default: 'arcade'
     },
@@ -17,21 +41,6 @@ let config = {
 };
 
 let game = new Phaser.Game(config);
-
-let graphics;
-let path;
-var ENEMY_SPEED = 1/10000;
-var CELL_WIDTH = 64;
-var BULLET_DAMAGE = 20;
-var map = [[ 0,-1, 0, 0, 0, 0, 0, 0, 0, 0],
-           [ 0,-1, 0, 0, 0, 0, 0, 0, 0, 0],
-           [ 0,-1,-1,-1,-1,-1,-1,-1, 0, 0],
-           [ 0, 0, 0, 0, 0, 0, 0,-1, 0, 0],
-           [ 0, 0, 0, 0, 0, 0, 0,-1, 0, 0],
-           [ 0, 0, 0, 0, 0, 0, 0,-1, 0, 0],
-           [ 0, 0, 0, 0, 0, 0, 0,-1, 0, 0],
-           [ 0, 0, 0, 0, 0, 0, 0,-1, 0, 0]];
-
 
 function preload() {
     console.log('preload called');
@@ -47,6 +56,35 @@ function create() {
 
     // the path for our enemies
     // parameters are the start x and y of our path
+
+    // top, right, bottom, left
+    let enterSide = Math.floor(Math.random() * 4);
+    let exitSide = Math.floor(Math.random() * 4);
+
+    while (exitSide === enterSide) {
+        exitSide = Math.floor(Math.random() * 4);
+    }
+
+    let rows = CANVAS_HEIGHT / CELL_WIDTH;
+    let cols = CANVAS_WIDTH / CELL_WIDTH;
+
+    let waypoints = [];
+    let dict = {};
+
+    while (waypoints.length < MAP_WAYPOINTS) {
+        let x = Math.floor(Math.random() * cols);
+        let y = Math.floor(Math.random() * rows);
+
+        if (dict[x + ',' + y] === undefined) {
+            dict[x + ',' + y] = true;
+            waypoints.push([x, y]);
+        }
+    }
+
+    generatePath(enterSide, exitSide, waypoints, rows, cols);
+
+    console.log(enterSide, exitSide);
+
     path = this.add.path(96, -32);
     path.lineTo(96, 164);
     path.lineTo(480, 164);
@@ -83,11 +121,11 @@ function update(time, delta) {
 
 function drawGrid(graphics) {
     graphics.lineStyle(1, 0x0000ff, 0.8);
-    for(var i = 0; i < 8; i++) {
+    for(var i = 0; i < 512 / CELL_WIDTH; i++) {
         graphics.moveTo(0, i * CELL_WIDTH);
         graphics.lineTo(640, i * CELL_WIDTH);
     }
-    for(var j = 0; j < 10; j++) {
+    for(var j = 0; j < 640 / CELL_WIDTH; j++) {
         graphics.moveTo(j * CELL_WIDTH, 0);
         graphics.lineTo(j * CELL_WIDTH, 512);
     }
@@ -127,6 +165,44 @@ function getEnemy(x, y, distance) {
 
 function canPlaceTurret(i, j) {
     return map[i][j] === 0;
+}
+
+function generatePath(enterSide, exitSide, waypoints, rows, cols) {
+    let start = getEntryExitPoint(enterSide, rows, cols);
+    let end   = getEntryExitPoint(exitSide,  rows, cols);
+
+    console.log(start, waypoints, end);
+}
+
+function getEntryExitPoint(side, rows, cols) {
+    let point = {x: 0, y: 0};
+    let off = 0;
+    switch (side) {
+        case SIDES.TOP:
+            off = Math.floor(Math.random() * (cols - 1));
+            point = convertGridToPixel({x: off, y: -1});
+            break;
+        case SIDES.RIGHT:
+            off = Math.floor(Math.random() * (rows - 1));
+            point = convertGridToPixel({x: cols, y: off});
+            break;
+        case SIDES.BOTTOM:
+            off = Math.floor(Math.random() * (cols - 1));
+            point = convertGridToPixel({x: off, y: rows});
+            break;
+        case SIDES.LEFT:
+            off = Math.floor(Math.random() * (rows - 1));
+            point = convertGridToPixel({x: -1, y: off});
+            break;
+        default:
+            throw new Error('invalid side');
+    }
+
+    return point;
+}
+
+function convertGridToPixel(point) {
+    return {x: CELL_WIDTH * (point.x + 1/2), y: CELL_WIDTH * (point.y + 1/2)};
 }
 
 function damageEnemy(enemy, bullet) {
