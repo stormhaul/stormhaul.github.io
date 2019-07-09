@@ -5,6 +5,9 @@ let path;
 var ENEMY_SPEED = 1/10000;
 var CELL_WIDTH = 32;
 var BULLET_DAMAGE = 20;
+var CANVAS_WIDTH = 640;
+var CANVAS_HEIGHT = 512;
+
 var map = [[ 0,-1, 0, 0, 0, 0, 0, 0, 0, 0],
     [ 0,-1, 0, 0, 0, 0, 0, 0, 0, 0],
     [ 0,-1,-1,-1,-1,-1,-1,-1, 0, 0],
@@ -14,8 +17,6 @@ var map = [[ 0,-1, 0, 0, 0, 0, 0, 0, 0, 0],
     [ 0, 0, 0, 0, 0, 0, 0,-1, 0, 0],
     [ 0, 0, 0, 0, 0, 0, 0,-1, 0, 0]];
 
-var CANVAS_WIDTH = 640;
-var CANVAS_HEIGHT = 512;
 var MAP_WAYPOINTS = 2;
 var SIDES = {
     TOP: 0,
@@ -81,14 +82,9 @@ function create() {
         }
     }
 
-    generatePath(enterSide, exitSide, waypoints, rows, cols);
+    path = generatePath(this, enterSide, exitSide, waypoints, rows, cols);
 
     console.log(enterSide, exitSide);
-
-    path = this.add.path(96, -32);
-    path.lineTo(96, 164);
-    path.lineTo(480, 164);
-    path.lineTo(480, 544);
 
     graphics.lineStyle(3, 0xffffff, 1);
     // visualize the path
@@ -167,11 +163,65 @@ function canPlaceTurret(i, j) {
     return map[i][j] === 0;
 }
 
-function generatePath(enterSide, exitSide, waypoints, rows, cols) {
-    let start = getEntryExitPoint(enterSide, rows, cols);
-    let end   = getEntryExitPoint(exitSide,  rows, cols);
+function generatePath(that, enterSide, exitSide, waypoints, rows, cols) {
+    map = [];
+    for (let i = 0; i < CANVAS_HEIGHT / CELL_WIDTH; i++) {
+        map.push([]);
+        for (let j = 0; j < CANVAS_WIDTH / CELL_WIDTH; j++) {
+            map[i].push(0);
+        }
+    }
+    console.log(map);
 
-    console.log(start, waypoints, end);
+    let start = getEntryExitPoint(enterSide, rows, cols);
+    let end = getEntryExitPoint(exitSide, rows, cols);
+
+    waypoints = waypoints.map(function (a) {
+        return convertGridToPixel({x: a[0], y: a[1]});
+    });
+
+    path = that.add.path(start.x, start.y);
+
+    switch (enterSide) {
+        case SIDES.TOP:
+        case SIDES.BOTTOM:
+            path.lineTo(start.x, waypoints[0].y);
+            path.lineTo(waypoints[0].x, waypoints[0].y);
+            break;
+        case SIDES.RIGHT:
+        case SIDES.LEFT:
+            path.lineTo(waypoints[0].x, start.y);
+            path.lineTo(waypoints[0].x, waypoints[0].y);
+            break;
+        default:
+            throw new Error('invalid side');
+    }
+
+    let prev = waypoints[0];
+    let next = null;
+    for (let i = 1; i < waypoints.length; i++) {
+        next = waypoints[i];
+        path.lineTo(prev.x, next.y);
+        path.lineTo(next.x, next.y);
+    }
+
+    let last = waypoints[waypoints.length - 1];
+    switch (exitSide) {
+        case SIDES.TOP:
+        case SIDES.BOTTOM:
+            path.lineTo(end.x, last.y);
+            path.lineTo(end.x, end.y);
+            break;
+        case SIDES.RIGHT:
+        case SIDES.LEFT:
+            path.lineTo(last.x, end.y);
+            path.lineTo(end.x, end.y);
+            break;
+        default:
+            throw new Error('invalid side');
+    }
+
+    return path;
 }
 
 function getEntryExitPoint(side, rows, cols) {
@@ -320,7 +370,7 @@ var Bullet = new Phaser.Class({
         this.dx = Math.cos(angle);
         this.dy = Math.sin(angle);
 
-        this.lifespan = 300;
+        this.lifespan = 500;
     },
 
     update: function (time, delta)
