@@ -3,7 +3,26 @@
 var CW = 1000;
 var CH = CW * getAspectRatio();
 var SH = 15;
-var LINES = [];
+var LINES = function() {
+    let lines = {};
+
+    lines.sets = [];
+
+    lines.add = function(set) {
+        this.sets.push(set);
+    };
+
+    lines.get = function(setId) {
+        return this.sets[setId];
+    };
+
+    lines.len = function() {
+        return this.sets.length;
+    };
+
+    return lines;
+}();
+
 var SETS = 6;
 
 function getAspectRatio() {
@@ -158,40 +177,63 @@ ctx.line = function(lines, color = 'white', lineWidth = 1) {
 };
 
 function initializeLines() {
-    LINES = [];
+    // let start = new Point(0, CH - SH),
+    //     end   = new Point(CW, CH - SH);
+    //
+    // LINES.add([new KochLine(start, end)]);
 
-    let start = new Point(0, CH - SH);
-    let end = new Point(CW, CH - SH);
+    let cX = CW / 2;
+    let cY = CH / 2;
+    let min = Math.min(CW, CH);
+    let halfLen = (min - 250) / 2;
 
-    LINES.push(new KochLine(start, end));
+    let s1 = new Point(cX - halfLen, cY - halfLen),
+        s2 = new Point(cX + halfLen, cY - halfLen),
+        s3 = new Point(cX + halfLen, cY + halfLen),
+        s4 = new Point(cX - halfLen, cY + halfLen);
+
+    LINES.add([
+        new KochLine(s1, s2),
+        new KochLine(s2, s3),
+        new KochLine(s3, s4),
+        new KochLine(s4, s1),
+    ]);
 }
 
-function generate() {
+async function generate(i) {
+    if (i > 6)
+        return;
     let next = [];
 
-    LINES.map(function (line) {
+    if (LINES.len() === 0) {
+        initializeLines();
+        generate(i+1);
+        return;
+    }
+
+    LINES.get(i-1).map(function (line) {
         next.push(new KochLine(line.a(), line.b()));
         next.push(new KochLine(line.b(), line.c()));
         next.push(new KochLine(line.c(), line.d()));
         next.push(new KochLine(line.d(), line.e()));
     });
 
-    LINES = next;
+    LINES.add(next);
+
+    generate(i+1);
 }
 
 function loop(n = 0) {
-    if (n % SETS === 0) {
-        initializeLines();
-    } else {
-        generate();
-    }
-
     ctx.wipe();
-    ctx.line(LINES);
+    let sel = n % LINES.len();
+    console.log(LINES.get(sel));
+    if (undefined != LINES.get(sel))
+        ctx.line(LINES.get(sel));
 
     setTimeout(function() {
         loop(n+1);
     }, 1000);
 }
 
+generate(0);
 loop();
