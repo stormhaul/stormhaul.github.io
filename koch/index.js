@@ -117,15 +117,15 @@ function KochLine(start, end) {
 
     line.b = function() {
         let v = this.start.sub(this.end);
-        v = v.div(3);
+        v = v.div(8);
         v = v.add(this.start);
         return v;
     };
 
     line.c = function(evenOdd) {
         let v = this.start.sub(this.end);
-        v = v.div(2);
-        let a = Math.acos(1/3) * 180 / Math.PI;
+        v = v.mult(3/4);
+        let a = Math.acos(1/2) * 180 / Math.PI;
         let angle = evenOdd ? a : -a;
         v = v.rotate(angle);
 
@@ -136,7 +136,7 @@ function KochLine(start, end) {
 
     line.d = function() {
         let v = this.start.sub(this.end);
-        v = v.mult(2/3);
+        v = v.mult(7/8);
         v = v.add(start);
         return v;
     };
