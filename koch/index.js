@@ -122,10 +122,12 @@ function KochLine(start, end) {
         return v;
     };
 
-    line.c = function() {
+    line.c = function(evenOdd) {
         let v = this.start.sub(this.end);
-        v = v.div(3);
-        v = v.rotate(-60);
+        v = v.div(2);
+        let a = Math.acos(1/3) * 180 / Math.PI;
+        let angle = evenOdd ? a : -a;
+        v = v.rotate(angle);
 
         let b = this.b();
 
@@ -209,7 +211,7 @@ function initializeLines() {
 }
 
 function getPointsOfOctogon() {
-    let desiredHeight = (Math.min(CW, CH) - 150) / 2;
+    let desiredHeight = (Math.min(CW, CH) - 30) / 2;
     let theta = 67.5 * Math.PI / 180;
     let phi = 45 * Math.PI / 180;
     let r = desiredHeight / Math.sin(theta);
@@ -223,7 +225,7 @@ function getPointsOfOctogon() {
 }
 
 async function generate(i) {
-    if (i > 6)
+    if (i > 7)
         return;
     let next = [];
 
@@ -235,8 +237,8 @@ async function generate(i) {
 
     LINES.get(i-1).map(function (line) {
         next.push(new KochLine(line.a(), line.b()));
-        next.push(new KochLine(line.b(), line.c()));
-        next.push(new KochLine(line.c(), line.d()));
+        next.push(new KochLine(line.b(), line.c(i % 2)));
+        next.push(new KochLine(line.c(i % 2), line.d()));
         next.push(new KochLine(line.d(), line.e()));
     });
 
@@ -248,7 +250,6 @@ async function generate(i) {
 function loop(n = 0) {
     ctx.wipe();
     let sel = n % LINES.len();
-    console.log(LINES.get(sel));
     if (undefined != LINES.get(sel))
         ctx.line(LINES.get(sel));
 
