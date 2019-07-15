@@ -187,17 +187,39 @@ function initializeLines() {
     let min = Math.min(CW, CH);
     let halfLen = (min - 250) / 2;
 
-    let s1 = new Point(cX - halfLen, cY - halfLen),
-        s2 = new Point(cX + halfLen, cY - halfLen),
-        s3 = new Point(cX + halfLen, cY + halfLen),
-        s4 = new Point(cX - halfLen, cY + halfLen);
+    // let s1 = new Point(cX - halfLen, cY - halfLen),
+    //     s2 = new Point(cX + halfLen, cY - halfLen),
+    //     s3 = new Point(cX + halfLen, cY + halfLen),
+    //     s4 = new Point(cX - halfLen, cY + halfLen);
+    //
+    // LINES.add([
+    //     new KochLine(s1, s2),
+    //     new KochLine(s2, s3),
+    //     new KochLine(s3, s4),
+    //     new KochLine(s4, s1),
+    // ]);
 
-    LINES.add([
-        new KochLine(s1, s2),
-        new KochLine(s2, s3),
-        new KochLine(s3, s4),
-        new KochLine(s4, s1),
-    ]);
+    let points = getPointsOfOctogon();
+    let lines = [];
+    points.map((p, index) => {
+        lines.push(new KochLine(p, points[(index + 1) % points.length]));
+    });
+
+    LINES.add(lines);
+}
+
+function getPointsOfOctogon() {
+    let desiredHeight = (Math.min(CW, CH) - 150) / 2;
+    let theta = 67.5 * Math.PI / 180;
+    let phi = 45 * Math.PI / 180;
+    let r = desiredHeight / Math.sin(theta);
+
+    let points = [];
+    for (let i = phi / 2; i < Math.PI * 2; i += phi) {
+        points.push(new Point(r * Math.cos(i) + CW / 2, r * Math.sin(i) + CH / 2));
+    }
+
+    return points;
 }
 
 async function generate(i) {
