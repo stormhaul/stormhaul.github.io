@@ -6,9 +6,8 @@ spiro.init = () => {
     let renderer  = spiro.renderer();
     let userInput = spiro.userInput();
     let mathHelper = spiro.mathHelper();
-    let ellipseHelper = spiro.ellipseHelper(mathHelper);
-    let outerCircle = spiro.outerCircle(userInput, renderer, ellipseHelper);
-    let innerCircle = spiro.innerCircle(outerCircle, userInput, renderer, ellipseHelper);
+    let outerCircle = spiro.outerCircle(userInput, renderer, mathHelper);
+    let innerCircle = spiro.innerCircle(outerCircle, userInput, renderer, mathHelper);
 
     console.log(userInput);
 

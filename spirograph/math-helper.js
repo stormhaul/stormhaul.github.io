@@ -16,5 +16,16 @@ spiro.mathHelper = () => {
         return (a * b) / mathHelper.gcd(a, b);
     };
 
+    mathHelper.convertPolarCoordinate = (r, angle) => {
+        return {
+            x: r * Math.cos(angle),
+            y: r * Math.sin(angle)
+        };
+    };
+
+    mathHelper.getAngleFromCircumferenceAndArcLength = (circumference, arcLen) => {
+        return arcLen * Math.PI / circumference;
+    };
+
     return mathHelper;
 };

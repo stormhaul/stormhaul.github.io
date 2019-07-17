@@ -7,7 +7,8 @@ spiro.config = {
     ellipse: {
         lineWidth: 1,
         lineColor: 'white',
-        terms: 7
+        rate: 5,
+        chunks: 360
     },
     spiral: {
         lineWidth: 1,
@@ -17,12 +18,12 @@ spiro.config = {
     userInput: {
         outerCircle: {
             r1Id: 'outer-r1',
-            r2Id: 'outer-r2',
-            angleId: 'outer-angle'
+            // r2Id: 'outer-r2',
+            // angleId: 'outer-angle'
         },
         innerCircle: {
             r1Id: 'inner-r1',
-            r2Id: 'inner-r2',
+            // r2Id: 'inner-r2',
             angleId: 'inner-angle'
         },
         marker: {

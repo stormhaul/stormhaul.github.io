@@ -2,37 +2,39 @@
 
 var spiro = spiro || {};
 
-spiro.innerCircle = (outerCircle, userInput, renderer, ellipseHelper) => {
+spiro.innerCircle = (outerCircle, userInput, renderer, mathHelper) => {
     let innerCircle = {};
 
     innerCircle.init = () => {
+        innerCircle.rate = parseInt(spiro.config['ellipse']['rate']) * Math.PI / 180;
         innerCircle.setInputs();
     };
 
     innerCircle.setInputs = () => {
-        innerCircle.iteration = 0;
-        innerCircle.max            = Math.min(outerCircle.width, outerCircle.height);
+        innerCircle.iteration      = 0;
+        innerCircle.max            = outerCircle.radius * 2;
         innerCircle.radius1Percent = parseInt(userInput.getValue('inner-r1')) / 100;
-        innerCircle.radius2Percent = parseInt(userInput.getValue('inner-r2')) / 100;
-        innerCircle.angle          = parseInt(userInput.getValue('inner-angle')) * Math.PI / 180;
+        innerCircle.innerAngle     = parseInt(userInput.getValue('inner-angle')) * Math.PI / 180;
+        innerCircle.outerAngle     = Math.PI / 2;
         innerCircle.calculateRadiusPixels();
     };
 
     innerCircle.calculateRadiusPixels = () => {
-        innerCircle.width  = innerCircle.max * innerCircle.radius1Percent / 2;
-        innerCircle.height = innerCircle.max * innerCircle.radius2Percent / 2;
+        innerCircle.radius  = innerCircle.max * innerCircle.radius1Percent / 2;
+        innerCircle.circumference = innerCircle.radius * 2 * Math.PI;
+        innerCircle.circRatio = outerCircle.circumference / innerCircle.circumference;
 
         innerCircle.x = outerCircle.x;
-        innerCircle.y = outerCircle.y - outerCircle.getRadius(90) + innerCircle.getRadius(90);
+        innerCircle.y = outerCircle.y - outerCircle.radius + innerCircle.radius;
     };
 
-    innerCircle.getRadius = (angle) => {
-        return ellipseHelper.getRadius(innerCircle.width, innerCircle.height, angle * Math.PI / 180);
+    innerCircle.getPoint = (angle) => {
+        return mathHelper.convertPolarCoordinate(innerCircle.radius, angle);
     };
 
     innerCircle.draw = () => {
         console.log(innerCircle);
-        renderer.ellipse(innerCircle.x, innerCircle.y, innerCircle.width, innerCircle.height, innerCircle.angle);
+        renderer.ellipse(innerCircle.x, innerCircle.y, innerCircle.radius, innerCircle.radius, 0);
     };
 
     innerCircle.handleUserInputChange = () => {
