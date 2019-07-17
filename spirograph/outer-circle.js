@@ -2,7 +2,7 @@
 
 var spiro = spiro || {};
 
-spiro.outerCircle = (userInput, renderer) => {
+spiro.outerCircle = (userInput, renderer, ellipseHelper) => {
     let outerCircle = {};
 
     outerCircle.init = () => {
@@ -10,7 +10,7 @@ spiro.outerCircle = (userInput, renderer) => {
     };
 
     outerCircle.setInputs = () => {
-        outerCircle.max = Math.min(renderer.canvas.width, renderer.canvas.height);
+        outerCircle.max            = Math.min(renderer.canvas.width, renderer.canvas.height);
         outerCircle.radius1Percent = parseInt(userInput.getValue('outer-r1')) / 100;
         outerCircle.radius2Percent = parseInt(userInput.getValue('outer-r2')) / 100;
         outerCircle.angle          = parseInt(userInput.getValue('outer-angle')) * Math.PI / 180;
@@ -25,8 +25,11 @@ spiro.outerCircle = (userInput, renderer) => {
         outerCircle.height = outerCircle.max * outerCircle.radius2Percent / 2;
     };
 
+    outerCircle.getRadius = (angle) => {
+        return ellipseHelper.getRadius(outerCircle.width, outerCircle.height, angle * Math.PI / 180);
+    };
+
     outerCircle.draw = () => {
-        console.log(outerCircle);
         renderer.ellipse(outerCircle.x, outerCircle.y, outerCircle.width, outerCircle.height, outerCircle.angle);
     };
 

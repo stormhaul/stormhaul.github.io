@@ -6,7 +6,8 @@ spiro.config = {
     canvasId: 'c',
     ellipse: {
         lineWidth: 1,
-        lineColor: 'white'
+        lineColor: 'white',
+        terms: 7
     },
     spiral: {
         lineWidth: 1,
