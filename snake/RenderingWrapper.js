@@ -1,4 +1,4 @@
-"using strict";
+"use strict";
 
 class RenderingWrapper {
   constructor (configuration) {
@@ -15,7 +15,7 @@ class RenderingWrapper {
   }
 
   wipe () {
-    this.ctx.fillStyle = '#000'
+    this.ctx.fillStyle = '#000';
     this.ctx.beginPath();
     this.ctx.rect(0, 0, this._configuration.width, this._configuration.height);
     this.ctx.fill();
@@ -53,8 +53,9 @@ class RenderingWrapper {
   }
 
   drawCollision (position) {
-    this.ctx.fillStyle = this._configuration.collided_color;
+    console.log(position, this._configuration.snake_width, this._configuration.collision_color);
     this.ctx.beginPath();
+    this.ctx.fillStyle = this._configuration.collision_color;
     this.ctx.arc(position.x, position.y, this._configuration.snake_width, 0, Math.PI * 2);
     this.ctx.fill();
   }
