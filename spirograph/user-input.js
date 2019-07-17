@@ -46,6 +46,10 @@ spiro.userInput = () => {
         userInput.subscribers[grouping].push(callback);
     };
 
+    userInput.getValue = (id) => {
+        return document.getElementById(id).value;
+    };
+
     userInput.init();
 
     return userInput;

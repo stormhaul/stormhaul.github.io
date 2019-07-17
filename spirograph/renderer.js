@@ -7,13 +7,17 @@ spiro.renderer = () => {
 
     let renderer = {};
 
+    renderer.init = () => {
+        renderer.updateCanvasSize()
+    };
+
     renderer.canvas = document.getElementById(canvasId);
 
     if (renderer.canvas === null) {
         throw new Error('Unable to find canvas, check that there is an element with id: ' + canvasId + ' or update configuration.');
     }
 
-    renderer.ctx = canvas.getContext('2d');
+    renderer.ctx = renderer.canvas.getContext('2d');
 
     renderer.updateCanvasSize = () => {
         renderer.canvas.width  = window.innerWidth;
@@ -25,10 +29,12 @@ spiro.renderer = () => {
     };
 
     renderer.ellipse = (x, y, rx, ry, angle) => {
-        renderer.ctx.beginPath();
+        console.log(x, y, rx, ry, angle, spiro.config['ellipse']);
         renderer.ctx.lineWidth   = spiro.config['ellipse']['lineWidth'];
         renderer.ctx.strokeStyle = spiro.config['ellipse']['lineColor'];
+        renderer.ctx.beginPath();
         renderer.ctx.ellipse(x, y, rx, ry, angle, 0, 2 * Math.PI);
+        console.log(renderer.ctx);
         renderer.ctx.stroke();
     };
 
@@ -49,6 +55,8 @@ spiro.renderer = () => {
 
         renderer.ctx.stroke();
     };
+
+    renderer.init();
 
     return renderer;
 };
