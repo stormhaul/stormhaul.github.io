@@ -1,4 +1,4 @@
-"using strict";
+"use strict";
 
 class SnakeController
 {
@@ -23,6 +23,7 @@ class SnakeController
   }
 
   advanceSnake (position, ate = false) {
+    console.log('hi');
     this.previous_position = this.position;
     this.segments.addToHead(position, ate);
     this.position = position;

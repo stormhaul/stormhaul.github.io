@@ -1,4 +1,4 @@
-"using strict";
+"use strict";
 
 class GameController {
   constructor (configuration) {
@@ -6,11 +6,12 @@ class GameController {
     this._configuration = configuration;
 
     this.user = new UserInput(configuration);
+    this.render = new RenderingWrapper(configuration);
     this.snake = new SnakeController(configuration, function(){
       that.collided = true;
+      that.render.requestFrame(that.snake.segments, that.snake.apple_position);
       that.render.drawCollision(that.snake.position);
     });
-    this.render = new RenderingWrapper(configuration);
 
     this.collided = false;
   }

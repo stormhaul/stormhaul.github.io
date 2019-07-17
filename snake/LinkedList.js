@@ -1,11 +1,11 @@
-"using strict";
+"use strict";
 
 class LinkedList {
   constructor(configuration, collision_callback) {
     this.contains = {};
     this.head = null;
     this.tail = null;
-    this._configuration = configuration
+    this._configuration = configuration;
 
     this.collided = collision_callback;
   }
@@ -22,7 +22,9 @@ class LinkedList {
       temp.prev = this.head;
     }
 
+    console.log(this.contains[this.posToString(pos)] !== undefined, this.oob(pos));
     if (this.contains[this.posToString(pos)] !== undefined || this.oob(pos)) {
+      console.log('oob or collided', this.collided);
       this.collided();
     }
     this.contains[this.posToString(pos)] = pos;

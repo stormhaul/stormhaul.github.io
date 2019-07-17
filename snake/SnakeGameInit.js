@@ -1,4 +1,4 @@
-"using strict";
+"use strict";
 
 let configuration = {
   width: 1000,
@@ -8,6 +8,7 @@ let configuration = {
   snake_color: '#fff',
   snake_segment_length: 10,
   apple_color: '#00ff88',
+  collision_color: '#ff0022',
   apple_radius: 5,
   border_color: '#fff',
   border_width: 1,
