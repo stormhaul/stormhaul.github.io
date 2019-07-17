@@ -1,0 +1,54 @@
+"use strict";
+
+var spiro = spiro || {};
+
+spiro.renderer = () => {
+    let canvasId = spiro.config['canvasId'];
+
+    let renderer = {};
+
+    renderer.canvas = document.getElementById(canvasId);
+
+    if (renderer.canvas === null) {
+        throw new Error('Unable to find canvas, check that there is an element with id: ' + canvasId + ' or update configuration.');
+    }
+
+    renderer.ctx = canvas.getContext('2d');
+
+    renderer.updateCanvasSize = () => {
+        renderer.canvas.width  = window.innerWidth;
+        renderer.canvas.height = window.innerHeight;
+    };
+
+    renderer.wipe = () => {
+        renderer.ctx.clearRect(0, 0, renderer.canvas.width, renderer.canvas.height);
+    };
+
+    renderer.ellipse = (x, y, rx, ry, angle) => {
+        renderer.ctx.beginPath();
+        renderer.ctx.lineWidth   = spiro.config['ellipse']['lineWidth'];
+        renderer.ctx.strokeStyle = spiro.config['ellipse']['lineColor'];
+        renderer.ctx.ellipse(x, y, rx, ry, angle, 0, 2 * Math.PI);
+        renderer.ctx.stroke();
+    };
+
+    renderer.spiral = (points) => {
+        renderer.ctx.beginPath();
+        renderer.ctx.lineWidth   = spiro.config['spiral']['lineWidth'];
+        renderer.ctx.strokeStyle = spiro.config['spiral']['lineColor'];
+        renderer.ctx.lineJoin    = spiro.config['spiral']['lineJoin'];
+
+        points.map((point, index) => {
+            let func = renderer.ctx.lineTo;
+            if (index == 0) {
+                func = renderer.ctx.moveTo;
+            }
+
+            func(point.x, point.y);
+        });
+
+        renderer.ctx.stroke();
+    };
+
+    return renderer;
+};
