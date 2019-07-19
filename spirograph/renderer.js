@@ -36,10 +36,10 @@ spiro.renderer = () => {
         renderer.ctx.stroke();
     };
 
-    renderer.spiral = (points) => {
+    renderer.spiral = (points, color) => {
         renderer.ctx.beginPath();
         renderer.ctx.lineWidth   = spiro.config['spiral']['lineWidth'];
-        renderer.ctx.strokeStyle = spiro.config['spiral']['lineColor'];
+        renderer.ctx.strokeStyle = color;
         renderer.ctx.lineJoin    = spiro.config['spiral']['lineJoin'];
 
         points.map((point, index) => {
@@ -53,9 +53,9 @@ spiro.renderer = () => {
         renderer.ctx.stroke();
     };
 
-    renderer.marker = (x, y) => {
+    renderer.marker = (x, y, color) => {
         renderer.ctx.beginPath();
-        renderer.ctx.fillStyle = spiro.config['spiral']['lineColor'];
+        renderer.ctx.fillStyle = color;
         renderer.ctx.arc(x, y, spiro.config['marker']['radius'], 0, 2 * Math.PI);
         renderer.ctx.fill();
     };

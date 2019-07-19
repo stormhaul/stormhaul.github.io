@@ -14,7 +14,7 @@ spiro.spiral = (renderer, userInput) => {
     };
 
     spiral.draw = () => {
-        renderer.spiral(spiral.points);
+        renderer.spiral(spiral.points, userInput.getValue('color'));
     };
 
     spiral.handleUserInputChange = () => {

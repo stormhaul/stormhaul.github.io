@@ -12,7 +12,6 @@ spiro.config = {
     },
     spiral: {
         lineWidth: 1,
-        lineColor: 'purple',
         lineJoin: 'round'
     },
     marker: {
