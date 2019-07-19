@@ -30,8 +30,11 @@ spiro.config = {
         },
         marker: {
             insetId: 'inset',
-            rotationId: 'rotation',
-            colorId: 'color'
+            rotationId: 'rotation'
+        },
+        static: {
+            colorId: 'color',
+            pause: 'pause'
         }
     }
 };

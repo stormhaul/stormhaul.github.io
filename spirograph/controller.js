@@ -23,7 +23,7 @@ spiro.controller = (renderer, userInput, outerCircle, innerCircle, spiral, marke
     controller.loop = () => {
         renderer.wipe();
         spiral.draw();
-        if (controller.showGuides) {
+        if (controller.showGuides && !userInput.getValue('pause')) {
             outerCircle.draw();
             innerCircle.draw();
             marker.draw();
