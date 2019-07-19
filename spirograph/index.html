@@ -1,0 +1,111 @@
+<html>
+    <head>
+        <title>Spirograph</title>
+
+        <style type="text/css">
+            * {
+                margin: 0;
+                padding: 0;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+            canvas {
+                background: black;
+                width: 100vw;
+                height: 100vh;
+            }
+            #controls {
+                position: absolute;
+                display: block;
+                top: 0;
+                left: 0;
+                width: 15vw;
+                background: aliceblue;
+                border: grey solid thin;
+            }
+            #controls .control-pane {
+                width: 100%;
+                border-bottom: grey solid thin;
+                padding: 15px;
+            }
+            #controls .control-pane .pane-title {
+                text-align: center;
+            }
+            #controls .control-pane .pane-inputs {
+            }
+            #controls .control-pane .pane-inputs label {
+                width: 100%;
+                display: block;
+            }
+        </style>
+    </head>
+
+    <body>
+        <canvas id="c"></canvas>
+        <div id="controls">
+            <div class="control-pane">
+                <p class="pane-title">Outer Circle</p>
+                <div class="pane-inputs">
+                    <label>
+                        Radius 1<br>
+                        <input id="outer-r1" type="range" min="20" max="99" value="99">
+                    </label>
+                    <!--<label>-->
+                        <!--Radius 2<br>-->
+                        <!--<input id="outer-r2" type="range" min="20" max="99" value="99">-->
+                    <!--</label>-->
+                    <!--<label>-->
+                        <!--Orientation<br>-->
+                        <!--<input id="outer-angle" type="range" min="0" max="179" value="0">-->
+                    <!--</label>-->
+                </div>
+            </div>
+            <div class="control-pane">
+                <p class="pane-title">Inner Circle</p>
+                <div class="pane-inputs">
+                    <label>
+                        Radius 1<br>
+                        <input id="inner-r1" type="range" min="1" max="99" value="50">
+                    </label>
+                    <!--<label>-->
+                        <!--Radius 2<br>-->
+                        <!--<input id="inner-r2" type="range" min="20" max="99" value="99">-->
+                    <!--</label>-->
+                    <label>
+                        Orientation<br>
+                        <input id="inner-angle" type="range" min="0" max="359" value="0">
+                    </label>
+                </div>
+            </div>
+            <div class="control-pane">
+                <p class="pane-title">Marker</p>
+                <div class="pane-inputs">
+                    <label>
+                        Inset Percentage from Radius<br>
+                        <input id="inset" type="range" min="0" max="100" value="50">
+                    </label>
+                    <label>
+                        Rotation<br>
+                        <input id="rotation" type="range" min="0" max="359" value="0">
+                    </label>
+                    <label>
+                        Color<br>
+                        <input id="color" type="color" value="#880088">
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="index.js"></script>
+        <script type="text/javascript" src="spirograph-configuration.js"></script>
+        <script type="text/javascript" src="controller.js"></script>
+        <script type="text/javascript" src="inner-circle.js"></script>
+        <script type="text/javascript" src="outer-circle.js"></script>
+        <script type="text/javascript" src="marker.js"></script>
+        <script type="text/javascript" src="spiral.js"></script>
+        <script type="text/javascript" src="user-input.js"></script>
+        <script type="text/javascript" src="renderer.js"></script>
+        <script type="text/javascript" src="math-helper.js"></script>
+    </body>
+</html>
