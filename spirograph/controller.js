@@ -27,9 +27,9 @@ spiro.controller = (renderer, userInput, outerCircle, innerCircle, spiral, marke
             outerCircle.draw();
             innerCircle.draw();
             marker.draw();
-        }
 
-        marker.rotate();
+            marker.rotate();
+        }
         requestAnimationFrame(controller.loop);
     };
 

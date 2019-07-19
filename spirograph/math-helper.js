@@ -36,7 +36,7 @@ spiro.mathHelper = () => {
         overflow = Math.floor(a2 / 360);
         a2 -= overflow * 360;
 
-        return Math.abs(a1 - a2) <= .01;
+        return Math.abs(a1 - a2) <= .1;
     };
 
     mathHelper.r2d = (a) => {
