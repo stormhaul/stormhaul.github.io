@@ -47,7 +47,12 @@ spiro.userInput = () => {
     };
 
     userInput.getValue = (id) => {
-        return document.getElementById(id).value;
+        let element = document.getElementById(id);
+        if (element.type !== 'checkbox') {
+            return element.value;
+        }
+
+        return element.checked;
     };
 
     userInput.init();
