@@ -16,7 +16,6 @@ spiro.marker = (innerCircle, outerCircle, renderer, mathHelper, userInput, spira
         };
 
         //emitt restarted animation
-        console.log('emitting restart');
         document.dispatchEvent(new Event('restart'));
 
         marker.interiorAngle = parseInt(userInput.getValue('rotation')) * Math.PI / 180;
@@ -41,13 +40,12 @@ spiro.marker = (innerCircle, outerCircle, renderer, mathHelper, userInput, spira
 
         if (mathHelper.areAnglesEquivalent(innerCircle.innerAngle, marker.startAngles.inner) && mathHelper.areAnglesEquivalent(innerCircle.outerAngle, marker.startAngles.outer)) {
             //emitt finish animation
-            console.log('emitting finish');
             document.dispatchEvent(new Event('finish'));
         }
     };
 
     marker.draw = () => {
-        renderer.marker(marker.x, marker.y);
+        renderer.marker(marker.x, marker.y, userInput.getValue('color'));
     };
 
     userInput.subscribe('marker', marker.handleUserInputChange);
