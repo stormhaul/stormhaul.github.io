@@ -8,11 +8,12 @@ spiro.init = () => {
     let mathHelper = spiro.mathHelper();
     let outerCircle = spiro.outerCircle(userInput, renderer, mathHelper);
     let innerCircle = spiro.innerCircle(outerCircle, userInput, renderer, mathHelper);
+    let spiral = spiro.spiral(renderer, userInput);
+    let marker = spiro.marker(innerCircle, outerCircle, renderer, mathHelper, userInput, spiral);
 
-    console.log(userInput);
 
-    outerCircle.draw();
-    innerCircle.draw();
+    let controller = spiro.controller(renderer, userInput, outerCircle, innerCircle, spiral, marker);
+    controller.loop();
 };
 
 window.onload = () => {

@@ -29,12 +29,10 @@ spiro.renderer = () => {
     };
 
     renderer.ellipse = (x, y, rx, ry, angle) => {
-        console.log(x, y, rx, ry, angle, spiro.config['ellipse']);
         renderer.ctx.lineWidth   = spiro.config['ellipse']['lineWidth'];
         renderer.ctx.strokeStyle = spiro.config['ellipse']['lineColor'];
         renderer.ctx.beginPath();
         renderer.ctx.ellipse(x, y, rx, ry, angle, 0, 2 * Math.PI);
-        console.log(renderer.ctx);
         renderer.ctx.stroke();
     };
 
@@ -45,15 +43,21 @@ spiro.renderer = () => {
         renderer.ctx.lineJoin    = spiro.config['spiral']['lineJoin'];
 
         points.map((point, index) => {
-            let func = renderer.ctx.lineTo;
-            if (index == 0) {
-                func = renderer.ctx.moveTo;
+            if (index === 0) {
+                renderer.ctx.moveTo(point.x, point.y);
+            } else {
+                renderer.ctx.lineTo(point.x, point.y);
             }
-
-            func(point.x, point.y);
         });
 
         renderer.ctx.stroke();
+    };
+
+    renderer.marker = (x, y) => {
+        renderer.ctx.beginPath();
+        renderer.ctx.fillStyle = spiro.config['spiral']['lineColor'];
+        renderer.ctx.arc(x, y, spiro.config['marker']['radius'], 0, 2 * Math.PI);
+        renderer.ctx.fill();
     };
 
     renderer.init();

@@ -8,12 +8,15 @@ spiro.config = {
         lineWidth: 1,
         lineColor: 'white',
         rate: 5,
-        chunks: 360
+        chunks: 180
     },
     spiral: {
         lineWidth: 1,
         lineColor: 'purple',
         lineJoin: 'round'
+    },
+    marker: {
+        radius: 5
     },
     userInput: {
         outerCircle: {
