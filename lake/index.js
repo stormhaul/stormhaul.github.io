@@ -23,6 +23,7 @@ l.init = () => {
             f.draw();
         });
 
+        // this method of restarting the animation isn't perfect, and there's a memory leak tied to this and maybe also to long running animations.
         if (l.stop === undefined) {
             requestAnimationFrame(loop);
         }
