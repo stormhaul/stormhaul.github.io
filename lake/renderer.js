@@ -15,7 +15,7 @@ l.renderer = (userInput, config) => {
 
         let ctx = renderer.ctx;
 
-        ctx.globalCompositeOperation = 'source-over';
+        //ctx.globalCompositeOperation = 'source-over';
         // Paint the canvas black.
         ctx.fillStyle = '#000';
         ctx.clearRect(0, 0, renderer.canvas.width, renderer.canvas.height);
@@ -26,7 +26,7 @@ l.renderer = (userInput, config) => {
         radialGradient.addColorStop(0, 'rgba(255,255,255,1)');
         radialGradient.addColorStop(1, 'rgba(0,0,0,0)');
 
-        ctx.globalCompositeOperation = "difference";
+        //ctx.globalCompositeOperation = "source-in";
         //ctx.globalCompositeOperation = 'source-out';
 
         ctx.fillStyle = radialGradient;

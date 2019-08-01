@@ -22,8 +22,8 @@ l.water.fish = (userInput, renderer, config) => {
             return;
         }
 
-        // fish.drawShape(config.shadows.offset(fish.position, userInput.mouse.position), config.shadows.color);
-        // fish.drawTail(fish.tail.map((a) => config.shadows.offset(a, userInput.mouse.position)), config.shadows.offset(fish.position, userInput.mouse.position), config.shadows.color);
+        fish.drawShape(config.shadows.offset(fish.position, userInput.mouse.position), config.shadows.color);
+        fish.drawTail(fish.tail.map((a) => config.shadows.offset(a, userInput.mouse.position)), config.shadows.offset(fish.position, userInput.mouse.position), config.shadows.color);
     };
 
     fish.drawShape = (position, color) => {
