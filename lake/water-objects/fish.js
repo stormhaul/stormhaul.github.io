@@ -17,13 +17,13 @@ l.water.fish = (userInput, renderer, config) => {
         // draw fish using renderer
         if (shadow) {
             fish.drawShape(fish.position, config.fish.color);
-            fish.drawTail(fish.tail, config.fish.color);
+            fish.drawTail(fish.tail, fish.position, config.fish.color);
             //fish.render(false);
             return;
         }
 
-        fish.drawShape(config.shadows.offset(fish.position, userInput.mouse.position), config.shadows.color);
-        fish.drawTail(fish.tail.map((a) => config.shadows.offset(a, userInput.mouse.position)), config.shadows.color);
+        // fish.drawShape(config.shadows.offset(fish.position, userInput.mouse.position), config.shadows.color);
+        // fish.drawTail(fish.tail.map((a) => config.shadows.offset(a, userInput.mouse.position)), config.shadows.offset(fish.position, userInput.mouse.position), config.shadows.color);
     };
 
     fish.drawShape = (position, color) => {
@@ -35,7 +35,7 @@ l.water.fish = (userInput, renderer, config) => {
         ctx.fill();
     };
 
-    fish.drawTail = (points, color) => {
+    fish.drawTail = (points, position, color) => {
         let ctx = renderer.ctx;
 
         ctx.beginPath();
@@ -47,7 +47,9 @@ l.water.fish = (userInput, renderer, config) => {
             if (index === 0) {
                 ctx.moveTo(point.x, point.y);
             } else {
-                ctx.lineTo(point.x, point.y)
+                if (l.helper.getCartesianDistance(point, position) >= 5) {
+                    ctx.lineTo(point.x, point.y)
+                }
             }
         });
 

@@ -26,7 +26,8 @@ l.renderer = (userInput, config) => {
         radialGradient.addColorStop(0, 'rgba(255,255,255,1)');
         radialGradient.addColorStop(1, 'rgba(0,0,0,0)');
 
-        //ctx.globalCompositeOperation = "destination-out";
+        ctx.globalCompositeOperation = "difference";
+        //ctx.globalCompositeOperation = 'source-out';
 
         ctx.fillStyle = radialGradient;
         ctx.arc(userInput.mouse.position.x, userInput.mouse.position.y, config.light.radius, 0, Math.PI*2, false);

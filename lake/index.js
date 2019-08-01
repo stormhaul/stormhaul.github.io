@@ -7,7 +7,7 @@ l.init = () => {
     let renderer = l.renderer(userInput, l.config);
     let fish = [];
 
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 20; i++) {
         fish.push(l.waterParent('fish', {x: Math.floor(Math.random() * l.config.canvas.width), y: Math.floor(Math.random() * l.config.canvas.height)}, userInput, renderer, l.config));
     }
 
