@@ -8,7 +8,9 @@ l.water.fish = (userInput, renderer, config) => {
 
     fish.init = (position) => {
         fish.position = position;
-        fish.target = fish.getTarget();
+        fish.getTarget();
+        fish.lastDistance = l.helper.getCartesianDistance(fish.position, fish.target);
+        fish.prevDistance = fish.lastDistance;
         fish.tail = [];
         fish.step = 0;
     };
@@ -57,8 +59,14 @@ l.water.fish = (userInput, renderer, config) => {
     };
 
     fish.updatePosition = (allFish) => {
-        if (fish.step % 10 === 0) {
-            fish.target = fish.getTarget();
+        let nearTarget = l.helper.getCartesianDistance(fish.position, fish.target) < 10;
+        let nearLight = l.helper.getCartesianDistance(fish.position, userInput.getMousePosition()) < l.config.fish.stopDistance;
+        if (nearTarget && nearLight) {
+            console.log('reached end');
+            return;
+        } else if (nearTarget || fish.lastDistance > fish.prevDistance) {
+            console.log('get new target');
+            fish.getTarget();
         }
 
         fish.tail.push({x: fish.position.x, y: fish.position.y});
@@ -71,28 +79,26 @@ l.water.fish = (userInput, renderer, config) => {
         let x = 0;
         let y = 0;
 
-        x += step.x;
-        y += step.y;
-
-        allFish.map((a) => {
-            let dist = l.helper.getCartesianDistance(fish.position, a.position);
-            if (dist > 0 && dist < config.fish.flockSpacing) {
-                x -= a.position.x - fish.position.x;
-                y -= a.position.y - fish.position.y;
-            }
-        });
+        x += Math.min(config.fish.maxVeloctity, step.x);
+        y += Math.min(config.fish.maxVeloctity, step.y);
 
         if (l.helper.getCartesianDistance(fish.position, userInput.mouse.position) >= config.fish.stopDistance) {
-            fish.position.x += Math.min(config.fish.maxVeloctity, x);
-            fish.position.y += Math.min(config.fish.maxVeloctity, y);
+            fish.position.x += x;
+            fish.position.y += y;
         }
     };
 
     fish.getTarget = () => {
-        fish.target = userInput.getMousePosition();
+        let distance           = l.helper.getRandom(10, l.config.fish.segmentLength);
+        let m                  = userInput.getMousePosition();
+        fish.distanceToTarget  = l.helper.getCartesianDistance(fish.position, m);
+        fish.theta             = l.helper.getTheta(fish.position, m) + l.helper.getRandom(-(l.config.fish.randomAngleRange / 2), l.config.fish.randomAngleRange / 2) * Math.PI / 180;
+        fish.target            = l.helper.getRadialVector(distance, fish.theta);
+        fish.target.x         += fish.position.x;
+        fish.target.y         += fish.position.y;
 
-        fish.distanceToTarget = l.helper.getCartesianDistance(fish.position, fish.target);
-        fish.theta            = l.helper.getTheta(fish.position, fish.target);
+        fish.prevDistance = fish.lastDistance;
+        fish.lastDistance = distance;
     };
 
     return fish;

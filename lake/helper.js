@@ -32,5 +32,9 @@ l.helper = {
             x: v.x / mag,
             y: v.y / mag
         };
+    },
+    getRandom: (min, max) => {
+        let diff = max - min;
+        return Math.floor(Math.random() * diff + min);
     }
 };

@@ -3,7 +3,12 @@
 var l = l || {};
 
 /**
- * @param type {String}
+ * @param type {string}
+ * @param position {x, y}
+ * @param userInput {userInput}
+ * @param renderer {renderer}
+ * @param config {config}
+ * @returns {waterParent}
  */
 l.waterParent = (type, position, userInput, renderer, config) => {
     if (l.water[type] === undefined) {

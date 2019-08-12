@@ -19,13 +19,14 @@ l.config = {
     fish: {
         color: "#FF9933",
         maxVeloctity: 1,
-        slowDistance: 50,
         stopDistance: 40,
         randomAngleRange: 30,
-        flockSpacing: 10
+        flockSpacing: 10,
+        count: 50,
+        segmentLength: 100
     },
     shadows: {
-        color: "#000",//"#888888",
+        color: "#000",
         offset: (position, cursorPosition) => {
             let unit = l.helper.getUnitVectorBetweenTwoPoints(position, cursorPosition);
 
