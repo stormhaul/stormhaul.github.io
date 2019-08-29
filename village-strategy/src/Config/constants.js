@@ -30,4 +30,4 @@ const DEFAULT_LINE_COLOR = 'white';
 const DEFAULT_LINE_WIDTH = 1;
 const DEFAULT_LINE_JOIN  = 'bevel';
 
-const DEFAULT_VILLAGE_RADIUS = 5;
+const DEFAULT_VILLAGE_RADIUS = 50;

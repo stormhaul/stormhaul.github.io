@@ -4,10 +4,10 @@ var vs = vs || {};
 
 vs.init = () => {
     let renderer = vs.renderer();
-    let v1 = vs.village(vs.point(20, 20), 10, 1);
-    let v2 = vs.village(vs.point(30, 30), 10, 0);
-    let v3 = vs.village(vs.point(40, 40), 10, 2);
-    let v4 = vs.village(vs.point(50, 50), 10, 3);
+    let v1 = vs.village(vs.point(200, 200), 10, 1);
+    let v2 = vs.village(vs.point(300, 300), 10, 0);
+    let v3 = vs.village(vs.point(400, 400), 10, 2);
+    let v4 = vs.village(vs.point(500, 500), 10, 3);
     v1.register();
     v2.register();
     v3.register();
