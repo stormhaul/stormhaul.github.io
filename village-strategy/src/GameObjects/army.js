@@ -1,8 +1,8 @@
 "use strict";
 
-let vs = vs || {};
+var vs = vs || {};
 
-vs.army = (id, amount, targetVillage, sourceVillage) => {
+vs.army = (id, amount, targetVillage, sourceVillage, teamId) => {
     let army = {};
 
     army.id = id;
@@ -12,6 +12,7 @@ vs.army = (id, amount, targetVillage, sourceVillage) => {
     army.src = sourceVillage;
     army.soldiers = {};
     army.lineWidth = ARMY_LINE_WIDTH;
+    army.teamId = teamId;
 
     army.addWave = () => {
         if (army.pop < army.requestedAmount && army.src.getPopulation() > 0) {
@@ -35,6 +36,31 @@ vs.army = (id, amount, targetVillage, sourceVillage) => {
             army.pop--;
         }
         army.soldiers[id] = undefined;
+    };
+
+    army.render = (ctx) => {
+        let positions = [];
+        for (let i in army.soldiers) {
+            let soldier = army.soldiers[i];
+
+            positions.push(soldier.getPosition());
+
+            soldier.render();
+        }
+
+        let labelLocation = positions[0].middleOf(...(positions.slice(1)));
+
+        army.renderLabel(labelLocation, army.pop, army.teamId, ctx);
+    };
+
+    army.renderLabel = (position, population, teamId, ctx) => {
+        let color = TEAM_COLORS[teamId];
+
+        if (color === undefined) {
+            vs.unknownTeamError();
+        }
+
+        //render label for army
     };
 
     return army;

@@ -1,6 +1,6 @@
 "use strict";
 
-let vs = vs || {};
+var vs = vs || {};
 
 vs.point = (x, y) => {
     let point = {};

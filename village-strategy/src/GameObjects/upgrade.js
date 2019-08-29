@@ -1,6 +1,6 @@
 "use strict";
 
-let vs = vs || {};
+var vs = vs || {};
 
 vs.upgrade = (target, value) => {
     let up = {};

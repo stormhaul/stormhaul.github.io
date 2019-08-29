@@ -1,7 +1,7 @@
 "use strict";
 
-let vs = vs || {};
-let vs.util = vs.util || {};
+var vs = vs || {};
+vs.util = vs.util || {};
 
 vs.util.queue = () => {
     let queue = {};

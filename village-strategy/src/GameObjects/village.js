@@ -1,6 +1,6 @@
 "use strict";
 
-let vs = vs || {};
+var vs = vs || {};
 
 vs.village = (location, population, teamId = 0, upgrades = []) => {
     let v = {};
@@ -48,6 +48,20 @@ vs.village = (location, population, teamId = 0, upgrades = []) => {
 
     v.dispatch = (n) => {
         v.pop -= n;
+    };
+
+    v.render = (ctx) => {
+        let color = TEAM_COLORS[teamId];
+
+        if (color === undefined) {
+            vs.unknownTeamError();
+        }
+
+        ctx.circle(v.pos, DEFAULT_VILLAGE_RADIUS, color);
+    };
+
+    v.register = () => {
+        document.dispatchEvent(vs.registerRenderable(v.render, LAYERS_FIXED));
     };
 
     return v;
