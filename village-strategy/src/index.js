@@ -8,6 +8,7 @@ vs.init = () => {
     let v2 = vs.village(vs.point(300, 300), 10, 0);
     let v3 = vs.village(vs.point(400, 400), 10, 2);
     let v4 = vs.village(vs.point(500, 500), 10, 3);
+    v3.select();
 
     let iterate = function() {
         v1.grow();

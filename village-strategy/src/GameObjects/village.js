@@ -5,11 +5,12 @@ var vs = vs || {};
 vs.village = (location, population, teamId = 0, upgrades = []) => {
     let v = {};
 
-    v.pos       = location;
-    v.pop       = population;
-    v.teamId    = teamId;
-    v.upgrades  = upgrades;
-    v.growCalls = 0;
+    v.pos        = location;
+    v.pop        = population;
+    v.teamId     = teamId;
+    v.upgrades   = upgrades;
+    v.growCalls  = 0;
+    v.isSelected = false;
 
     v.getPopulation = () => {
         return v.pop;
@@ -61,6 +62,9 @@ vs.village = (location, population, teamId = 0, upgrades = []) => {
 
         ctx.circle(v.pos, DEFAULT_VILLAGE_RADIUS, color);
         ctx.text(v.pos, DEFAULT_NUMBER_FONT, DEFAULT_NUMBER_FONT_SIZE, 'white', v.pop, 'center');
+        if (v.isSelected) {
+            ctx.dottedCircle(v.pos, DEFAULT_VILLAGE_RADIUS + 5, 'white');
+        }
     };
 
     v.register = () => {
@@ -81,6 +85,14 @@ vs.village = (location, population, teamId = 0, upgrades = []) => {
         let t4 = p1.triangleArea(v.pos, p2);
 
         return (t1 + t2 + t3 + t4) <= rArea;
+    };
+
+    v.select = () => {
+        v.isSelected = true;
+    };
+
+    v.deselect = () => {
+        v.isSelected = false;
     };
 
     return v;

@@ -45,6 +45,14 @@ vs.context = () => {
         ctx.fill();
     };
 
+    ctx.dottedCircle = (center, radius, color) => {
+        ctx.strokeStyle = color;
+        ctx.beginPath();
+        ctx.setLineDash([5, 2]);
+        ctx.arc(center.x, center.y, radius, 0, 2*Math.PI);
+        ctx.stroke();
+    };
+
     ctx.text = (center, font, size, color, value, alignment) => {
         ctx.font = size + 'px ' + font;
         ctx.fillStyle = color;
