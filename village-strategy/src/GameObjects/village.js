@@ -5,10 +5,11 @@ var vs = vs || {};
 vs.village = (location, population, teamId = 0, upgrades = []) => {
     let v = {};
 
-    v.pos      = location;
-    v.pop      = population;
-    v.teamId   = teamId;
-    v.upgrades = upgrades;
+    v.pos       = location;
+    v.pop       = population;
+    v.teamId    = teamId;
+    v.upgrades  = upgrades;
+    v.growCalls = 0;
 
     v.getPopulation = () => {
         return v.pop;
@@ -41,7 +42,8 @@ vs.village = (location, population, teamId = 0, upgrades = []) => {
     };
 
     v.grow = () => {
-        if (v.teamId !== 0) {
+        v.growCalls++;
+        if (v.teamId !== 0 && v.growCalls % VILLAGE_FRAMES_PER_GROWTH_STEP === 0) {
             v.pop = Math.min(v.calculatePopCap(), v.pop + v.calculateGrowthAmount());
         }
     };
