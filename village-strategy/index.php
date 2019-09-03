@@ -15,6 +15,7 @@
             width: 100vw;
             height: 100vh;
             user-select: none;
+            background: black;
         }
     </style>
 </head>

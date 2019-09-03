@@ -26,8 +26,10 @@ const UPGRADE_TARGETS = [
 
 const CANVAS_ID = 'c';
 
-const DEFAULT_LINE_COLOR = 'white';
-const DEFAULT_LINE_WIDTH = 1;
-const DEFAULT_LINE_JOIN  = 'bevel';
+const DEFAULT_LINE_COLOR       = 'white';
+const DEFAULT_LINE_WIDTH       = 1;
+const DEFAULT_LINE_JOIN        = 'bevel';
+const DEFAULT_NUMBER_FONT_SIZE = 25;
+const DEFAULT_NUMBER_FONT      = 'Monospace';
 
 const DEFAULT_VILLAGE_RADIUS = 50;

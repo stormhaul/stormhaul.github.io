@@ -45,8 +45,11 @@ vs.context = () => {
         ctx.fill();
     };
 
-    ctx.text = () => {
-
+    ctx.text = (center, font, size, color, value, alignment) => {
+        ctx.font = size + 'px ' + font;
+        ctx.fillStyle = color;
+        ctx.textAlign = alignment;
+        ctx.fillText(value, center.x, center.y + size/4);
     };
 
     return ctx;

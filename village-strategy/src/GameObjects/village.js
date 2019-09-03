@@ -58,6 +58,7 @@ vs.village = (location, population, teamId = 0, upgrades = []) => {
         }
 
         ctx.circle(v.pos, DEFAULT_VILLAGE_RADIUS, color);
+        ctx.text(v.pos, DEFAULT_NUMBER_FONT, DEFAULT_NUMBER_FONT_SIZE, 'white', v.pop, 'center');
     };
 
     v.register = () => {
