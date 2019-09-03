@@ -67,5 +67,21 @@ vs.village = (location, population, teamId = 0, upgrades = []) => {
         document.dispatchEvent(vs.registerRenderable(v.render, LAYERS_FIXED));
     };
 
+    // Determine if point is within the village radius.
+    v.pointIsInside = (point) => {
+        return point.dist(v.pos) <= DEFAULT_VILLAGE_RADIUS;
+    };
+
+    // Uses sum of triangles to determine if the center of the village is within the box passed to the function.
+    v.isBounded = (p1, p2, p3, p4) => {
+        let rArea = p1.rectangleArea(p2, p3);
+        let t1 = p1.triangleArea(v.pos, p4);
+        let t2 = p4.triangleArea(v.pos, p3);
+        let t3 = p3.triangleArea(v.pos, p2);
+        let t4 = p1.triangleArea(v.pos, p2);
+
+        return (t1 + t2 + t3 + t4) <= rArea;
+    };
+
     return v;
 };

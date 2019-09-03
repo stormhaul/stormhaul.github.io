@@ -27,5 +27,20 @@ vs.point = (x, y) => {
         return vs.point(x, y);
     };
 
+    point.dist = (p) => {
+        return Math.sqrt(Math.pow(point.x - p.x, 2) + Math.pow(point.y - p.y, 2));
+    };
+
+    point.rectangleArea = (p1, p2) => {
+        return point.dist(p1) * point.dist(p2);
+    };
+
+    point.triangleArea = (p1, p2) => {
+        let a = point.dist(p1);
+        let c = point.dist(p2);
+        let theta = Math.acos(a/2/c);
+        return 1/2 * a/2 * (c * Math.sin(theta));
+    };
+
     return point;
 };
