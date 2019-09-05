@@ -24,11 +24,9 @@ vs.mouseInput = () => {
     ms.leftUp = (pos) => {
         if (pos.dist(ms.leftPos) < USER_INPUT_MOUSE_CLICK_DISTANCE) {
             //dispatch click event
-            console.log('left click');
             ms.clickSelector.select(pos);
         } else {
             //dispatch box event
-            console.log('left box');
             let p2 = vs.point(ms.leftPos.x, pos.y),
                 p3 = vs.point(pos.x, ms.leftPos.y);
 
@@ -52,6 +50,10 @@ vs.mouseInput = () => {
         }
 
         ms.rightPos = null;
+    };
+
+    ms.mouseMove = (pos) => {
+        ms.mousePos = pos;
     };
 
     ms.mouseEventHandler = (e) => {
@@ -82,6 +84,9 @@ vs.mouseInput = () => {
                     //ignored buttons;
                 }
                 break;
+            case 'mousemove':
+                ms.mouseMove(me.getPosition());
+                break;
             default:
                 //ignored events
         }
@@ -97,6 +102,7 @@ vs.mouseInput = () => {
 
     document.addEventListener('mousedown', (e) => {ms.mouseEventHandler(e); return false;});
     document.addEventListener('mouseup', (e) => {ms.mouseEventHandler(e); return false;});
+    document.addEventListener('mousemove', (e) => {ms.mouseEventHandler(e); return false;});
 
     return ms;
 };
