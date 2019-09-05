@@ -16,6 +16,10 @@ vs.village = (location, population, teamId = 0, upgrades = []) => {
         return v.pop;
     };
 
+    v.getPosition = () => {
+        return v.pos;
+    };
+
     v.calculateGrowthAmount = () => {
         return VILLAGE_GROWTH_RATE + v.getPopulationGrowthUpgradeCount() * VILLAGE_GROWTH_RATE_UPGRADE_VALUE;
     };

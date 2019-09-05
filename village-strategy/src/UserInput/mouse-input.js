@@ -25,9 +25,14 @@ vs.mouseInput = () => {
         if (pos.dist(ms.leftPos) < USER_INPUT_MOUSE_CLICK_DISTANCE) {
             //dispatch click event
             console.log('left click');
+            ms.clickSelector.select(pos);
         } else {
             //dispatch box event
             console.log('left box');
+            let p2 = vs.point(ms.leftPos.x, pos.y),
+                p3 = vs.point(pos.x, ms.leftPos.y);
+
+            ms.boxSelector.select(ms.leftPos, p2, p3, pos);
         }
 
         ms.leftPos = null;
