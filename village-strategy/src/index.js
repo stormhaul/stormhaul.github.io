@@ -10,6 +10,8 @@ vs.init = () => {
     let v4 = vs.village(vs.point(500, 500), 10, 3);
     v3.select();
 
+    let ms = vs.mouseInput();
+
     let iterate = function() {
         v1.grow();
         v2.grow();
