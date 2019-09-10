@@ -13,6 +13,7 @@ vs.init = () => {
     let villages = [v1,v2,v3,v4];
     villages.map((v) => {
         ms.makeSelectable(v.clickSelectHandler, v.boxSelectHandler);
+        ms.makeTargetable(v.targetSelectHandler);
     });
 
     v3.select();

@@ -101,17 +101,25 @@ vs.village = (location, population, teamId = 0, upgrades = []) => {
 
     v.clickSelectHandler = (pos) => {
         v.deselect();
-        if (v.pointIsInside(pos)) {
+        if (v.teamId === USER_PLAYER_ID && v.pointIsInside(pos)) {
             v.select();
         }
     };
 
     v.boxSelectHandler = (p1, p2, p3, p4) => {
-        if (v.isBounded(p1, p2, p3, p4)) {
+        if (v.teamId === USER_PLAYER_ID && v.isBounded(p1, p2, p3, p4)) {
             v.select();
         } else {
             v.deselect();
         }
+    };
+
+    v.targetSelectHandler = (selected, pos) => {
+        if (v.pointIsInside(pos)) {
+            return v;
+        }
+
+        return null;
     };
 
     return v;

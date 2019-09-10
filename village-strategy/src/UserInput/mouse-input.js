@@ -10,7 +10,8 @@ vs.mouseInput = () => {
     ms.rightPos = null;
     ms.mousePos = null;
     ms.clickSelector = vs.clickSelect();
-    ms.boxSelector = vs.boxSelect();
+    ms.boxSelector   = vs.boxSelect();
+    ms.clickTargetor = vs.clickTarget();
 
     ms.leftDown = (pos) => {
         if (ms.leftPos !== null) {
@@ -98,6 +99,10 @@ vs.mouseInput = () => {
     ms.makeSelectable = (click, box) => {
         ms.clickSelector.addSubscriber(click);
         ms.boxSelector.addSubscriber(box);
+    };
+
+    ms.makeTargetable = (click) => {
+        ms.clickTargetor.addSubscriber(click);
     };
 
     document.addEventListener('mousedown', (e) => {ms.mouseEventHandler(e); return false;});
