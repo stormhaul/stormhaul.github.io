@@ -33,10 +33,10 @@ tc.init = () => {
     let lines = g.group();
     cells.children.forEach((cell, index) => {
         let nextCell = cells.children[(index + 1) % cellLen];
-        lines.addChild(g.line('white', 10, cell.cx, cell.cy, nextCell.cx, nextCell.cy));
+        lines.addChild(g.line('black', 10, cell.cx, cell.cy, nextCell.cx, nextCell.cy));
     });
 
-    let sinWaveFunc = tc.fixedEndSinWave(200, 3, 2);
+    let sinWaveFunc = tc.fixedEndSinWave(30, 5, 1);
     let dots = g.group();
 
     lines.children.forEach((line) => {
