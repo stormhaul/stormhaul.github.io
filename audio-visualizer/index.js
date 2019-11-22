@@ -6,6 +6,9 @@ const canvas = document.getElementById('visualizer');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 const canvasCtx = canvas.getContext('2d');
+let gate = 0;
+let v = generateRandomColorVector();
+let target = v;
 
 function launch(musicUrl){
     const WIDTH  = canvas.width;
@@ -38,6 +41,12 @@ function launch(musicUrl){
     function draw() {
         requestAnimationFrame(draw);
 
+        if (gate++ % 1000 === 0) {
+            target = generateRandomColorVector();
+        } else {
+            v = stepTowardsTarget(v, target);
+        }
+
         /**
          * Fills dataArray with a list of 0-255 values.
          */
@@ -57,7 +66,9 @@ function launch(musicUrl){
             barHeight = (HEIGHT) * (dataArray[i] / 255);
 
             canvasCtx.fillRect(x,HEIGHT/2-barHeight/2,barWidth,barHeight);
-            canvasCtx.fillStyle = 'rgb('+ 255 * (barHeight / HEIGHT) + ',' + 255 * (barHeight / HEIGHT) + ', ' + 255 * (barHeight / HEIGHT) + ')';
+            //canvasCtx.fillStyle = 'rgb('+ 255 * (barHeight / HEIGHT) + ',' + 255 * (barHeight / HEIGHT) + ', ' + 255 * (barHeight / HEIGHT) + ')';
+
+            canvasCtx.fillStyle = 'rgba(' + v.r + ',' + v.g + ',' + v.b + ',' + barHeight/HEIGHT + ')';
 
             x += barWidth + padding;
         }
@@ -79,4 +90,44 @@ function launch(musicUrl){
     });
 
     draw();
+}
+
+/**
+ * @param brightness Number between 0 and 1
+ * @returns {{r: number, b: number, g: number}}
+ */
+function generateRandomColorVector(brightness = 1) {
+    let out = {
+        r: Math.random() * 255 * brightness,
+        g: Math.random() * 255 * brightness,
+        b: Math.random() * 255 * brightness
+    };
+
+    if (out.r + out.g + out.b < 200) {
+        //too dark, try again
+        return generateRandomColorVector(brightness);
+    }
+    return out;
+}
+
+/**
+ * @param v
+ * @param target
+ */
+function stepTowardsTarget(v, target) {
+    let step = 1;
+
+    let out = {};
+    for (let i in v) {
+        let diff = target[i] - v[i];
+        if (diff < 0) {
+            out[i] = v[i] - step;
+        } else if (diff > 0) {
+            out[i] = v[i] + step;
+        } else {
+            out[i] = v[i];
+        }
+    }
+
+    return out;
 }
