@@ -38,5 +38,6 @@ function audioDropperChange(file) {
 
     if (typeof launch === 'function') {
         launch(self.blobURL);
+        document.getElementById('audioMp3').classList.add('hidden');
     }
 }
