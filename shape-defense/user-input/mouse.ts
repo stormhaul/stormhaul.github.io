@@ -8,8 +8,8 @@ export class Mouse {
     private clickPosition: Point;
 
     constructor() {
-        document.addEventListener('mousemove', this.dispatchMove);
-        document.addEventListener('click', this.dispatchClick);
+        document.addEventListener('mousemove', this.dispatchMove.bind(this));
+        document.addEventListener('click', this.dispatchClick.bind(this));
 
         console.log("new mouse created");
     }
@@ -24,7 +24,6 @@ export class Mouse {
 
     dispatchMove(e: MouseEvent): void {
         this.mousePosition = new Point(e.x, e.y);
-        console.log(this);
 
         this.moveSubscribers.map(s => {
             s.execute();

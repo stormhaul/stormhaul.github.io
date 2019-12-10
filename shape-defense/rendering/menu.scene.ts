@@ -32,8 +32,14 @@ export class MenuScene extends Scene{
         this.panel.addLayer(this.buttonLayer);
 
         let startLabel = new TextElement().setValue('Start');
-        let startButton = new Button(new Point(50, 50), 150, 40, startLabel, new Event('start.button.clicked'));
+        let startButton = new Button(new Point(10, 10), 150, 40, startLabel, new Event('start.button.clicked'));
         let startId = this.buttonLayer.addItem(startButton);
+
+        let settingsLabel = new TextElement().setValue('Settings');
+        let settingsButton = new Button(new Point(10, 60), 150, 40, settingsLabel, new Event('settings.button.clicked'));
+        let settingsId = this.buttonLayer.addItem(settingsButton);
+
+        console.log(this.buttonLayer);
 
         this.startButton = startButton;
     }

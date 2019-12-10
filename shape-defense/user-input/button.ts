@@ -46,12 +46,14 @@ export class Button implements RenderableInterface{
         context.rect(this.position, this.width, this.height, this.borderWidth, true, this.getBackgroundColor(), true, this.getBorderColor());
         this.setLabelAlignmentPostion(context);
         this.label.setColor(this.getTextColor());
-        this.label.render(context);
+        this.label.render(context, this.position);
     }
 
     setLabelAlignmentPostion(context: Context): void {
         let metrics = context.measureText(this.label);
-        let heightOffset = (this.height - (metrics.actualBoundingBoxAscent - metrics.actualBoundingBoxDescent)) / 2;
+        let textHeight = metrics.actualBoundingBoxAscent - metrics.actualBoundingBoxDescent;
+        // The additional + textHeight is to account for text filling starting at bottom left for some reason.
+        let heightOffset = (this.height - textHeight) / 2 + textHeight;
         switch(this.alignment) {
             case 'left':
                 this.label.setPosition(new Point(0, heightOffset));

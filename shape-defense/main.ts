@@ -13,6 +13,7 @@ export class Main {
         let context = new Context(this.ctx);
         let mouse = new Mouse();
         let menuScene = new MenuScene(mouse);
+        menuScene.render(context);
     }
 
     run(): void {

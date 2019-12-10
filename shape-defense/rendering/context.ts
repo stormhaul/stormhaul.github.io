@@ -53,14 +53,15 @@ export class Context {
         }
     }
 
-    text(text: TextElement) {
+    text(text: TextElement, offset: Point = new Point(0,0)) {
         this.ctx.font = text.getFontSize() + 'px ' + text.getFontFamily();
         this.ctx.fillStyle = text.getColor();
 
+        let pos = text.getPosition().add(offset);
         if (null !== text.getMaxWidth()) {
-            this.ctx.fillText(text.getValue(), text.getPosition().x, text.getPosition().y, text.getMaxWidth());
+            this.ctx.fillText(text.getValue(), pos.x, pos.y, text.getMaxWidth());
         } else {
-            this.ctx.fillText(text.getValue(), text.getPosition().x, text.getPosition().y);
+            this.ctx.fillText(text.getValue(), pos.x, pos.y);
         }
     }
 

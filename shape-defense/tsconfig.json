@@ -1,9 +1,12 @@
 {
    "compilerOptions": {
         "target": "es6",
-        "noImplicitAny": false,
+        "removeComments": true,
         "sourceMap": true,
-        "outDir": "scripts/"
+        "preserveConstEnums": true,
+        "outDir": "./build",
+        "sourceRoot": "./",
+        "rootDir": "./"
     },
     "exclude": [
         "node_modules"

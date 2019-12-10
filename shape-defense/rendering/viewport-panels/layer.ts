@@ -25,9 +25,10 @@ export class Layer implements RenderableInterface{
     }
 
     render(context: Context): void {
-        this.renderables.map(renderable => {
-            renderable.render(context);
-        });
+        for (let i in this.renderables) {
+            this.renderables[i].render(context);
+
+        }
     }
 
     getPriority(): number {

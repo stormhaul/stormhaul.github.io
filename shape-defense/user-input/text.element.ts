@@ -12,11 +12,11 @@ export class TextElement implements RenderableInterface{
 
     constructor() {
         // Defaults
-        this.color = "black";
-        this.fontFamily = "sans-serif";
-        this.fontSize = 12;
-        this.position = new Point(0,0);
-        this.maxWidth = -1;
+        this.color          = "black";
+        this.fontFamily     = "sans-serif";
+        this.fontSize       = 12;
+        this.position       = new Point(0,0);
+        this.maxWidth       = -1;
     }
 
 
@@ -73,7 +73,7 @@ export class TextElement implements RenderableInterface{
         return this.maxWidth === -1 ? null : this.maxWidth;
     }
 
-    render(context: Context): void {
-        context.text(this);
+    render(context: Context, offset: Point = new Point(0,0)): void {
+        context.text(this, offset);
     }
 }

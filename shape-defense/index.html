@@ -3,15 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Shape Defense</title>
-    <script type="text/javascript" src="commonjs/client/common.js"></script>
+    <script type="text/javascript" data-main="init" src="require.js"></script>
 </head>
-<body>
+<body style="margin:0;background: black">
 <canvas id="canvas"></canvas>
 <script type='text/javascript'>
     document.addEventListener("DOMContentLoaded", function() {
-        let init = require('./main');
+        requirejs.config(
+            {
+                baseUrl: './',
+                paths: {
+                    app: './build'
+                }
+            }
+        );
 
-        console.log(init);
+        let init = requirejs(['app/init']);
+        console.log(init)
     });
 </script>
 </body>

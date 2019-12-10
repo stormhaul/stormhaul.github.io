@@ -1,0 +1,1 @@
+{"version":3,"file":"triangle.monster.js","sourceRoot":"./","sources":["monsters/triangle.monster.ts"],"names":[],"mappings":";;;IAGA,MAAa,eAAgB,SAAQ,iBAAO;QACxC,YAAY,QAAe,EAAE,IAAkB;YAC3C,KAAK,CAAC,QAAQ,EAAE,IAAI,EAAE,EAAE,EAAE,GAAG,EAAE,CAAC,EAAE,EAAE,CAAC,CAAC;QAC1C,CAAC;KACJ;IAJD,0CAIC"}
