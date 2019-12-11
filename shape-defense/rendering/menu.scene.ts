@@ -33,6 +33,8 @@ export class MenuScene extends Scene {
         this.panel.addLayer(this.textLayer);
         this.panel.addLayer(this.buttonLayer);
 
+        // @todo Error in button background placement when attached to backdrop.
+        // @todo Error in padding logic for backdrop since buttonds are ignoring the parent offset bonus points from margin, padding, adn border width.
         // Menu Background
         let backdropWidth = 600;
         let backdrop = new Backdrop(new Point((window.innerWidth - backdropWidth) / 2,0), backdropWidth, 500, '#333');
