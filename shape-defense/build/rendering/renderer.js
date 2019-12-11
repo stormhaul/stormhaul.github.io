@@ -5,4 +5,3 @@ define(["require", "exports"], function (require, exports) {
     }
     exports.Renderer = Renderer;
 });
-//# sourceMappingURL=renderer.js.map

@@ -29,4 +29,3 @@ define(["require", "exports", "./renderable.parent"], function (require, exports
     }
     exports.Scene = Scene;
 });
-//# sourceMappingURL=scene.js.map

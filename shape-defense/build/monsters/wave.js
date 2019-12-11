@@ -27,4 +27,3 @@ define(["require", "exports"], function (require, exports) {
     }
     exports.Wave = Wave;
 });
-//# sourceMappingURL=wave.js.map

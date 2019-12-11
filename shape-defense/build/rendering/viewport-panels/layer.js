@@ -29,4 +29,3 @@ define(["require", "exports", "../renderable.parent"], function (require, export
     }
     exports.Layer = Layer;
 });
-//# sourceMappingURL=layer.js.map

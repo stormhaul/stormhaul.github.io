@@ -8,4 +8,3 @@ define(["require", "exports", "./monster"], function (require, exports, monster_
     }
     exports.TriangleMonster = TriangleMonster;
 });
-//# sourceMappingURL=triangle.monster.js.map

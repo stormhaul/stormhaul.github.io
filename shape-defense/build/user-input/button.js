@@ -64,4 +64,3 @@ define(["require", "exports", "../helpers/point", "../rendering/renderable.paren
     }
     exports.Button = Button;
 });
-//# sourceMappingURL=button.js.map

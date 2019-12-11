@@ -2,10 +2,9 @@
    "compilerOptions": {
         "target": "es6",
         "removeComments": true,
-        "sourceMap": true,
+        "sourceMap": false,
         "preserveConstEnums": true,
         "outDir": "./build",
-        "sourceRoot": "./",
         "rootDir": "./"
     },
     "exclude": [

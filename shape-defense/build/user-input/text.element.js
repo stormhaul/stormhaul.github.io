@@ -58,4 +58,3 @@ define(["require", "exports", "../helpers/point", "../rendering/renderable.paren
     }
     exports.TextElement = TextElement;
 });
-//# sourceMappingURL=text.element.js.map

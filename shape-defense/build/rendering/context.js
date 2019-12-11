@@ -4,7 +4,6 @@ define(["require", "exports", "../helpers/point"], function (require, exports, p
     class Context {
         constructor(ctx) {
             this.ctx = ctx;
-            this.ct = 0;
         }
         line(p1, p2, lineWidth, strokeStyle) {
             this.ctx.beginPath();
@@ -28,6 +27,7 @@ define(["require", "exports", "../helpers/point"], function (require, exports, p
             }
         }
         rect(offset, width, height, borderWidth, fill, fillStyle, stroke, strokeStyle) {
+            this.ctx.beginPath();
             this.ctx.fillStyle = fillStyle;
             this.ctx.strokeStyle = strokeStyle;
             this.ctx.lineWidth = borderWidth;
@@ -40,14 +40,9 @@ define(["require", "exports", "../helpers/point"], function (require, exports, p
             }
         }
         text(text, offset = new point_1.Point(0, 0)) {
+            this.ctx.beginPath();
             this.ctx.font = text.getFontSize() + 'px ' + text.getFontFamily();
             this.ctx.fillStyle = text.getColor();
-            if (this.ct === 1) {
-                throw new Error('sup');
-            }
-            else {
-                this.ct++;
-            }
             let pos = text.getPosition().add(offset);
             if (null !== text.getMaxWidth()) {
                 this.ctx.fillText(text.getValue(), pos.x, pos.y, text.getMaxWidth());
@@ -63,4 +58,3 @@ define(["require", "exports", "../helpers/point"], function (require, exports, p
     }
     exports.Context = Context;
 });
-//# sourceMappingURL=context.js.map

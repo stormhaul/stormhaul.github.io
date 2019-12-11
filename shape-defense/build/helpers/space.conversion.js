@@ -13,4 +13,3 @@ define(["require", "exports"], function (require, exports) {
     }
     exports.SpaceConversion = SpaceConversion;
 });
-//# sourceMappingURL=space.conversion.js.map

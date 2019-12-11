@@ -44,4 +44,3 @@ define(["require", "exports", "../helpers/point"], function (require, exports, p
     }
     exports.Mouse = Mouse;
 });
-//# sourceMappingURL=mouse.js.map

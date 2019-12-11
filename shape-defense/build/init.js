@@ -6,4 +6,3 @@ define(["require", "exports", "./main"], function (require, exports, main_1) {
     app.setup();
     app.run();
 });
-//# sourceMappingURL=init.js.map

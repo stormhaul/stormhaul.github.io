@@ -15,4 +15,3 @@ define(["require", "exports", "./rendering/context", "./rendering/menu.scene", "
     }
     exports.Main = Main;
 });
-//# sourceMappingURL=main.js.map

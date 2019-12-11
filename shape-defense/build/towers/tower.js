@@ -5,4 +5,3 @@ define(["require", "exports"], function (require, exports) {
     }
     exports.Tower = Tower;
 });
-//# sourceMappingURL=tower.js.map

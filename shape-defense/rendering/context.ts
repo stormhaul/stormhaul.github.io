@@ -39,6 +39,8 @@ export class Context {
     }
 
     rect(offset: Point, width: number, height: number, borderWidth: number, fill: boolean, fillStyle: string, stroke: boolean, strokeStyle: string) {
+        this.ctx.beginPath();
+
         this.ctx.fillStyle = fillStyle;
         this.ctx.strokeStyle = strokeStyle;
         this.ctx.lineWidth = borderWidth;
@@ -54,6 +56,8 @@ export class Context {
     }
 
     text(text: TextElement, offset: Point = new Point(0,0)) {
+        this.ctx.beginPath();
+
         this.ctx.font = text.getFontSize() + 'px ' + text.getFontFamily();
         this.ctx.fillStyle = text.getColor();
 

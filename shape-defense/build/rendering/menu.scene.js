@@ -18,7 +18,7 @@ define(["require", "exports", "./scene", "./viewport-panels/layer", "./viewport-
             let settingsButton = new button_1.Button(new point_1.Point(10, 60), 150, 40, settingsLabel, new Event('settings.button.clicked'));
             let settingsId = this.buttonLayer.addItem(settingsButton);
             let testLabel = new text_element_1.TextElement().setValue('Test');
-            let testButton = new button_1.Button(new point_1.Point(10, 110), 150, 40, testLabel, new Event('settings.button.clicked'));
+            let testButton = new button_1.Button(new point_1.Point(10, 110), 150, 40, testLabel, new Event('test.button.clicked'));
             let testId = this.buttonLayer.addItem(testButton);
             let startLabel = new text_element_1.TextElement().setValue('Start');
             let startButton = new button_1.Button(new point_1.Point(10, 10), 150, 40, startLabel, new Event('start.button.clicked'));
@@ -44,4 +44,3 @@ define(["require", "exports", "./scene", "./viewport-panels/layer", "./viewport-
     }
     exports.MenuScene = MenuScene;
 });
-//# sourceMappingURL=menu.scene.js.map

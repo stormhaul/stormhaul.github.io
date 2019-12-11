@@ -18,4 +18,3 @@ define(["require", "exports"], function (require, exports) {
     }
     exports.Point = Point;
 });
-//# sourceMappingURL=point.js.map

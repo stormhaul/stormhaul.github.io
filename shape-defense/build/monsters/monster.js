@@ -22,4 +22,3 @@ define(["require", "exports"], function (require, exports) {
     }
     exports.Monster = Monster;
 });
-//# sourceMappingURL=monster.js.map
