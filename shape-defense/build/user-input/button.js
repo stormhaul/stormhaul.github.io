@@ -23,7 +23,7 @@ define(["require", "exports", "../helpers/point", "../rendering/renderable.paren
             document.dispatchEvent(this.event);
         }
         render(context) {
-            context.rect(this.position, this.width, this.height, this.borderWidth, true, this.getBackgroundColor(), true, this.getBorderColor());
+            context.rect(this.position.add(this.getParentOffset()), this.width, this.height, this.borderWidth, true, this.getBackgroundColor(), true, this.getBorderColor());
             this.setLabelAlignmentPostion(context);
             this.label.setColor(this.getTextColor());
             this.label.render(context, this.getParentOffset());
@@ -59,7 +59,8 @@ define(["require", "exports", "../helpers/point", "../rendering/renderable.paren
             this.isHovered = hovered;
         }
         isBounding(point) {
-            return point.x >= this.position.x && point.x < (this.position.x + this.width) && point.y >= this.position.y && point.y <= (this.position.y + this.height);
+            let p = point.sub(this.getParentOffset());
+            return p.x >= this.position.x && p.x < (this.position.x + this.width) && p.y >= this.position.y && p.y <= (this.position.y + this.height);
         }
     }
     exports.Button = Button;

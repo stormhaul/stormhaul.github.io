@@ -1,4 +1,4 @@
-define(["require", "exports", "./scene", "./viewport-panels/layer", "./viewport-panels/viewport.panel", "../helpers/point", "../user-input/button", "../user-input/text.element"], function (require, exports, scene_1, layer_1, viewport_panel_1, point_1, button_1, text_element_1) {
+define(["require", "exports", "./scene", "./viewport-panels/layer", "./viewport-panels/viewport.panel", "../helpers/point", "../user-input/button", "../user-input/text.element", "../user-input/backdrop"], function (require, exports, scene_1, layer_1, viewport_panel_1, point_1, button_1, text_element_1, backdrop_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     class MenuScene extends scene_1.Scene {
@@ -14,24 +14,31 @@ define(["require", "exports", "./scene", "./viewport-panels/layer", "./viewport-
             this.panel.addLayer(this.separatorLayer);
             this.panel.addLayer(this.textLayer);
             this.panel.addLayer(this.buttonLayer);
-            let settingsLabel = new text_element_1.TextElement().setValue('Settings');
-            let settingsButton = new button_1.Button(new point_1.Point(10, 60), 150, 40, settingsLabel, new Event('settings.button.clicked'));
-            let settingsId = this.buttonLayer.addItem(settingsButton);
-            let testLabel = new text_element_1.TextElement().setValue('Test');
-            let testButton = new button_1.Button(new point_1.Point(10, 110), 150, 40, testLabel, new Event('test.button.clicked'));
-            let testId = this.buttonLayer.addItem(testButton);
+            let backdropWidth = 600;
+            let backdrop = new backdrop_1.Backdrop(new point_1.Point((window.innerWidth - backdropWidth) / 2, 0), backdropWidth, 500, '#333');
+            this.backgroundLayer.addItem(backdrop);
             let startLabel = new text_element_1.TextElement().setValue('Start');
-            let startButton = new button_1.Button(new point_1.Point(10, 10), 150, 40, startLabel, new Event('start.button.clicked'));
+            let startButton = new button_1.Button(new point_1.Point(0, 0), 150, 40, startLabel, new Event('start.button.clicked'));
+            startButton.attachParent(backdrop);
             let startId = this.buttonLayer.addItem(startButton);
+            let settingsLabel = new text_element_1.TextElement().setValue('Settings');
+            let settingsButton = new button_1.Button(new point_1.Point(0, 40), 150, 40, settingsLabel, new Event('settings.button.clicked'));
+            settingsButton.attachParent(backdrop);
+            let settingsId = this.buttonLayer.addItem(settingsButton);
             this.startButton = startButton;
+            this.settingsButton = settingsButton;
         }
         moveHandler(position) {
             let relativePos = position.sub(this.panel.getOffset());
-            if (this.startButton.isBounding(relativePos)) {
-                this.startButton.setHover(true);
+            this.buttonHover(this.startButton, relativePos);
+            this.buttonHover(this.settingsButton, relativePos);
+        }
+        buttonHover(button, relativePos) {
+            if (button.isBounding(relativePos)) {
+                button.setHover(true);
             }
             else {
-                this.startButton.setHover(false);
+                button.setHover(false);
             }
         }
         clickHandler(position) {
