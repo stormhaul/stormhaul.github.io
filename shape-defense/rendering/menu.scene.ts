@@ -36,7 +36,7 @@ export class MenuScene extends Scene{
         let settingsId = this.buttonLayer.addItem(settingsButton);
 
         let testLabel = new TextElement().setValue('Test');
-        let testButton = new Button(new Point(10, 110), 150, 40, testLabel, new Event('settings.button.clicked'));
+        let testButton = new Button(new Point(10, 110), 150, 40, testLabel, new Event('test.button.clicked'));
         let testId = this.buttonLayer.addItem(testButton);
 
         let startLabel = new TextElement().setValue('Start');
