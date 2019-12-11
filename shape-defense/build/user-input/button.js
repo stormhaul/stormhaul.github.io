@@ -1,8 +1,9 @@
-define(["require", "exports", "../helpers/point"], function (require, exports, point_1) {
+define(["require", "exports", "../helpers/point", "../rendering/renderable.parent"], function (require, exports, point_1, renderable_parent_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    class Button {
+    class Button extends renderable_parent_1.RenderableParent {
         constructor(position, width, height, label, event) {
+            super();
             this.position = position;
             this.width = width;
             this.height = height;
@@ -25,7 +26,7 @@ define(["require", "exports", "../helpers/point"], function (require, exports, p
             context.rect(this.position, this.width, this.height, this.borderWidth, true, this.getBackgroundColor(), true, this.getBorderColor());
             this.setLabelAlignmentPostion(context);
             this.label.setColor(this.getTextColor());
-            this.label.render(context, this.position);
+            this.label.render(context, this.getParentOffset());
         }
         setLabelAlignmentPostion(context) {
             let metrics = context.measureText(this.label);

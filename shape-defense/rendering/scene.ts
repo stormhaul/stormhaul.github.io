@@ -2,12 +2,15 @@ import {ViewportPanel} from "./viewport-panels/viewport.panel";
 import {RenderableInterface} from "./renderable.interface";
 import {Context} from "./context";
 import {Mouse} from "../user-input/mouse";
+import {RenderableParent} from "./renderable.parent";
 
-export abstract class Scene implements RenderableInterface{
+export abstract class Scene extends RenderableParent{
     private panels: Array<ViewportPanel> = [];
     protected mouse: Mouse;
 
     constructor(mouse: Mouse) {
+        super();
+
         this.mouse = mouse;
     }
 

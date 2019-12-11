@@ -14,12 +14,15 @@ define(["require", "exports", "./scene", "./viewport-panels/layer", "./viewport-
             this.panel.addLayer(this.separatorLayer);
             this.panel.addLayer(this.textLayer);
             this.panel.addLayer(this.buttonLayer);
-            let startLabel = new text_element_1.TextElement().setValue('Start');
-            let startButton = new button_1.Button(new point_1.Point(10, 10), 150, 40, startLabel, new Event('start.button.clicked'));
-            let startId = this.buttonLayer.addItem(startButton);
             let settingsLabel = new text_element_1.TextElement().setValue('Settings');
             let settingsButton = new button_1.Button(new point_1.Point(10, 60), 150, 40, settingsLabel, new Event('settings.button.clicked'));
             let settingsId = this.buttonLayer.addItem(settingsButton);
+            let testLabel = new text_element_1.TextElement().setValue('Test');
+            let testButton = new button_1.Button(new point_1.Point(10, 110), 150, 40, testLabel, new Event('settings.button.clicked'));
+            let testId = this.buttonLayer.addItem(testButton);
+            let startLabel = new text_element_1.TextElement().setValue('Start');
+            let startButton = new button_1.Button(new point_1.Point(10, 10), 150, 40, startLabel, new Event('start.button.clicked'));
+            let startId = this.buttonLayer.addItem(startButton);
             console.log(this.buttonLayer);
             this.startButton = startButton;
         }

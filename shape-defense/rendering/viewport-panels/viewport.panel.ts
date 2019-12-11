@@ -4,8 +4,9 @@ import {ConditionalSubscriber} from "../../user-input/conditional.subscriber";
 import {Layer} from "./layer";
 import {Context} from "../context";
 import {RenderableInterface} from "../renderable.interface";
+import {RenderableParent} from "../renderable.parent";
 
-export class ViewportPanel implements RenderableInterface{
+export class ViewportPanel extends RenderableParent{
     private leftBound: number; // inclusive
     private rightBound: number; // exclusive
     private topBound: number; // inclusive
@@ -18,6 +19,8 @@ export class ViewportPanel implements RenderableInterface{
     private layers: Array<Layer> = [];
 
     constructor(mouse: Mouse, offset: Point, width: number, height: number, moveHandler: (position: Point) => void, clickHandler: (position: Point) => void) {
+        super();
+
         this.offset     = offset;
         this.width      = width;
         this.height     = height;

@@ -1,13 +1,16 @@
 import {RenderableInterface} from "../renderable.interface";
 import {Map} from "../../helpers/map.interface";
 import {Context} from "../context";
+import {RenderableParent} from "../renderable.parent";
 
-export class Layer implements RenderableInterface{
+export class Layer extends RenderableParent{
     private rgstCounter: number = 0;
     private renderables: Map = {};
     private priority: number;
 
     constructor(priority?: number) {
+        super();
+
         if (priority === undefined) {
             priority = 0;
         }

@@ -1,8 +1,9 @@
-define(["require", "exports"], function (require, exports) {
+define(["require", "exports", "../renderable.parent"], function (require, exports, renderable_parent_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    class Layer {
+    class Layer extends renderable_parent_1.RenderableParent {
         constructor(priority) {
+            super();
             this.rgstCounter = 0;
             this.renderables = {};
             if (priority === undefined) {

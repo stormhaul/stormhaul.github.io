@@ -2,9 +2,10 @@ import {Point} from "../helpers/point";
 import {TextElement} from "./text.element";
 import {RenderableInterface} from "../rendering/renderable.interface";
 import {Context} from "../rendering/context";
+import {RenderableParent} from "../rendering/renderable.parent";
 
-export class Button implements RenderableInterface{
-    private position: Point;
+export class Button extends RenderableParent{
+    protected position: Point;
     private width: number;
     private height: number;
     private borderWidth: number;
@@ -20,6 +21,7 @@ export class Button implements RenderableInterface{
     private event: Event;
 
     constructor(position: Point, width: number, height: number, label: TextElement, event: Event) {
+        super();
         this.position = position;
         this.width = width;
         this.height = height;
@@ -46,7 +48,7 @@ export class Button implements RenderableInterface{
         context.rect(this.position, this.width, this.height, this.borderWidth, true, this.getBackgroundColor(), true, this.getBorderColor());
         this.setLabelAlignmentPostion(context);
         this.label.setColor(this.getTextColor());
-        this.label.render(context, this.position);
+        this.label.render(context, this.getParentOffset());
     }
 
     setLabelAlignmentPostion(context: Context): void {

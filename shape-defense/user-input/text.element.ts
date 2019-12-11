@@ -1,22 +1,25 @@
 import {RenderableInterface} from "../rendering/renderable.interface";
 import {Context} from "../rendering/context";
 import {Point} from "../helpers/point";
+import {RenderableParent} from "../rendering/renderable.parent";
 
-export class TextElement implements RenderableInterface{
+export class TextElement extends RenderableParent{
     private color: string;
     private fontFamily: string;
     private fontSize: number; // in pixels
-    private position: Point;
+    protected position: Point;
     private value: string;
     private maxWidth: number;
 
     constructor() {
+        super();
+
         // Defaults
-        this.color          = "black";
-        this.fontFamily     = "sans-serif";
-        this.fontSize       = 12;
-        this.position       = new Point(0,0);
-        this.maxWidth       = -1;
+        this.color      = "black";
+        this.fontFamily = "sans-serif";
+        this.fontSize   = 12;
+        this.position   = new Point(0,0);
+        this.maxWidth   = -1;
     }
 
 
@@ -74,6 +77,7 @@ export class TextElement implements RenderableInterface{
     }
 
     render(context: Context, offset: Point = new Point(0,0)): void {
+        console.log("Text Element Render Called with: ", offset, this.position);
         context.text(this, offset);
     }
 }

@@ -31,13 +31,17 @@ export class MenuScene extends Scene{
         this.panel.addLayer(this.textLayer);
         this.panel.addLayer(this.buttonLayer);
 
-        let startLabel = new TextElement().setValue('Start');
-        let startButton = new Button(new Point(10, 10), 150, 40, startLabel, new Event('start.button.clicked'));
-        let startId = this.buttonLayer.addItem(startButton);
-
         let settingsLabel = new TextElement().setValue('Settings');
         let settingsButton = new Button(new Point(10, 60), 150, 40, settingsLabel, new Event('settings.button.clicked'));
         let settingsId = this.buttonLayer.addItem(settingsButton);
+
+        let testLabel = new TextElement().setValue('Test');
+        let testButton = new Button(new Point(10, 110), 150, 40, testLabel, new Event('settings.button.clicked'));
+        let testId = this.buttonLayer.addItem(testButton);
+
+        let startLabel = new TextElement().setValue('Start');
+        let startButton = new Button(new Point(10, 10), 150, 40, startLabel, new Event('start.button.clicked'));
+        let startId = this.buttonLayer.addItem(startButton);
 
         console.log(this.buttonLayer);
 

@@ -1,8 +1,9 @@
-define(["require", "exports", "../helpers/point"], function (require, exports, point_1) {
+define(["require", "exports", "../helpers/point", "../rendering/renderable.parent"], function (require, exports, point_1, renderable_parent_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    class TextElement {
+    class TextElement extends renderable_parent_1.RenderableParent {
         constructor() {
+            super();
             this.color = "black";
             this.fontFamily = "sans-serif";
             this.fontSize = 12;
@@ -51,6 +52,7 @@ define(["require", "exports", "../helpers/point"], function (require, exports, p
             return this.maxWidth === -1 ? null : this.maxWidth;
         }
         render(context, offset = new point_1.Point(0, 0)) {
+            console.log("Text Element Render Called with: ", offset, this.position);
             context.text(this, offset);
         }
     }
