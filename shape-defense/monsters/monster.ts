@@ -1,4 +1,5 @@
 import {Point} from "../helpers/point";
+import {Angle} from "../helpers/angle";
 
 export abstract class Monster {
     private position: Point;
@@ -7,6 +8,7 @@ export abstract class Monster {
     private health: number;
     private liveCost: number;
     private goldValue: number;
+    private direction: Angle;
 
     /**
      * @param position
@@ -23,6 +25,16 @@ export abstract class Monster {
         this.health = health;
         this.liveCost = liveCost;
         this.goldValue = goldValue;
+    }
+
+    setDirection(angle: Angle): this {
+        this.direction = angle;
+
+        return this;
+    }
+
+    getDirection(): Angle {
+        return this.direction;
     }
 
     move(): void {
