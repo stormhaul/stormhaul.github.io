@@ -8,7 +8,7 @@ define(["require", "exports", "./scene", "./viewport-panels/layer", "./viewport-
             this.separatorLayer = new layer_1.Layer(1);
             this.textLayer = new layer_1.Layer(2);
             this.buttonLayer = new layer_1.Layer(3);
-            this.panel = new viewport_panel_1.ViewportPanel(this.mouse, new point_1.Point(0, 0), window.innerWidth, window.innerHeight, this.moveHandler, this.clickHandler);
+            this.panel = new viewport_panel_1.ViewportPanel(this.mouse, new point_1.Point(0, 0), window.innerWidth, window.innerHeight, this.moveHandler.bind(this), this.clickHandler.bind(this));
             this.addPanel(this.panel);
             this.panel.addLayer(this.backgroundLayer);
             this.panel.addLayer(this.separatorLayer);
@@ -23,7 +23,6 @@ define(["require", "exports", "./scene", "./viewport-panels/layer", "./viewport-
             let startLabel = new text_element_1.TextElement().setValue('Start');
             let startButton = new button_1.Button(new point_1.Point(10, 10), 150, 40, startLabel, new Event('start.button.clicked'));
             let startId = this.buttonLayer.addItem(startButton);
-            console.log(this.buttonLayer);
             this.startButton = startButton;
         }
         moveHandler(position) {

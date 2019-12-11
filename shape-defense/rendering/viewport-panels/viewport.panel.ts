@@ -49,6 +49,7 @@ export class ViewportPanel extends RenderableParent{
             }
         );
         this.mouse.subscribe('move', moveSubscriber);
+        this.mouse.subscribe('click', clickSubscriber);
     }
 
     activate(): void {
@@ -87,9 +88,11 @@ export class ViewportPanel extends RenderableParent{
      * @param context
      */
     render(context: Context): void {
-        this.layers.map((layer) => {
-            layer.render(context);
-        });
+        if (this.active) {
+            this.layers.map((layer) => {
+                layer.render(context);
+            });
+        }
     }
 
     getOffset(): Point {

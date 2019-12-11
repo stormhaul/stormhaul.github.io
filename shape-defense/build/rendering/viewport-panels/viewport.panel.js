@@ -25,6 +25,7 @@ define(["require", "exports", "../../user-input/conditional.subscriber", "../ren
                 clickHandler(this.mouse.getMousePosition());
             });
             this.mouse.subscribe('move', moveSubscriber);
+            this.mouse.subscribe('click', clickSubscriber);
         }
         activate() {
             this.active = true;
@@ -43,9 +44,11 @@ define(["require", "exports", "../../user-input/conditional.subscriber", "../ren
             this.prioritizeLayers();
         }
         render(context) {
-            this.layers.map((layer) => {
-                layer.render(context);
-            });
+            if (this.active) {
+                this.layers.map((layer) => {
+                    layer.render(context);
+                });
+            }
         }
         getOffset() {
             return this.offset;

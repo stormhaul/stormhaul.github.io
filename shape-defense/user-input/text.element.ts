@@ -77,7 +77,6 @@ export class TextElement extends RenderableParent{
     }
 
     render(context: Context, offset: Point = new Point(0,0)): void {
-        console.log("Text Element Render Called with: ", offset, this.position);
         context.text(this, offset);
     }
 }

@@ -6,7 +6,7 @@ import {Mouse} from "../user-input/mouse";
 import {Button} from "../user-input/button";
 import {TextElement} from "../user-input/text.element";
 
-export class MenuScene extends Scene{
+export class MenuScene extends Scene {
     private backgroundLayer: Layer;
     private separatorLayer: Layer;
     private textLayer: Layer;
@@ -23,7 +23,7 @@ export class MenuScene extends Scene{
         this.textLayer       = new Layer(2);
         this.buttonLayer     = new Layer(3);
 
-        this.panel = new ViewportPanel(this.mouse, new Point(0,0), window.innerWidth, window.innerHeight, this.moveHandler, this.clickHandler);
+        this.panel = new ViewportPanel(this.mouse, new Point(0,0), window.innerWidth, window.innerHeight, this.moveHandler.bind(this), this.clickHandler.bind(this));
         this.addPanel(this.panel);
 
         this.panel.addLayer(this.backgroundLayer);
@@ -42,8 +42,6 @@ export class MenuScene extends Scene{
         let startLabel = new TextElement().setValue('Start');
         let startButton = new Button(new Point(10, 10), 150, 40, startLabel, new Event('start.button.clicked'));
         let startId = this.buttonLayer.addItem(startButton);
-
-        console.log(this.buttonLayer);
 
         this.startButton = startButton;
     }

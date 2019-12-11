@@ -52,7 +52,6 @@ define(["require", "exports", "../helpers/point", "../rendering/renderable.paren
             return this.maxWidth === -1 ? null : this.maxWidth;
         }
         render(context, offset = new point_1.Point(0, 0)) {
-            console.log("Text Element Render Called with: ", offset, this.position);
             context.text(this, offset);
         }
     }

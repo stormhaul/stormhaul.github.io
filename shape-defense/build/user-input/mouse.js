@@ -7,7 +7,6 @@ define(["require", "exports", "../helpers/point"], function (require, exports, p
             this.moveSubscribers = [];
             document.addEventListener('mousemove', this.dispatchMove.bind(this));
             document.addEventListener('click', this.dispatchClick.bind(this));
-            console.log("new mouse created");
         }
         getMousePosition() {
             return this.mousePosition;
