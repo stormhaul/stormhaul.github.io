@@ -18,11 +18,11 @@ define(["require", "exports", "./scene", "./viewport-panels/layer", "./viewport-
             let backdrop = new backdrop_1.Backdrop(new point_1.Point((window.innerWidth - backdropWidth) / 2, 0), backdropWidth, 500, '#333');
             this.backgroundLayer.addItem(backdrop);
             let startLabel = new text_element_1.TextElement().setValue('Start');
-            let startButton = new button_1.Button(new point_1.Point(0, 0), 150, 40, startLabel, new Event('start.button.clicked'));
+            let startButton = new button_1.Button(new point_1.Point(225, 10), 150, 40, startLabel, new Event('start.button.clicked'));
             startButton.attachParent(backdrop);
             let startId = this.buttonLayer.addItem(startButton);
             let settingsLabel = new text_element_1.TextElement().setValue('Settings');
-            let settingsButton = new button_1.Button(new point_1.Point(0, 40), 150, 40, settingsLabel, new Event('settings.button.clicked'));
+            let settingsButton = new button_1.Button(new point_1.Point(225, 60), 150, 40, settingsLabel, new Event('settings.button.clicked'));
             settingsButton.attachParent(backdrop);
             let settingsId = this.buttonLayer.addItem(settingsButton);
             this.startButton = startButton;
@@ -43,8 +43,12 @@ define(["require", "exports", "./scene", "./viewport-panels/layer", "./viewport-
         }
         clickHandler(position) {
             let relativePos = position.sub(this.panel.getOffset());
-            if (this.startButton.isBounding(relativePos)) {
-                this.startButton.trigger();
+            this.buttonClick(this.startButton, relativePos);
+            this.buttonClick(this.settingsButton, relativePos);
+        }
+        buttonClick(button, relativePos) {
+            if (button.isBounding(relativePos)) {
+                button.trigger();
             }
         }
     }

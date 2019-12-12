@@ -41,6 +41,7 @@ export class Button extends RenderableParent{
     }
 
     trigger(): void {
+        console.log('trigger called', this.event);
         document.dispatchEvent(this.event);
     }
 

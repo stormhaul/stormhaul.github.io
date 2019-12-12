@@ -33,7 +33,6 @@ export class MenuScene extends Scene {
         this.panel.addLayer(this.textLayer);
         this.panel.addLayer(this.buttonLayer);
 
-        // @todo Error in button background placement when attached to backdrop.
         // @todo Error in padding logic for backdrop since buttonds are ignoring the parent offset bonus points from margin, padding, adn border width.
         // Menu Background
         let backdropWidth = 600;
@@ -42,12 +41,12 @@ export class MenuScene extends Scene {
 
         // Menu Buttons
         let startLabel = new TextElement().setValue('Start');
-        let startButton = new Button(new Point(0, 0), 150, 40, startLabel, new Event('start.button.clicked'));
+        let startButton = new Button(new Point(225, 10), 150, 40, startLabel, new Event('start.button.clicked'));
         startButton.attachParent(backdrop);
         let startId = this.buttonLayer.addItem(startButton);
 
         let settingsLabel = new TextElement().setValue('Settings');
-        let settingsButton = new Button(new Point(0, 40), 150, 40, settingsLabel, new Event('settings.button.clicked'));
+        let settingsButton = new Button(new Point(225, 60), 150, 40, settingsLabel, new Event('settings.button.clicked'));
         settingsButton.attachParent(backdrop);
         let settingsId = this.buttonLayer.addItem(settingsButton);
 
@@ -71,9 +70,13 @@ export class MenuScene extends Scene {
 
     clickHandler(position: Point): void {
         let relativePos = position.sub(this.panel.getOffset());
-        if (this.startButton.isBounding(relativePos)) {
-            this.startButton.trigger()
-        }
+        this.buttonClick(this.startButton, relativePos);
+        this.buttonClick(this.settingsButton, relativePos);
     }
 
+    buttonClick(button: Button, relativePos: Point): void {
+        if (button.isBounding(relativePos)) {
+            button.trigger();
+        }
+    }
 }

@@ -20,6 +20,7 @@ define(["require", "exports", "../helpers/point", "../rendering/renderable.paren
             this.alignment = 'center';
         }
         trigger() {
+            console.log('trigger called', this.event);
             document.dispatchEvent(this.event);
         }
         render(context) {
