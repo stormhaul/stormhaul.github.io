@@ -2,9 +2,9 @@ import {Context} from "../rendering/context";
 import {Scene} from "../rendering/scene";
 
 export class SceneController {
-    private scenes: Array <Scene>;
+    private scenes: Array<Scene>;
 
-    constructor(scenes: Array <Scene>) {
+    constructor(scenes: Array<Scene>) {
         this.scenes = scenes;
 
         if (this.scenes.length > 0) {
