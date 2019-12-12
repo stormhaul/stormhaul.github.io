@@ -9,6 +9,7 @@ define(["require", "exports", "../helpers/point", "../rendering/renderable.paren
             this.fontSize = 12;
             this.position = new point_1.Point(0, 0);
             this.maxWidth = -1;
+            this.value = '';
         }
         getColor() {
             return this.color;

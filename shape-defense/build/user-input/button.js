@@ -20,7 +20,6 @@ define(["require", "exports", "../helpers/point", "../rendering/renderable.paren
             this.alignment = 'center';
         }
         trigger() {
-            console.log('trigger called', this.event);
             document.dispatchEvent(this.event);
         }
         render(context) {
@@ -49,6 +48,22 @@ define(["require", "exports", "../helpers/point", "../rendering/renderable.paren
         }
         getBackgroundColor() {
             return this.isHovered ? this.hoverBackgroundColor : this.backgroundColor;
+        }
+        setBackgroundColor(color) {
+            this.backgroundColor = color;
+            return this;
+        }
+        setHoverBackgroundColor(color) {
+            this.hoverBackgroundColor = color;
+            return this;
+        }
+        setBorderColor(color) {
+            this.borderColor = color;
+            return this;
+        }
+        setHoverBorderColor(color) {
+            this.hoverBorderColor = color;
+            return this;
         }
         getBorderColor() {
             return this.isHovered ? this.hoverBorderColor : this.borderColor;

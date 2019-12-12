@@ -41,7 +41,6 @@ export class Button extends RenderableParent{
     }
 
     trigger(): void {
-        console.log('trigger called', this.event);
         document.dispatchEvent(this.event);
     }
 
@@ -74,6 +73,30 @@ export class Button extends RenderableParent{
 
     getBackgroundColor(): string {
         return this.isHovered ? this.hoverBackgroundColor : this.backgroundColor;
+    }
+
+    setBackgroundColor(color: string): this {
+        this.backgroundColor = color;
+
+        return this;
+    }
+
+    setHoverBackgroundColor(color: string): this {
+        this.hoverBackgroundColor = color;
+
+        return this;
+    }
+
+    setBorderColor(color: string): this {
+        this.borderColor = color;
+
+        return this;
+    }
+
+    setHoverBorderColor(color: string): this {
+        this.hoverBorderColor = color;
+
+        return this;
     }
 
     getBorderColor(): string {

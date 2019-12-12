@@ -60,7 +60,7 @@ export class MenuScene extends Scene {
         this.buttonHover(this.settingsButton, relativePos);
     }
 
-    buttonHover(button: Button, relativePos: Point): void {
+    private buttonHover(button: Button, relativePos: Point): void {
         if (button.isBounding(relativePos)) {
             button.setHover(true);
         } else {
@@ -74,7 +74,7 @@ export class MenuScene extends Scene {
         this.buttonClick(this.settingsButton, relativePos);
     }
 
-    buttonClick(button: Button, relativePos: Point): void {
+    private buttonClick(button: Button, relativePos: Point): void {
         if (button.isBounding(relativePos)) {
             button.trigger();
         }

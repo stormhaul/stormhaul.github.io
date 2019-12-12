@@ -5,6 +5,9 @@ define(["require", "exports", "../helpers/point"], function (require, exports, p
         constructor(ctx) {
             this.ctx = ctx;
         }
+        clear() {
+            this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+        }
         line(p1, p2, lineWidth, strokeStyle) {
             this.ctx.beginPath();
             this.ctx.strokeStyle = strokeStyle;

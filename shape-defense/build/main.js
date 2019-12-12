@@ -16,7 +16,9 @@ define(["require", "exports", "./rendering/context", "./rendering/menu.scene", "
             let menuScene = new menu_scene_1.MenuScene(mouse);
             let gameScene = new game_scene_1.GameScene(mouse);
             let settingsScene = new settings_scene_1.SettingsScene(mouse);
-            this.sceneController = new scene_controller_1.SceneController([menuScene, gameScene, settingsScene]);
+            this.sceneController = new scene_controller_1.SceneController(menuScene);
+            this.sceneController.addScene(gameScene, 'game.button.clicked');
+            this.sceneController.addScene(settingsScene, 'settings.button.clicked');
             this.run();
         }
         run() {

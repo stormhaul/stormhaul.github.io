@@ -28,7 +28,10 @@ export class Main {
         let gameScene = new GameScene(mouse);
         let settingsScene = new SettingsScene(mouse);
 
-        this.sceneController = new SceneController([menuScene, gameScene, settingsScene]);
+        this.sceneController = new SceneController(menuScene);
+        this.sceneController.addScene(gameScene, 'game.button.clicked');
+        this.sceneController.addScene(settingsScene, 'settings.button.clicked');
+
         this.run();
     }
 

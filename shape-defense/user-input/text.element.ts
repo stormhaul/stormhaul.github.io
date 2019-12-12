@@ -20,6 +20,7 @@ export class TextElement extends RenderableParent{
         this.fontSize   = 12;
         this.position   = new Point(0,0);
         this.maxWidth   = -1;
+        this.value      = '';
     }
 
 

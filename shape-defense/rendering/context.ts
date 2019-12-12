@@ -8,6 +8,10 @@ export class Context {
         this.ctx  = ctx;
     }
 
+    clear(): void {
+        this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+    }
+
     line(p1: Point, p2: Point, lineWidth: number, strokeStyle: string) {
         this.ctx.beginPath();
 
