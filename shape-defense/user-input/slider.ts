@@ -44,9 +44,6 @@ export class Slider extends RenderableParent{
         this.hoverBackgroundColor = '#eee';
         this.labelColor           = '#000';
 
-        this.buttons = [];
-        this.buttonValues = [];
-
         this.generateButtons();
         this.setupEventListener();
 
@@ -92,6 +89,9 @@ export class Slider extends RenderableParent{
     }
 
     private generateButtons(): void {
+        this.buttons = [];
+        this.buttonValues = [];
+
         let diff = this.end - this.start;
         let num = Math.floor(diff / this.increment);
         let buttonWidth = this.width / num;
