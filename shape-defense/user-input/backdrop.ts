@@ -54,8 +54,8 @@ export class Backdrop extends RenderableParent{
     }
 
     getParentOffset(): Point {
-        let additionalOffset = this.padding + this.margin + this.borderWidth;
-        return super.getParentOffset().add(new Point(additionalOffset, additionalOffset));
+        let additionalOffset = this.padding + this.margin + 3 * this.borderWidth;
+        return this.position.add(super.getParentOffset().add(new Point(additionalOffset, additionalOffset)));
     }
 
     render(context: Context, offset: Point = new Point(0,0)): void {

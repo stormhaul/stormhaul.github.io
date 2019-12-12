@@ -30,8 +30,8 @@ define(["require", "exports", "../rendering/renderable.parent", "../helpers/poin
             return this;
         }
         getParentOffset() {
-            let additionalOffset = this.padding + this.margin + this.borderWidth;
-            return super.getParentOffset().add(new point_1.Point(additionalOffset, additionalOffset));
+            let additionalOffset = this.padding + this.margin + 3 * this.borderWidth;
+            return this.position.add(super.getParentOffset().add(new point_1.Point(additionalOffset, additionalOffset)));
         }
         render(context, offset = new point_1.Point(0, 0)) {
             let additionalOffset = this.padding + this.margin;

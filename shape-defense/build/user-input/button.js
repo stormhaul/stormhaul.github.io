@@ -23,10 +23,10 @@ define(["require", "exports", "../helpers/point", "../rendering/renderable.paren
             document.dispatchEvent(this.event);
         }
         render(context) {
-            context.rect(this.position.add(this.getParentOffset()), this.width, this.height, this.borderWidth, true, this.getBackgroundColor(), true, this.getBorderColor());
+            context.rect(this.getParentOffset().add(this.position), this.width, this.height, this.borderWidth, true, this.getBackgroundColor(), true, this.getBorderColor());
             this.setLabelAlignmentPostion(context);
             this.label.setColor(this.getTextColor());
-            this.label.render(context, this.getParentOffset());
+            this.label.render(context, this.position.add(this.getParentOffset()));
         }
         setLabelAlignmentPostion(context) {
             let metrics = context.measureText(this.label);

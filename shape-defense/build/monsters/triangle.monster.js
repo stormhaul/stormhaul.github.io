@@ -5,6 +5,9 @@ define(["require", "exports", "./monster"], function (require, exports, monster_
         constructor(position, path) {
             super(position, path, 20, 100, 1, 40);
         }
+        render(context, offset) {
+            super.render(context, offset);
+        }
     }
     exports.TriangleMonster = TriangleMonster;
 });

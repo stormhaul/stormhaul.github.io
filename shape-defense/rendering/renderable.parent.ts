@@ -13,7 +13,7 @@ export abstract class RenderableParent implements RenderableInterface{
     }
 
     getParentOffset(): Point {
-        return this.parent !== null && this.parent !== undefined ? this.parent.getParentOffset().add(this.position) : this.position;
+        return this.parent !== null && this.parent !== undefined ? this.parent.getParentOffset() : new Point(0,0);
     }
 
     abstract render(context: Context, offset: Point): void;
