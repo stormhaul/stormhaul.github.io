@@ -36,6 +36,7 @@ export class SettingsScene extends Scene {
         // Menu Background
         let backdropWidth = 600;
         let backdrop = new Backdrop(new Point((window.innerWidth - backdropWidth) / 2,0), backdropWidth, 500, '#333');
+        backdrop.attachParent(this.panel);
         this.backgroundLayer.addItem(backdrop);
 
         let volumeLabel = new TextElement().setValue('Volume').setPosition(new Point(900, 25)).setColor('white');

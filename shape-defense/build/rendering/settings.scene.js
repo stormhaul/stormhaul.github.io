@@ -16,6 +16,7 @@ define(["require", "exports", "./scene", "../user-interface/slider", "../helpers
             this.panel.addLayer(this.buttonLayer);
             let backdropWidth = 600;
             let backdrop = new backdrop_1.Backdrop(new point_1.Point((window.innerWidth - backdropWidth) / 2, 0), backdropWidth, 500, '#333');
+            backdrop.attachParent(this.panel);
             this.backgroundLayer.addItem(backdrop);
             let volumeLabel = new text_element_1.TextElement().setValue('Volume').setPosition(new point_1.Point(900, 25)).setColor('white');
             volumeLabel.attachParent(backdrop);

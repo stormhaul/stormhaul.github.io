@@ -41,7 +41,7 @@ export class MenuScene extends Scene {
 
         // Menu Buttons
         let startLabel = new TextElement().setValue('Start');
-        let startButton = new Button(new Point(225, 10), 150, 40, startLabel, new Event('start.button.clicked'));
+        let startButton = new Button(new Point(225, 10), 150, 40, startLabel, new Event('game.button.clicked'));
         startButton.attachParent(backdrop);
         let startId = this.buttonLayer.addItem(startButton);
 

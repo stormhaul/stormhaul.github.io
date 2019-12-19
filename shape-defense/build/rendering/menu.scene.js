@@ -18,7 +18,7 @@ define(["require", "exports", "./scene", "./viewport-panels/layer", "./viewport-
             let backdrop = new backdrop_1.Backdrop(new point_1.Point((window.innerWidth - backdropWidth) / 2, 0), backdropWidth, 500, '#333');
             this.backgroundLayer.addItem(backdrop);
             let startLabel = new text_element_1.TextElement().setValue('Start');
-            let startButton = new button_1.Button(new point_1.Point(225, 10), 150, 40, startLabel, new Event('start.button.clicked'));
+            let startButton = new button_1.Button(new point_1.Point(225, 10), 150, 40, startLabel, new Event('game.button.clicked'));
             startButton.attachParent(backdrop);
             let startId = this.buttonLayer.addItem(startButton);
             let settingsLabel = new text_element_1.TextElement().setValue('Settings');

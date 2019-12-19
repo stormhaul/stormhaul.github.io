@@ -3,6 +3,8 @@ import {Mouse} from "../user-interface/mouse";
 import {ViewportPanel} from "./viewport-panels/viewport.panel";
 import {Point} from "../helpers/point";
 import {Layer} from "./viewport-panels/layer";
+import {Frame} from "../user-interface/frame";
+import {RenderableParent} from "./renderable.parent";
 
 export class GameScene extends Scene {
     private topbarPanel: ViewportPanel;
@@ -44,6 +46,10 @@ export class GameScene extends Scene {
             () => {},
             () => {}
         );
+        this.topBackgroundLayer = new Layer();
+        this.topSeparatorLayer = new Layer(1);
+        this.topTextLayer = new Layer(2);
+        this.topButtonLayer = new Layer(3);
 
         this.rightbarPanel = new ViewportPanel(
             mouse,
@@ -56,6 +62,10 @@ export class GameScene extends Scene {
             () => {},
             () => {}
         );
+        this.rightBackgroundLayer = new Layer();
+        this.rightSeparatorLayer = new Layer(1);
+        this.rightTextLayer = new Layer(2);
+        this.rightButtonLayer = new Layer(3);
 
         this.mapPanel = new ViewportPanel(
             mouse,
@@ -65,6 +75,9 @@ export class GameScene extends Scene {
             () => {},
             () => {}
         );
+        this.mapBackgroundLayer = new Layer();
+        this.mapSeparatorLayer = new Layer(1);
+        this.mapGameViewLayer = new Layer(2);
 
         this
             .initializePanel(
@@ -93,6 +106,32 @@ export class GameScene extends Scene {
                     this.mapGameViewLayer
                 ]
             );
+
+        let topFrame = new Frame(new Point(1.5,1.5), window.innerWidth - 3, topbarHeight - 3, 'green');
+        topFrame.attachParent(this.topbarPanel);
+        this.topSeparatorLayer.addItem(
+            topFrame
+        );
+
+        let rightFrame = new Frame(new Point(1.5,1.5), rightbarWidth - 3, window.innerHeight - topbarHeight - 3, 'blue');
+        rightFrame.attachParent(this.rightbarPanel);
+        this.rightSeparatorLayer.addItem(
+            rightFrame
+        );
+
+        let mapFrame = new Frame(
+            new Point(1.5,1.5),
+            window.innerWidth - rightbarWidth - 3,
+            window.innerHeight - topbarHeight - 3, 'pink'
+        );
+        mapFrame.attachParent(this.mapPanel);
+        this.mapSeparatorLayer.addItem(
+            mapFrame
+        );
+
+        topFrame.log();
+        rightFrame.log();
+        mapFrame.log();
 
         return this;
     }

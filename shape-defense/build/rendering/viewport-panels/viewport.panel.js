@@ -42,6 +42,7 @@ define(["require", "exports", "../../user-interface/conditional.subscriber", "..
         addLayer(layer) {
             this.layers.push(layer);
             this.prioritizeLayers();
+            return this;
         }
         render(context) {
             if (this.active) {
@@ -52,6 +53,9 @@ define(["require", "exports", "../../user-interface/conditional.subscriber", "..
         }
         getOffset() {
             return this.offset;
+        }
+        getParentOffset() {
+            return this.parent !== null && this.parent !== undefined ? this.parent.getParentOffset().add(this.getOffset()) : this.getOffset();
         }
     }
     exports.ViewportPanel = ViewportPanel;

@@ -100,4 +100,8 @@ export class ViewportPanel extends RenderableParent{
     getOffset(): Point {
         return this.offset;
     }
+
+    getParentOffset(): Point {
+        return this.parent !== null && this.parent !== undefined ? this.parent.getParentOffset().add(this.getOffset()) : this.getOffset();
+    }
 }
