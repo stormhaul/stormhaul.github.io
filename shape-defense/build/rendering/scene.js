@@ -6,6 +6,7 @@ define(["require", "exports", "./renderable.parent"], function (require, exports
             super();
             this.panels = [];
             this.mouse = mouse;
+            this.active = false;
         }
         addPanel(panel) {
             this.panels.push(panel);
@@ -15,11 +16,13 @@ define(["require", "exports", "./renderable.parent"], function (require, exports
             this.panels.map(panel => {
                 panel.activate();
             });
+            this.active = true;
         }
         deactivate() {
             this.panels.map(panel => {
                 panel.deactivate();
             });
+            this.active = false;
         }
         render(context) {
             this.panels.map((panel) => {

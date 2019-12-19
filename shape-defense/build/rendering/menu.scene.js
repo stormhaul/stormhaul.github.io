@@ -29,6 +29,9 @@ define(["require", "exports", "./scene", "./viewport-panels/layer", "./viewport-
             this.settingsButton = settingsButton;
         }
         moveHandler(position) {
+            if (!this.active) {
+                return;
+            }
             let relativePos = position.sub(this.panel.getOffset());
             this.buttonHover(this.startButton, relativePos);
             this.buttonHover(this.settingsButton, relativePos);
@@ -42,6 +45,9 @@ define(["require", "exports", "./scene", "./viewport-panels/layer", "./viewport-
             }
         }
         clickHandler(position) {
+            if (!this.active) {
+                return;
+            }
             let relativePos = position.sub(this.panel.getOffset());
             this.buttonClick(this.startButton, relativePos);
             this.buttonClick(this.settingsButton, relativePos);

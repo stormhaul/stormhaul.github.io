@@ -7,11 +7,13 @@ import {RenderableParent} from "./renderable.parent";
 export abstract class Scene extends RenderableParent{
     private panels: Array<ViewportPanel> = [];
     protected mouse: Mouse;
+    protected active: boolean;
 
     constructor(mouse: Mouse) {
         super();
 
-        this.mouse = mouse;
+        this.mouse  = mouse;
+        this.active = false;
     }
 
     addPanel(panel: ViewportPanel): number {
@@ -23,12 +25,14 @@ export abstract class Scene extends RenderableParent{
         this.panels.map(panel => {
             panel.activate();
         });
+        this.active = true;
     }
 
     deactivate(): void {
         this.panels.map(panel => {
             panel.deactivate();
         });
+        this.active = false;
     }
 
     render(context: Context): void {

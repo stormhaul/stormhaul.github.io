@@ -55,6 +55,9 @@ export class MenuScene extends Scene {
     }
 
     moveHandler(position: Point): void {
+        if (!this.active) {
+            return;
+        }
         let relativePos = position.sub(this.panel.getOffset());
         this.buttonHover(this.startButton, relativePos);
         this.buttonHover(this.settingsButton, relativePos);
@@ -69,6 +72,9 @@ export class MenuScene extends Scene {
     }
 
     clickHandler(position: Point): void {
+        if (!this.active) {
+            return;
+        }
         let relativePos = position.sub(this.panel.getOffset());
         this.buttonClick(this.startButton, relativePos);
         this.buttonClick(this.settingsButton, relativePos);

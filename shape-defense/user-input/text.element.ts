@@ -1,4 +1,3 @@
-import {RenderableInterface} from "../rendering/renderable.interface";
 import {Context} from "../rendering/context";
 import {Point} from "../helpers/point";
 import {RenderableParent} from "../rendering/renderable.parent";

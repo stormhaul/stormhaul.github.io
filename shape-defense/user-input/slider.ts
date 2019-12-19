@@ -40,7 +40,7 @@ export class Slider extends RenderableParent{
         this.height    = height;
 
         // Defaults
-        this.backgroundColor      = '#333';
+        this.backgroundColor      = '#000';
         this.hoverBackgroundColor = '#eee';
         this.labelColor           = '#000';
 
@@ -57,7 +57,7 @@ export class Slider extends RenderableParent{
         });
 
         this.setLabelAlignmentPostion(context);
-        this.label.setColor(this.labelColor);
+        this.label.setColor(this.getLabelColor());
         this.label.render(context, this.position.add(this.getParentOffset()));
     }
 
@@ -82,6 +82,16 @@ export class Slider extends RenderableParent{
 
     getValue(): number {
         return this.value;
+    }
+
+    getLabelColor(): string {
+        let r = 255;
+        let g = 0;
+        let b = 50;
+
+        let step = this.value / 100 * 255;
+
+        return 'rgb(' + (r-step) + ',' + (g+step) + ',' + b + ')';
     }
 
     private setupEventListener(): void {

@@ -15,11 +15,9 @@ define(["require", "exports", "../rendering/renderable.parent", "../helpers/poin
             this.position = position;
             this.width = width;
             this.height = height;
-            this.backgroundColor = '#333';
+            this.backgroundColor = '#000';
             this.hoverBackgroundColor = '#eee';
             this.labelColor = '#000';
-            this.buttons = [];
-            this.buttonValues = [];
             this.generateButtons();
             this.setupEventListener();
             this.label = new text_element_1.TextElement().setValue(this.value + '%');
@@ -30,7 +28,7 @@ define(["require", "exports", "../rendering/renderable.parent", "../helpers/poin
                 button.render(context);
             });
             this.setLabelAlignmentPostion(context);
-            this.label.setColor(this.labelColor);
+            this.label.setColor(this.getLabelColor());
             this.label.render(context, this.position.add(this.getParentOffset()));
         }
         clickHandler(point) {
@@ -51,10 +49,19 @@ define(["require", "exports", "../rendering/renderable.parent", "../helpers/poin
         getValue() {
             return this.value;
         }
+        getLabelColor() {
+            let r = 255;
+            let g = 0;
+            let b = 50;
+            let step = this.value / 100 * 255;
+            return 'rgb(' + (r - step) + ',' + (g + step) + ',' + b + ')';
+        }
         setupEventListener() {
             document.addEventListener(this.uniqueId + '.slider.clicked', this.handleButtonClicked.bind(this));
         }
         generateButtons() {
+            this.buttons = [];
+            this.buttonValues = [];
             let diff = this.end - this.start;
             let num = Math.floor(diff / this.increment);
             let buttonWidth = this.width / num;

@@ -28,6 +28,12 @@ export class Mouse {
         });
     };
 
+    /**
+     * @todo There is a bug where the settings scene get's clicks dispatched from the menu scene when the settings button is clicked.
+     *       This is caused by the menu subscriber click event being dispatched, which switches the scene.
+     *       Then since the settings scene is active when the subscribers dispatch continues it acts as though you've clicked
+     *       the active settings scene. This is an architectural problem and I'm not sure how to fix it yet.
+     */
     dispatchClick (e: MouseEvent): void {
         this.clickPosition = new Point(e.x, e.y);
 
