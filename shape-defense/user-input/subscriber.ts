@@ -7,6 +7,10 @@ export class Subscriber implements SubscriberInterface{
         this.callback = callback;
     }
 
+    active(): boolean {
+        return true;
+    }
+
     execute(): void {
         this.callback();
     }

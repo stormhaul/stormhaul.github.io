@@ -23,7 +23,13 @@ define(["require", "exports", "../helpers/point"], function (require, exports, p
         ;
         dispatchClick(e) {
             this.clickPosition = new point_1.Point(e.x, e.y);
+            let toExecute = [];
             this.clickSubscribers.map(s => {
+                if (s.active()) {
+                    toExecute.push(s);
+                }
+            });
+            toExecute.map(s => {
                 s.execute();
             });
         }

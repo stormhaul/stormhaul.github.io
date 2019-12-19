@@ -6,6 +6,9 @@ define(["require", "exports"], function (require, exports) {
             this.condition = condition;
             this.callback = callback;
         }
+        active() {
+            return this.condition();
+        }
         execute() {
             if (this.condition()) {
                 this.callback();

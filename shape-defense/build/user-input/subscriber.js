@@ -5,6 +5,9 @@ define(["require", "exports"], function (require, exports) {
         constructor(callback) {
             this.callback = callback;
         }
+        active() {
+            return true;
+        }
         execute() {
             this.callback();
         }

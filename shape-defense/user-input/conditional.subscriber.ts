@@ -9,6 +9,10 @@ export class ConditionalSubscriber implements SubscriberInterface{
         this.callback = callback;
     }
 
+    active(): boolean {
+        return this.condition();
+    }
+
     execute(): void {
         if (this.condition()) {
             this.callback();
