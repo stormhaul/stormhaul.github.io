@@ -47,7 +47,7 @@ export class GameScene extends Scene {
             () => {}
         );
         this.topBackgroundLayer = new Layer();
-        this.topSeparatorLayer = new Layer(1);
+        this.topSeparatorLayer = new Layer(9);
         this.topTextLayer = new Layer(2);
         this.topButtonLayer = new Layer(3);
 
@@ -63,7 +63,7 @@ export class GameScene extends Scene {
             () => {}
         );
         this.rightBackgroundLayer = new Layer();
-        this.rightSeparatorLayer = new Layer(1);
+        this.rightSeparatorLayer = new Layer(9);
         this.rightTextLayer = new Layer(2);
         this.rightButtonLayer = new Layer(3);
 
@@ -76,7 +76,7 @@ export class GameScene extends Scene {
             () => {}
         );
         this.mapBackgroundLayer = new Layer();
-        this.mapSeparatorLayer = new Layer(1);
+        this.mapSeparatorLayer = new Layer(9);
         this.mapGameViewLayer = new Layer(2);
 
         this
@@ -107,13 +107,13 @@ export class GameScene extends Scene {
                 ]
             );
 
-        let topFrame = new Frame(new Point(1.5,1.5), window.innerWidth - 3, topbarHeight - 3, 'green');
+        let topFrame = new Frame(new Point(1.5,1.5), window.innerWidth - 3, topbarHeight - 3);
         topFrame.attachParent(this.topbarPanel);
         this.topSeparatorLayer.addItem(
             topFrame
         );
 
-        let rightFrame = new Frame(new Point(1.5,1.5), rightbarWidth - 3, window.innerHeight - topbarHeight - 3, 'blue');
+        let rightFrame = new Frame(new Point(1.5,1.5), rightbarWidth - 3, window.innerHeight - topbarHeight - 3);
         rightFrame.attachParent(this.rightbarPanel);
         this.rightSeparatorLayer.addItem(
             rightFrame
@@ -122,16 +122,13 @@ export class GameScene extends Scene {
         let mapFrame = new Frame(
             new Point(1.5,1.5),
             window.innerWidth - rightbarWidth - 3,
-            window.innerHeight - topbarHeight - 3, 'pink'
+            window.innerHeight - topbarHeight - 3,
+            '#222'
         );
         mapFrame.attachParent(this.mapPanel);
         this.mapSeparatorLayer.addItem(
             mapFrame
         );
-
-        topFrame.log();
-        rightFrame.log();
-        mapFrame.log();
 
         return this;
     }

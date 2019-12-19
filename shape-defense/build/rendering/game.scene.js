@@ -41,18 +41,15 @@ define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "..
                 this.mapSeparatorLayer,
                 this.mapGameViewLayer
             ]);
-            let topFrame = new frame_1.Frame(new point_1.Point(1.5, 1.5), window.innerWidth - 3, topbarHeight - 3, 'green');
+            let topFrame = new frame_1.Frame(new point_1.Point(1.5, 1.5), window.innerWidth - 3, topbarHeight - 3);
             topFrame.attachParent(this.topbarPanel);
             this.topSeparatorLayer.addItem(topFrame);
-            let rightFrame = new frame_1.Frame(new point_1.Point(1.5, 1.5), rightbarWidth - 3, window.innerHeight - topbarHeight - 3, 'blue');
+            let rightFrame = new frame_1.Frame(new point_1.Point(1.5, 1.5), rightbarWidth - 3, window.innerHeight - topbarHeight - 3);
             rightFrame.attachParent(this.rightbarPanel);
             this.rightSeparatorLayer.addItem(rightFrame);
-            let mapFrame = new frame_1.Frame(new point_1.Point(1.5, 1.5), window.innerWidth - rightbarWidth - 3, window.innerHeight - topbarHeight - 3, 'pink');
+            let mapFrame = new frame_1.Frame(new point_1.Point(1.5, 1.5), window.innerWidth - rightbarWidth - 3, window.innerHeight - topbarHeight - 3, '#222');
             mapFrame.attachParent(this.mapPanel);
             this.mapSeparatorLayer.addItem(mapFrame);
-            topFrame.log();
-            rightFrame.log();
-            mapFrame.log();
             return this;
         }
         initializePanel(panel, layers) {
