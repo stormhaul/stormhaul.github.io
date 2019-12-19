@@ -4,7 +4,8 @@ import {ViewportPanel} from "./viewport-panels/viewport.panel";
 import {Point} from "../helpers/point";
 import {Layer} from "./viewport-panels/layer";
 import {Frame} from "../user-interface/frame";
-import {RenderableParent} from "./renderable.parent";
+import {Button} from "../user-interface/button";
+import {TextElement} from "../user-interface/text.element";
 
 export class GameScene extends Scene {
     private topbarPanel: ViewportPanel;
@@ -24,10 +25,17 @@ export class GameScene extends Scene {
     private mapSeparatorLayer: Layer;
     private mapGameViewLayer: Layer;
 
+    private menuButton: Button;
+
     constructor(mouse: Mouse) {
         super(mouse);
 
         this.initializeLayers(mouse);
+
+        this.menuButton = new Button(new Point(window.innerWidth - 50 - 3, 0), 50, 50, new TextElement().setValue('Menu'), new Event('menu.button.clicked'));
+        this.menuButton.attachParent(this.topButtonLayer);
+        this.topButtonLayer.addItem(this.menuButton);
+        console.log(this.menuButton, this.menuButton.getParentOffset());
     }
 
     /**
@@ -44,7 +52,7 @@ export class GameScene extends Scene {
             window.innerWidth,
             topbarHeight,
             () => {},
-            () => {}
+            this.topbarClickHandler.bind(this)
         );
         this.topBackgroundLayer = new Layer();
         this.topSeparatorLayer = new Layer(9);
@@ -145,5 +153,13 @@ export class GameScene extends Scene {
         });
 
         return this;
+    }
+
+    topbarClickHandler(position: Point): void {
+        if (!this.active) {
+            return;
+        }
+        let relativePos = position.sub(this.topbarPanel.getOffset());
+        this.buttonClick(this.menuButton, relativePos);
     }
 }

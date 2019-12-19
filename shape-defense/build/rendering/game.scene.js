@@ -1,27 +1,31 @@
-define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "../helpers/point", "./viewport-panels/layer", "../user-interface/frame"], function (require, exports, scene_1, viewport_panel_1, point_1, layer_1, frame_1) {
+define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "../helpers/point", "./viewport-panels/layer", "../user-interface/frame", "../user-interface/button", "../user-interface/text.element"], function (require, exports, scene_1, viewport_panel_1, point_1, layer_1, frame_1, button_1, text_element_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     class GameScene extends scene_1.Scene {
         constructor(mouse) {
             super(mouse);
             this.initializeLayers(mouse);
+            this.menuButton = new button_1.Button(new point_1.Point(window.innerWidth - 50 - 3, 0), 50, 50, new text_element_1.TextElement().setValue('Menu'), new Event('menu.button.clicked'));
+            this.menuButton.attachParent(this.topButtonLayer);
+            this.topButtonLayer.addItem(this.menuButton);
+            console.log(this.menuButton, this.menuButton.getParentOffset());
         }
         initializeLayers(mouse) {
             let topbarHeight = 50;
             let rightbarWidth = 50;
-            this.topbarPanel = new viewport_panel_1.ViewportPanel(mouse, new point_1.Point(0, 0), window.innerWidth, topbarHeight, () => { }, () => { });
+            this.topbarPanel = new viewport_panel_1.ViewportPanel(mouse, new point_1.Point(0, 0), window.innerWidth, topbarHeight, () => { }, this.topbarClickHandler.bind(this));
             this.topBackgroundLayer = new layer_1.Layer();
-            this.topSeparatorLayer = new layer_1.Layer(1);
+            this.topSeparatorLayer = new layer_1.Layer(9);
             this.topTextLayer = new layer_1.Layer(2);
             this.topButtonLayer = new layer_1.Layer(3);
             this.rightbarPanel = new viewport_panel_1.ViewportPanel(mouse, new point_1.Point(window.innerWidth - rightbarWidth, topbarHeight), rightbarWidth, window.innerHeight - topbarHeight, () => { }, () => { });
             this.rightBackgroundLayer = new layer_1.Layer();
-            this.rightSeparatorLayer = new layer_1.Layer(1);
+            this.rightSeparatorLayer = new layer_1.Layer(9);
             this.rightTextLayer = new layer_1.Layer(2);
             this.rightButtonLayer = new layer_1.Layer(3);
             this.mapPanel = new viewport_panel_1.ViewportPanel(mouse, new point_1.Point(0, topbarHeight), window.innerWidth - rightbarWidth, window.innerHeight - topbarHeight, () => { }, () => { });
             this.mapBackgroundLayer = new layer_1.Layer();
-            this.mapSeparatorLayer = new layer_1.Layer(1);
+            this.mapSeparatorLayer = new layer_1.Layer(9);
             this.mapGameViewLayer = new layer_1.Layer(2);
             this
                 .initializePanel(this.topbarPanel, [
@@ -58,6 +62,13 @@ define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "..
                 panel.addLayer(layer);
             });
             return this;
+        }
+        topbarClickHandler(position) {
+            if (!this.active) {
+                return;
+            }
+            let relativePos = position.sub(this.topbarPanel.getOffset());
+            this.buttonClick(this.menuButton, relativePos);
         }
     }
     exports.GameScene = GameScene;
