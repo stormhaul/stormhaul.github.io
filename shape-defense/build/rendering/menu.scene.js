@@ -36,14 +36,6 @@ define(["require", "exports", "./scene", "./viewport-panels/layer", "./viewport-
             this.buttonHover(this.startButton, relativePos);
             this.buttonHover(this.settingsButton, relativePos);
         }
-        buttonHover(button, relativePos) {
-            if (button.isBounding(relativePos)) {
-                button.setHover(true);
-            }
-            else {
-                button.setHover(false);
-            }
-        }
         clickHandler(position) {
             if (!this.active) {
                 return;
@@ -51,11 +43,6 @@ define(["require", "exports", "./scene", "./viewport-panels/layer", "./viewport-
             let relativePos = position.sub(this.panel.getOffset());
             this.buttonClick(this.startButton, relativePos);
             this.buttonClick(this.settingsButton, relativePos);
-        }
-        buttonClick(button, relativePos) {
-            if (button.isBounding(relativePos)) {
-                button.trigger();
-            }
         }
     }
     exports.MenuScene = MenuScene;

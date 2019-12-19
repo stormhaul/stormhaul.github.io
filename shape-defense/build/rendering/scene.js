@@ -29,6 +29,19 @@ define(["require", "exports", "./renderable.parent"], function (require, exports
                 panel.render(context);
             });
         }
+        buttonHover(button, relativePos) {
+            if (button.isBounding(relativePos)) {
+                button.setHover(true);
+            }
+            else {
+                button.setHover(false);
+            }
+        }
+        buttonClick(button, relativePos) {
+            if (button.isBounding(relativePos)) {
+                button.trigger();
+            }
+        }
     }
     exports.Scene = Scene;
 });

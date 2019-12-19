@@ -6,6 +6,7 @@ import {Layer} from "./viewport-panels/layer";
 import {ViewportPanel} from "./viewport-panels/viewport.panel";
 import {Backdrop} from "../user-input/backdrop";
 import {TextElement} from "../user-input/text.element";
+import {Button} from "../user-input/button";
 
 export class SettingsScene extends Scene {
     private backgroundLayer: Layer;
@@ -13,6 +14,7 @@ export class SettingsScene extends Scene {
     private textLayer: Layer;
     private buttonLayer: Layer;
     private volumeSlider: Slider;
+    private backButton: Button;
     private panel: ViewportPanel;
 
     constructor(mouse: Mouse) {
@@ -23,7 +25,7 @@ export class SettingsScene extends Scene {
         this.textLayer       = new Layer(2);
         this.buttonLayer     = new Layer(3);
 
-        this.panel = new ViewportPanel(this.mouse, new Point(0,0), window.innerWidth, window.innerHeight, () => {}, this.clickHandler.bind(this));
+        this.panel = new ViewportPanel(this.mouse, new Point(0,0), window.innerWidth, window.innerHeight, this.moveHandler.bind(this), this.clickHandler.bind(this));
         this.addPanel(this.panel);
 
         this.panel.addLayer(this.backgroundLayer);
@@ -43,15 +45,38 @@ export class SettingsScene extends Scene {
         this.volumeSlider = new Slider('volume', 0, 100, 1, new Point(50,50), 500, 50);
         this.volumeSlider.attachParent(backdrop);
 
+        let backLabel = new TextElement().setValue('Back');
+        this.backButton = new Button(
+            new Point(225, 450),
+            150,
+            40,
+            backLabel,
+            new Event('menu.button.clicked')
+        );
+        this.backButton.attachParent(backdrop);
+
         this.buttonLayer.addItem(this.volumeSlider);
+        this.buttonLayer.addItem(this.backButton);
     }
 
-    clickHandler(point: Point): void {
+    moveHandler(position: Point): void {
         if (!this.active) {
             return;
         }
-        if (this.volumeSlider.isBounding(point)) {
-            this.volumeSlider.clickHandler(point);
+        let relativePos = position.sub(this.panel.getOffset());
+        this.buttonHover(this.backButton, relativePos);
+    }
+
+    clickHandler(position: Point): void {
+        if (!this.active) {
+            return;
         }
+        let relativePos = position.sub(this.panel.getOffset());
+
+        if (this.volumeSlider.isBounding(position)) {
+            this.volumeSlider.clickHandler(position);
+        }
+
+        this.buttonClick(this.backButton, relativePos);
     }
 }

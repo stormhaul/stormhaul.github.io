@@ -3,6 +3,8 @@ import {RenderableInterface} from "./renderable.interface";
 import {Context} from "./context";
 import {Mouse} from "../user-input/mouse";
 import {RenderableParent} from "./renderable.parent";
+import {Button} from "../user-input/button";
+import {Point} from "../helpers/point";
 
 export abstract class Scene extends RenderableParent{
     private panels: Array<ViewportPanel> = [];
@@ -39,5 +41,19 @@ export abstract class Scene extends RenderableParent{
         this.panels.map((panel) => {
             panel.render(context);
         });
+    }
+
+    protected buttonHover(button: Button, relativePos: Point): void {
+        if (button.isBounding(relativePos)) {
+            button.setHover(true);
+        } else {
+            button.setHover(false);
+        }
+    }
+
+    protected buttonClick(button: Button, relativePos: Point): void {
+        if (button.isBounding(relativePos)) {
+            button.trigger();
+        }
     }
 }
