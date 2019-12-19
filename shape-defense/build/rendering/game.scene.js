@@ -5,7 +5,7 @@ define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "..
         constructor(mouse) {
             super(mouse);
             this.initializeLayers(mouse);
-            this.menuButton = new button_1.Button(new point_1.Point(window.innerWidth - 50 - 3, 0), 50, 50, new text_element_1.TextElement().setValue('Menu'), new Event('menu.button.clicked'));
+            this.menuButton = new button_1.Button(new point_1.Point(window.innerWidth - 42 - 3, 5), 40, 40, new text_element_1.TextElement().setValue('Menu'), new Event('menu.button.clicked'));
             this.menuButton.attachParent(this.topButtonLayer);
             this.topButtonLayer.addItem(this.menuButton);
             console.log(this.menuButton, this.menuButton.getParentOffset());
@@ -13,7 +13,7 @@ define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "..
         initializeLayers(mouse) {
             let topbarHeight = 50;
             let rightbarWidth = 50;
-            this.topbarPanel = new viewport_panel_1.ViewportPanel(mouse, new point_1.Point(0, 0), window.innerWidth, topbarHeight, () => { }, this.topbarClickHandler.bind(this));
+            this.topbarPanel = new viewport_panel_1.ViewportPanel(mouse, new point_1.Point(0, 0), window.innerWidth, topbarHeight, this.topbarMoveHandler.bind(this), this.topbarClickHandler.bind(this));
             this.topBackgroundLayer = new layer_1.Layer();
             this.topSeparatorLayer = new layer_1.Layer(9);
             this.topTextLayer = new layer_1.Layer(2);
@@ -69,6 +69,14 @@ define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "..
             }
             let relativePos = position.sub(this.topbarPanel.getOffset());
             this.buttonClick(this.menuButton, relativePos);
+        }
+        topbarMoveHandler(position) {
+            if (!this.active) {
+                this.menuButton.setHover(false);
+                return;
+            }
+            let relativePos = position.sub(this.topbarPanel.getOffset());
+            this.buttonHover(this.menuButton, relativePos);
         }
     }
     exports.GameScene = GameScene;

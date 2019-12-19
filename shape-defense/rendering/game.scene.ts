@@ -32,7 +32,7 @@ export class GameScene extends Scene {
 
         this.initializeLayers(mouse);
 
-        this.menuButton = new Button(new Point(window.innerWidth - 50 - 3, 0), 50, 50, new TextElement().setValue('Menu'), new Event('menu.button.clicked'));
+        this.menuButton = new Button(new Point(window.innerWidth - 42 - 3, 5), 40, 40, new TextElement().setValue('Menu'), new Event('menu.button.clicked'));
         this.menuButton.attachParent(this.topButtonLayer);
         this.topButtonLayer.addItem(this.menuButton);
         console.log(this.menuButton, this.menuButton.getParentOffset());
@@ -51,7 +51,7 @@ export class GameScene extends Scene {
             new Point(0,0),
             window.innerWidth,
             topbarHeight,
-            () => {},
+            this.topbarMoveHandler.bind(this),
             this.topbarClickHandler.bind(this)
         );
         this.topBackgroundLayer = new Layer();
@@ -161,5 +161,13 @@ export class GameScene extends Scene {
         }
         let relativePos = position.sub(this.topbarPanel.getOffset());
         this.buttonClick(this.menuButton, relativePos);
+    }
+
+    topbarMoveHandler(position: Point): void {
+        if (!this.active) {
+            return;
+        }
+        let relativePos = position.sub(this.topbarPanel.getOffset());
+        this.buttonHover(this.menuButton, relativePos);
     }
 }
