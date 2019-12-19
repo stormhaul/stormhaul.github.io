@@ -1,7 +1,8 @@
 import {Context} from "../rendering/context";
 import {Scene} from "../rendering/scene";
-import {Button} from "../user-input/button";
+import {Button} from "../user-interface/button";
 import {Point} from "../helpers/point";
+import {Layer} from "../rendering/viewport-panels/layer";
 
 export class SceneController {
     private scenes: Array<Scene>;

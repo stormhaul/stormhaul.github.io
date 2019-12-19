@@ -1,4 +1,4 @@
-define(["require", "exports", "../../user-input/conditional.subscriber", "../renderable.parent"], function (require, exports, conditional_subscriber_1, renderable_parent_1) {
+define(["require", "exports", "../../user-interface/conditional.subscriber", "../renderable.parent"], function (require, exports, conditional_subscriber_1, renderable_parent_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     class ViewportPanel extends renderable_parent_1.RenderableParent {

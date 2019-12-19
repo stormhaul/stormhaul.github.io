@@ -1,4 +1,4 @@
-define(["require", "exports", "./rendering/context", "./rendering/menu.scene", "./user-input/mouse", "./rendering/game.scene", "./rendering/settings.scene", "./controllers/scene.controller"], function (require, exports, context_1, menu_scene_1, mouse_1, game_scene_1, settings_scene_1, scene_controller_1) {
+define(["require", "exports", "./rendering/context", "./rendering/menu.scene", "./user-interface/mouse", "./rendering/game.scene", "./rendering/settings.scene", "./controllers/scene.controller"], function (require, exports, context_1, menu_scene_1, mouse_1, game_scene_1, settings_scene_1, scene_controller_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     class Main {

@@ -1,10 +1,11 @@
 import {ViewportPanel} from "./viewport-panels/viewport.panel";
 import {RenderableInterface} from "./renderable.interface";
 import {Context} from "./context";
-import {Mouse} from "../user-input/mouse";
+import {Mouse} from "../user-interface/mouse";
 import {RenderableParent} from "./renderable.parent";
-import {Button} from "../user-input/button";
+import {Button} from "../user-interface/button";
 import {Point} from "../helpers/point";
+import {Layer} from "./viewport-panels/layer";
 
 export abstract class Scene extends RenderableParent{
     private panels: Array<ViewportPanel> = [];
@@ -14,8 +15,8 @@ export abstract class Scene extends RenderableParent{
     constructor(mouse: Mouse) {
         super();
 
-        this.mouse  = mouse;
-        this.active = false;
+        this.mouse           = mouse;
+        this.active          = false;
     }
 
     addPanel(panel: ViewportPanel): number {

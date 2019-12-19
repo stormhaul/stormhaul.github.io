@@ -16,7 +16,13 @@ define(["require", "exports", "../helpers/point"], function (require, exports, p
         }
         dispatchMove(e) {
             this.mousePosition = new point_1.Point(e.x, e.y);
+            let toExecute = [];
             this.moveSubscribers.map(s => {
+                if (s.active()) {
+                    toExecute.push(s);
+                }
+            });
+            toExecute.map(s => {
                 s.execute();
             });
         }

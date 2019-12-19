@@ -1,12 +1,12 @@
 import {Scene} from "./scene";
-import {Mouse} from "../user-input/mouse";
-import {Slider} from "../user-input/slider";
+import {Mouse} from "../user-interface/mouse";
+import {Slider} from "../user-interface/slider";
 import {Point} from "../helpers/point";
 import {Layer} from "./viewport-panels/layer";
 import {ViewportPanel} from "./viewport-panels/viewport.panel";
-import {Backdrop} from "../user-input/backdrop";
-import {TextElement} from "../user-input/text.element";
-import {Button} from "../user-input/button";
+import {Backdrop} from "../user-interface/backdrop";
+import {TextElement} from "../user-interface/text.element";
+import {Button} from "../user-interface/button";
 
 export class SettingsScene extends Scene {
     private backgroundLayer: Layer;

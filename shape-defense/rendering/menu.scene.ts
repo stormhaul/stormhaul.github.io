@@ -2,10 +2,10 @@ import {Scene} from "./scene";
 import {Layer} from "./viewport-panels/layer";
 import {ViewportPanel} from "./viewport-panels/viewport.panel";
 import {Point} from "../helpers/point";
-import {Mouse} from "../user-input/mouse";
-import {Button} from "../user-input/button";
-import {TextElement} from "../user-input/text.element";
-import {Backdrop} from "../user-input/backdrop";
+import {Mouse} from "../user-interface/mouse";
+import {Button} from "../user-interface/button";
+import {TextElement} from "../user-interface/text.element";
+import {Backdrop} from "../user-interface/backdrop";
 
 export class MenuScene extends Scene {
     private backgroundLayer: Layer;

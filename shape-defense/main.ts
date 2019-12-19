@@ -1,6 +1,6 @@
 import {Context} from "./rendering/context";
 import {MenuScene} from "./rendering/menu.scene";
-import {Mouse} from "./user-input/mouse";
+import {Mouse} from "./user-interface/mouse";
 import {GameScene} from "./rendering/game.scene";
 import {SettingsScene} from "./rendering/settings.scene";
 import {SceneController} from "./controllers/scene.controller";

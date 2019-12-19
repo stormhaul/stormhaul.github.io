@@ -1,6 +1,6 @@
 import {Point} from "../../helpers/point";
-import {Mouse} from "../../user-input/mouse";
-import {ConditionalSubscriber} from "../../user-input/conditional.subscriber";
+import {Mouse} from "../../user-interface/mouse";
+import {ConditionalSubscriber} from "../../user-interface/conditional.subscriber";
 import {Layer} from "./layer";
 import {Context} from "../context";
 import {RenderableInterface} from "../renderable.interface";
@@ -79,9 +79,11 @@ export class ViewportPanel extends RenderableParent{
      * Add Layer to panel
      * @param layer
      */
-    addLayer(layer: Layer): void {
+    addLayer(layer: Layer): this {
         this.layers.push(layer);
         this.prioritizeLayers();
+
+        return this;
     }
 
     /**

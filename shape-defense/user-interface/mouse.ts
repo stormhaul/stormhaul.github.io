@@ -23,9 +23,18 @@ export class Mouse {
     dispatchMove(e: MouseEvent): void {
         this.mousePosition = new Point(e.x, e.y);
 
+        let toExecute = [];
         this.moveSubscribers.map(s => {
-            s.execute();
+            if (s.active()) {
+                toExecute.push(s);
+            }
         });
+
+        // the reason for the double loop is to prevent events from being dispatched to subscribers which weren't active
+        // when the move originally occurred.
+        toExecute.map(s => {
+            s.execute();
+        })
     };
 
     dispatchClick (e: MouseEvent): void {

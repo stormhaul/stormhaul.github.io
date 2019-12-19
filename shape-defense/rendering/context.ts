@@ -1,5 +1,5 @@
 import {Point} from "../helpers/point";
-import {TextElement} from "../user-input/text.element";
+import {TextElement} from "../user-interface/text.element";
 
 export class Context {
     private ctx: CanvasRenderingContext2D;
