@@ -18,4 +18,8 @@ export class Point {
     mult(c: number): Point {
         return new Point(c * this.x, c * this.y);
     }
+
+    is(p: Point): boolean {
+        return this.x === p.x && this.y === p.y;
+    }
 }

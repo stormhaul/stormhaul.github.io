@@ -19,6 +19,9 @@ define(["require", "exports"], function (require, exports) {
                 this.granularity = 1;
             }
         }
+        getDimensions() {
+            return [this.cols, this.rows];
+        }
         get(p) {
             if (this.grid[p.y][p.x] === undefined) {
                 throw new Error('Invalid Access, those coordinates were not initialized');
@@ -30,9 +33,11 @@ define(["require", "exports"], function (require, exports) {
                 throw new Error('Invalid Access, those coordinates were not initialized');
             }
             this.grid[p.y][p.x] = v;
+            return this;
         }
         unset(p) {
             this.set(p, false);
+            return this;
         }
         getGranularity() {
             return this.granularity;

@@ -6,6 +6,7 @@ import {Layer} from "./viewport-panels/layer";
 import {Frame} from "../user-interface/frame";
 import {Button} from "../user-interface/button";
 import {TextElement} from "../user-interface/text.element";
+import {LevelOne} from "../maps/level.one";
 
 export class GameScene extends Scene {
     private topbarPanel: ViewportPanel;
@@ -35,7 +36,6 @@ export class GameScene extends Scene {
         this.menuButton = new Button(new Point(window.innerWidth - 42 - 3, 5), 40, 40, new TextElement().setValue('Menu'), new Event('menu.button.clicked'));
         this.menuButton.attachParent(this.topButtonLayer);
         this.topButtonLayer.addItem(this.menuButton);
-        console.log(this.menuButton, this.menuButton.getParentOffset());
     }
 
     /**
@@ -137,6 +137,8 @@ export class GameScene extends Scene {
         this.mapSeparatorLayer.addItem(
             mapFrame
         );
+
+        new LevelOne();
 
         return this;
     }

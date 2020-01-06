@@ -1,4 +1,4 @@
-define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "../helpers/point", "./viewport-panels/layer", "../user-interface/frame", "../user-interface/button", "../user-interface/text.element"], function (require, exports, scene_1, viewport_panel_1, point_1, layer_1, frame_1, button_1, text_element_1) {
+define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "../helpers/point", "./viewport-panels/layer", "../user-interface/frame", "../user-interface/button", "../user-interface/text.element", "../maps/level.one"], function (require, exports, scene_1, viewport_panel_1, point_1, layer_1, frame_1, button_1, text_element_1, level_one_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     class GameScene extends scene_1.Scene {
@@ -8,7 +8,6 @@ define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "..
             this.menuButton = new button_1.Button(new point_1.Point(window.innerWidth - 42 - 3, 5), 40, 40, new text_element_1.TextElement().setValue('Menu'), new Event('menu.button.clicked'));
             this.menuButton.attachParent(this.topButtonLayer);
             this.topButtonLayer.addItem(this.menuButton);
-            console.log(this.menuButton, this.menuButton.getParentOffset());
         }
         initializeLayers(mouse) {
             let topbarHeight = 50;
@@ -54,6 +53,7 @@ define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "..
             let mapFrame = new frame_1.Frame(new point_1.Point(1.5, 1.5), window.innerWidth - rightbarWidth - 3, window.innerHeight - topbarHeight - 3, '#222');
             mapFrame.attachParent(this.mapPanel);
             this.mapSeparatorLayer.addItem(mapFrame);
+            new level_one_1.LevelOne();
             return this;
         }
         initializePanel(panel, layers) {
@@ -72,7 +72,6 @@ define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "..
         }
         topbarMoveHandler(position) {
             if (!this.active) {
-                this.menuButton.setHover(false);
                 return;
             }
             let relativePos = position.sub(this.topbarPanel.getOffset());

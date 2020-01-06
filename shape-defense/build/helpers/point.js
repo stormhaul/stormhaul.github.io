@@ -15,6 +15,9 @@ define(["require", "exports"], function (require, exports) {
         mult(c) {
             return new Point(c * this.x, c * this.y);
         }
+        is(p) {
+            return this.x === p.x && this.y === p.y;
+        }
     }
     exports.Point = Point;
 });

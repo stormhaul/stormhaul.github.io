@@ -2,8 +2,10 @@ import {Point} from "../helpers/point";
 import {Angle} from "../helpers/angle";
 import {RenderableParent} from "../rendering/renderable.parent";
 import {Context} from "../rendering/context";
+import {AttackableInterface} from "./attackable.interface";
+import {Armor} from "./armor/armor";
 
-export abstract class Monster extends RenderableParent{
+export abstract class Monster extends RenderableParent implements AttackableInterface {
     protected position: Point;
     private path: Array<Point>;
     private speed: number;
@@ -12,6 +14,7 @@ export abstract class Monster extends RenderableParent{
     private liveCost: number;
     private goldValue: number;
     private direction: Angle;
+    private armor: Armor;
 
     /**
      * @param position
@@ -20,8 +23,9 @@ export abstract class Monster extends RenderableParent{
      * @param health
      * @param liveCost
      * @param goldValue
+     * @param armor
      */
-    protected constructor(position, path, speed, health, liveCost, goldValue) {
+    protected constructor(position: Point, path: Array<Point>, speed: number, health: number, liveCost: number, goldValue: number, armor: Armor) {
         super();
 
         this.position = position;
@@ -31,6 +35,7 @@ export abstract class Monster extends RenderableParent{
         this.maxHealth = health;
         this.liveCost = liveCost;
         this.goldValue = goldValue;
+        this.armor = armor;
     }
 
     setDirection(angle: Angle): this {
@@ -63,5 +68,15 @@ export abstract class Monster extends RenderableParent{
         /**
          * @todo draw health bar.
          */
+    }
+
+    attacked(amount: number): this {
+        this.health -= amount;
+
+        return this;
+    }
+
+    getArmorType(): Armor {
+        return this.armor;
     }
 }

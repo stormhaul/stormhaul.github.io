@@ -28,6 +28,10 @@ export class Grid {
         }
     }
 
+    getDimensions(): Array<number> {
+        return [this.cols, this.rows];
+    }
+
     get(p: Point) {
         if (this.grid[p.y][p.x] === undefined) {
             throw new Error('Invalid Access, those coordinates were not initialized');
@@ -36,16 +40,20 @@ export class Grid {
         return this.grid[p.y][p.x];
     }
 
-    set(p: Point, v) {
+    set(p: Point, v): this {
         if (this.grid[p.y][p.x] === undefined) {
             throw new Error('Invalid Access, those coordinates were not initialized');
         }
 
         this.grid[p.y][p.x] = v;
+
+        return this;
     }
 
-    unset(p: Point) {
+    unset(p: Point): this {
         this.set(p, false);
+
+        return this;
     }
 
     getGranularity(): number
