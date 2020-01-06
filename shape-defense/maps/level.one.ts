@@ -16,7 +16,7 @@ export class LevelOne extends GameMap {
             .set(new Point(0,1), 1)
             .set(new Point(1,1), 1)
             .set(new Point(2,1), 1);
-        let path = new Path(
+        this.waypoints = new Path(
             [
                 new Point(0, 0),
                 new Point(5, 0),
@@ -24,8 +24,6 @@ export class LevelOne extends GameMap {
                 new Point(9, 9)
             ]
         );
-
-        this.waypoints = path;
     }
 
     public setup(): this {
