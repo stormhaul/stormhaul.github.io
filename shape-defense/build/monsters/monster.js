@@ -2,7 +2,7 @@ define(["require", "exports", "../rendering/renderable.parent"], function (requi
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     class Monster extends renderable_parent_1.RenderableParent {
-        constructor(position, path, speed, health, liveCost, goldValue) {
+        constructor(position, path, speed, health, liveCost, goldValue, armor) {
             super();
             this.position = position;
             this.path = path;
@@ -11,6 +11,7 @@ define(["require", "exports", "../rendering/renderable.parent"], function (requi
             this.maxHealth = health;
             this.liveCost = liveCost;
             this.goldValue = goldValue;
+            this.armor = armor;
         }
         setDirection(angle) {
             this.direction = angle;
@@ -29,6 +30,13 @@ define(["require", "exports", "../rendering/renderable.parent"], function (requi
         escape() {
         }
         render(context, offset) {
+        }
+        attacked(amount) {
+            this.health -= amount;
+            return this;
+        }
+        getArmorType() {
+            return this.armor;
         }
     }
     exports.Monster = Monster;

@@ -38,6 +38,14 @@ define(["require", "exports", "./game.map", "../helpers/grid", "./path", "../hel
         stop() {
             return this;
         }
+        addTower(tower, point) {
+            this.grid.set(point, tower);
+            return this;
+        }
+        removeTower(point) {
+            this.grid.unset(point);
+            return this;
+        }
     }
     exports.LevelOne = LevelOne;
 });
