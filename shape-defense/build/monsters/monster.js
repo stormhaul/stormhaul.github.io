@@ -30,6 +30,8 @@ define(["require", "exports", "../rendering/renderable.parent"], function (requi
         escape() {
         }
         render(context, offset) {
+            context.rect(this.position, 50, 2, 0, true, 'red', false, '');
+            context.rect(this.position, Math.min(50 * this.health / this.maxHealth, 50), 2, 0, true, 'green', false, '');
         }
         attacked(amount) {
             this.health -= amount;

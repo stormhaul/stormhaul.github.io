@@ -68,6 +68,9 @@ export abstract class Monster extends RenderableParent implements AttackableInte
         /**
          * @todo draw health bar.
          */
+
+        context.rect(this.position, 50, 2, 0, true, 'red', false, '');
+        context.rect(this.position, Math.min(50 * this.health / this.maxHealth, 50), 2, 0, true, 'green', false, '');
     }
 
     attacked(amount: number): this {

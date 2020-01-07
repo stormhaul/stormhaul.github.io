@@ -9,6 +9,9 @@ define(["require", "exports", "../helpers/point"], function (require, exports, p
         getParentOffset() {
             return this.parent !== null && this.parent !== undefined ? this.parent.getParentOffset() : new point_1.Point(0, 0);
         }
+        getPosition() {
+            return this.position;
+        }
     }
     exports.RenderableParent = RenderableParent;
 });

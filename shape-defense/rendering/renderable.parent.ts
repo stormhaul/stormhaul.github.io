@@ -16,5 +16,9 @@ export abstract class RenderableParent implements RenderableInterface{
         return this.parent !== null && this.parent !== undefined ? this.parent.getParentOffset() : new Point(0,0);
     }
 
+    getPosition(): Point {
+        return this.position;
+    }
+
     abstract render(context: Context, offset: Point): void;
 }

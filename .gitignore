@@ -1,1 +1,4 @@
 .idea
+shape-defense/node_modules
+shape-defense/package-lock.json
+shape-defense/dependencygraph.svg

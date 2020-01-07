@@ -138,7 +138,12 @@ export class GameScene extends Scene {
             mapFrame
         );
 
-        new LevelOne();
+        let level1 = new LevelOne(
+            window.innerWidth - rightbarWidth,
+            window.innerHeight - topbarHeight,
+        );
+        level1.attachParent(this.mapPanel);
+        this.topButtonLayer.addItem(level1);
 
         return this;
     }

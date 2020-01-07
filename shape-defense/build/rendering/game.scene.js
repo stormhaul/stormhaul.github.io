@@ -53,7 +53,9 @@ define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "..
             let mapFrame = new frame_1.Frame(new point_1.Point(1.5, 1.5), window.innerWidth - rightbarWidth - 3, window.innerHeight - topbarHeight - 3, '#222');
             mapFrame.attachParent(this.mapPanel);
             this.mapSeparatorLayer.addItem(mapFrame);
-            new level_one_1.LevelOne();
+            let level1 = new level_one_1.LevelOne(window.innerWidth - rightbarWidth, window.innerHeight - topbarHeight);
+            level1.attachParent(this.mapPanel);
+            this.topButtonLayer.addItem(level1);
             return this;
         }
         initializePanel(panel, layers) {

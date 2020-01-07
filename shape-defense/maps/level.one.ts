@@ -4,18 +4,29 @@ import {Path} from "./path";
 import {Point} from "../helpers/point";
 import {AStar} from "../helpers/a.star";
 import {Tower} from "../towers/tower";
+import {SquareTower} from "../towers/square.tower";
 
 export class LevelOne extends GameMap {
-    private waypoints: Path;
+    /**
+     * @param width in px of the canvas section we can draw to
+     * @param height in px of the canvas section we can draw to
+     */
+    constructor(width: number, height: number) {
+        let cols = 10;
+        let rows = 10;
+        let cellWidth = Math.floor(Math.min((width - 10) / cols, (height - 10) / rows));
+        super(width, height, cellWidth, cols, rows);
 
-    constructor() {
-        super();
+        this.towers = [];
+        this.towers.push(new SquareTower(this.cellWidth - 5, this.convertGridToPixel(new Point(0,1))));
+        this.towers.push(new SquareTower(this.cellWidth - 5, this.convertGridToPixel(new Point(1,1))));
+        this.towers.push(new SquareTower(this.cellWidth - 5, this.convertGridToPixel(new Point(2,1))));
 
-        this.grid = new Grid(10, 10);
+        this.grid = new Grid(cols, rows);
         this.grid
-            .set(new Point(0,1), 1)
-            .set(new Point(1,1), 1)
-            .set(new Point(2,1), 1);
+            .set(new Point(0,1), this.towers[0])
+            .set(new Point(1,1), this.towers[1])
+            .set(new Point(2,1), this.towers[2]);
         this.waypoints = new Path(
             [
                 new Point(0, 0),
