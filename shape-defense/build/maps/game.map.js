@@ -93,7 +93,7 @@ define(["require", "exports", "../rendering/renderable.parent", "../helpers/poin
             });
         }
         convertGridToPixel(point) {
-            return point.mult(this.cellWidth).add(this.gridOrigin);
+            return point.add(new point_1.Point(0, 1)).mult(this.cellWidth).add(this.gridOrigin);
         }
     }
     exports.GameMap = GameMap;

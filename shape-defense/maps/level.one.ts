@@ -25,65 +25,100 @@ export class LevelOne extends GameMap
         this.towers = [];
         this.grid   = new Grid(cols, rows);
 
-        // for (let i = 0; i < 9; i++) {
-        //     let point = new Point(1, i);
-        //     // the hardcoded offsets are not a solution, and merely have been used to prevent progress from halting.
-        //     // @todo fix the error in calculation of converting grid to pixel.
-        //     this.towers.push(new SquareTower(this.cellWidth - 6, this.convertGridToPixel(point).add(new Point(3, this.cellWidth / 2 + 7))));
-        //     this.grid.set(point, this.towers[i]);
-        // }
-        //
-        // for (let i = 2; i < 9; i++) {
-        //     let point = new Point(i, 8);
-        //     this.towers.push(new SquareTower(this.cellWidth - 6, this.convertGridToPixel(point).add(new Point(3, this.cellWidth / 2 + 7))));
-        //     this.grid.set(point, this.towers[i]);
-        // }
-        //
-        // for (let i = 1; i < 8; i++) {
-        //     let point = new Point(8, i);
-        //     this.towers.push(new SquareTower(this.cellWidth - 6, this.convertGridToPixel(point).add(new Point(3, this.cellWidth / 2 + 7))));
-        //     this.grid.set(point, this.towers[i]);
-        // }
-        //
-        // for (let i = 0; i < 7; i++) {
-        //     let point = new Point(6, i);
-        //     this.towers.push(new SquareTower(this.cellWidth - 6, this.convertGridToPixel(point).add(new Point(3, this.cellWidth / 2 + 7))));
-        //     this.grid.set(point, this.towers[i]);
-        // }
-        //
-        // for (let i = 3; i < 6; i++) {
-        //     let point = new Point(i, 6);
-        //     this.towers.push(new SquareTower(this.cellWidth - 6, this.convertGridToPixel(point).add(new Point(3, this.cellWidth / 2 + 7))));
-        //     this.grid.set(point, this.towers[i]);
-        // }
-        //
-        // for (let i = 2; i < 5; i++) {
-        //     let point = new Point(i, 4);
-        //     this.towers.push(new SquareTower(this.cellWidth - 6, this.convertGridToPixel(point).add(new Point(3, this.cellWidth / 2 + 7))));
-        //     this.grid.set(point, this.towers[i]);
-        // }
-        //
-        // for (let i = 3; i < 6; i++) {
-        //     let point = new Point(i, 2);
-        //     this.towers.push(new SquareTower(this.cellWidth - 6, this.convertGridToPixel(point).add(new Point(3, this.cellWidth / 2 + 7))));
-        //     this.grid.set(point, this.towers[i]);
-        // }
-        //
-        // for (let i = 3; i < 6; i++) {
-        //     let point = new Point(i, 1);
-        //     this.towers.push(new SquareTower(this.cellWidth - 6, this.convertGridToPixel(point).add(new Point(3, this.cellWidth / 2 + 7))));
-        //     this.grid.set(point, this.towers[i]);
-        // }
+        this.setupTestMaze(cols, rows, cellWidth);
+        // this.setUpRandomMaze(cols, rows, cellWidth);
 
-        // this.waypoints = new Path(
-        //     [
-        //         new Point(0, 0),
-        //         new Point(5, 0),
-        //         new Point(0, 5),
-        //         new Point(9, 9)
-        //     ]
-        // );
+        let path = this.waypoints.getFullPath(this.grid);
+        path.map(item => this.convertGridToPixel(item));
 
+        let mons = [];
+        for (let i = 0; i < 10; i++) {
+            mons.push(
+                new TriangleMonster(
+                    this.convertGridToPixel(
+                        this.waypoints
+                            .getRoot()
+                            .add(new Point(0.5, 0.5))
+                    ),
+                    path
+                )
+            );
+        }
+        let wave = new Wave(mons);
+
+        this.monsters.push(wave.getNextSpawn());
+    }
+
+    public setup(): this
+    {
+
+        return this;
+    }
+
+    private setupTestMaze(cols, rows, cellWidth): void
+    {
+        for (let i = 0; i < 9; i++) {
+            let point = new Point(1, i);
+            // the hardcoded offsets are not a solution, and merely have been used to prevent progress from halting.
+            // @todo fix the error in calculation of converting grid to pixel.
+            this.towers.push(new SquareTower(this.cellWidth - 6, this.convertGridToPixel(point).add(new Point(3, 7))));
+            this.grid.set(point, this.towers[i]);
+        }
+
+        for (let i = 2; i < 9; i++) {
+            let point = new Point(i, 8);
+            this.towers.push(new SquareTower(this.cellWidth - 6, this.convertGridToPixel(point).add(new Point(3, 7))));
+            this.grid.set(point, this.towers[i]);
+        }
+
+        for (let i = 1; i < 8; i++) {
+            let point = new Point(8, i);
+            this.towers.push(new SquareTower(this.cellWidth - 6, this.convertGridToPixel(point).add(new Point(3, 7))));
+            this.grid.set(point, this.towers[i]);
+        }
+
+        for (let i = 0; i < 7; i++) {
+            let point = new Point(6, i);
+            this.towers.push(new SquareTower(this.cellWidth - 6, this.convertGridToPixel(point).add(new Point(3, 7))));
+            this.grid.set(point, this.towers[i]);
+        }
+
+        for (let i = 3; i < 6; i++) {
+            let point = new Point(i, 6);
+            this.towers.push(new SquareTower(this.cellWidth - 6, this.convertGridToPixel(point).add(new Point(3, 7))));
+            this.grid.set(point, this.towers[i]);
+        }
+
+        for (let i = 2; i < 5; i++) {
+            let point = new Point(i, 4);
+            this.towers.push(new SquareTower(this.cellWidth - 6, this.convertGridToPixel(point).add(new Point(3, 7))));
+            this.grid.set(point, this.towers[i]);
+        }
+
+        for (let i = 3; i < 6; i++) {
+            let point = new Point(i, 2);
+            this.towers.push(new SquareTower(this.cellWidth - 6, this.convertGridToPixel(point).add(new Point(3, 7))));
+            this.grid.set(point, this.towers[i]);
+        }
+
+        for (let i = 3; i < 6; i++) {
+            let point = new Point(i, 1);
+            this.towers.push(new SquareTower(this.cellWidth - 6, this.convertGridToPixel(point).add(new Point(3, 7))));
+            this.grid.set(point, this.towers[i]);
+        }
+
+        this.waypoints = new Path(
+            [
+                new Point(0, 0),
+                new Point(5, 0),
+                new Point(0, 5),
+                new Point(9, 9)
+            ]
+        );
+    }
+
+    private setUpRandomMaze(cols, rows, cellWidth): void
+    {
         let contains = (arr, item) =>
         {
             let found = false;
@@ -104,39 +139,12 @@ export class LevelOne extends GameMap
 
             let p = new Point(x, y);
 
-            if (contains(points, p)) {
-                // console.log('skipping');
-            } else {
+            if (!contains(points, p)) {
                 points.push(p);
             }
         }
 
         this.waypoints = new Path(points);
-        let path       = this.waypoints.getFullPath(this.grid);
-        path.map(item => this.convertGridToPixel(item));
-
-        let mons = [];
-        for (let i = 0; i < 10; i++) {
-            mons.push(
-                new TriangleMonster(
-                    this.convertGridToPixel(
-                        this.waypoints
-                            .getRoot()
-                            .add(new Point(0.5, 1.5))
-                    ),
-                    path
-                )
-            );
-        }
-        let wave = new Wave(mons);
-
-        this.monsters.push(wave.getNextSpawn());
-    }
-
-    public setup(): this
-    {
-
-        return this;
     }
 
     public start(): this

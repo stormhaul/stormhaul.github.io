@@ -1,4 +1,4 @@
-define(["require", "exports", "./game.map", "../helpers/grid", "./path", "../helpers/point", "../helpers/a.star", "../monsters/triangle.monster", "../monsters/wave"], function (require, exports, game_map_1, grid_1, path_1, point_1, a_star_1, triangle_monster_1, wave_1) {
+define(["require", "exports", "./game.map", "../helpers/grid", "./path", "../helpers/point", "../helpers/a.star", "../towers/square.tower", "../monsters/triangle.monster", "../monsters/wave"], function (require, exports, game_map_1, grid_1, path_1, point_1, a_star_1, square_tower_1, triangle_monster_1, wave_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     class LevelOne extends game_map_1.GameMap {
@@ -9,6 +9,70 @@ define(["require", "exports", "./game.map", "../helpers/grid", "./path", "../hel
             super(width, height, cellWidth, cols, rows);
             this.towers = [];
             this.grid = new grid_1.Grid(cols, rows);
+            this.setupTestMaze(cols, rows, cellWidth);
+            let path = this.waypoints.getFullPath(this.grid);
+            path.map(item => this.convertGridToPixel(item));
+            let mons = [];
+            for (let i = 0; i < 10; i++) {
+                mons.push(new triangle_monster_1.TriangleMonster(this.convertGridToPixel(this.waypoints
+                    .getRoot()
+                    .add(new point_1.Point(0.5, 0.5))), path));
+            }
+            let wave = new wave_1.Wave(mons);
+            this.monsters.push(wave.getNextSpawn());
+        }
+        setup() {
+            return this;
+        }
+        setupTestMaze(cols, rows, cellWidth) {
+            for (let i = 0; i < 9; i++) {
+                let point = new point_1.Point(1, i);
+                this.towers.push(new square_tower_1.SquareTower(this.cellWidth - 6, this.convertGridToPixel(point).add(new point_1.Point(3, 7))));
+                this.grid.set(point, this.towers[i]);
+            }
+            for (let i = 2; i < 9; i++) {
+                let point = new point_1.Point(i, 8);
+                this.towers.push(new square_tower_1.SquareTower(this.cellWidth - 6, this.convertGridToPixel(point).add(new point_1.Point(3, 7))));
+                this.grid.set(point, this.towers[i]);
+            }
+            for (let i = 1; i < 8; i++) {
+                let point = new point_1.Point(8, i);
+                this.towers.push(new square_tower_1.SquareTower(this.cellWidth - 6, this.convertGridToPixel(point).add(new point_1.Point(3, 7))));
+                this.grid.set(point, this.towers[i]);
+            }
+            for (let i = 0; i < 7; i++) {
+                let point = new point_1.Point(6, i);
+                this.towers.push(new square_tower_1.SquareTower(this.cellWidth - 6, this.convertGridToPixel(point).add(new point_1.Point(3, 7))));
+                this.grid.set(point, this.towers[i]);
+            }
+            for (let i = 3; i < 6; i++) {
+                let point = new point_1.Point(i, 6);
+                this.towers.push(new square_tower_1.SquareTower(this.cellWidth - 6, this.convertGridToPixel(point).add(new point_1.Point(3, 7))));
+                this.grid.set(point, this.towers[i]);
+            }
+            for (let i = 2; i < 5; i++) {
+                let point = new point_1.Point(i, 4);
+                this.towers.push(new square_tower_1.SquareTower(this.cellWidth - 6, this.convertGridToPixel(point).add(new point_1.Point(3, 7))));
+                this.grid.set(point, this.towers[i]);
+            }
+            for (let i = 3; i < 6; i++) {
+                let point = new point_1.Point(i, 2);
+                this.towers.push(new square_tower_1.SquareTower(this.cellWidth - 6, this.convertGridToPixel(point).add(new point_1.Point(3, 7))));
+                this.grid.set(point, this.towers[i]);
+            }
+            for (let i = 3; i < 6; i++) {
+                let point = new point_1.Point(i, 1);
+                this.towers.push(new square_tower_1.SquareTower(this.cellWidth - 6, this.convertGridToPixel(point).add(new point_1.Point(3, 7))));
+                this.grid.set(point, this.towers[i]);
+            }
+            this.waypoints = new path_1.Path([
+                new point_1.Point(0, 0),
+                new point_1.Point(5, 0),
+                new point_1.Point(0, 5),
+                new point_1.Point(9, 9)
+            ]);
+        }
+        setUpRandomMaze(cols, rows, cellWidth) {
             let contains = (arr, item) => {
                 let found = false;
                 arr.map((i) => {
@@ -30,19 +94,6 @@ define(["require", "exports", "./game.map", "../helpers/grid", "./path", "../hel
                 }
             }
             this.waypoints = new path_1.Path(points);
-            let path = this.waypoints.getFullPath(this.grid);
-            path.map(item => this.convertGridToPixel(item));
-            let mons = [];
-            for (let i = 0; i < 10; i++) {
-                mons.push(new triangle_monster_1.TriangleMonster(this.convertGridToPixel(this.waypoints
-                    .getRoot()
-                    .add(new point_1.Point(0.5, 1.5))), path));
-            }
-            let wave = new wave_1.Wave(mons);
-            this.monsters.push(wave.getNextSpawn());
-        }
-        setup() {
-            return this;
         }
         start() {
             this.deltaTime();
