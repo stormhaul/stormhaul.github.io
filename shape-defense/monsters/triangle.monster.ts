@@ -7,7 +7,7 @@ export class TriangleMonster extends Monster
 {
     constructor(position: Point, path: Array<Point>)
     {
-        super(position, path, 20, 100, 1, 40, new SpeedArmor());
+        super(position, path, .1, 100, 1, 40, new SpeedArmor());
     }
 
     render(context: Context, offset: Point): void

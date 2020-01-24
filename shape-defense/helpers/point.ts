@@ -42,4 +42,29 @@ export class Point
         let y = Math.sin(a.rad()) * (this.x - p.x) + Math.cos(a.rad()) * (this.y - p.y) + p.y;
         return new Point(x, y);
     }
+
+    toward(p: Point, d: number): Point
+    {
+        return this.add(p.sub(this).unit().mult(d));
+    }
+
+    /**
+     * returns magnitude of point
+     */
+    mag(): number
+    {
+        return this.dist(new Point(0,0));
+    }
+
+    /**
+     * normalizes point into unit vector
+     */
+    unit(): Point
+    {
+        let mag = this.mag();
+        return new Point(
+            this.x / mag,
+            this.y / mag
+        );
+    }
 }

@@ -26,6 +26,16 @@ define(["require", "exports"], function (require, exports) {
             let y = Math.sin(a.rad()) * (this.x - p.x) + Math.cos(a.rad()) * (this.y - p.y) + p.y;
             return new Point(x, y);
         }
+        toward(p, d) {
+            return this.add(p.sub(this).unit().mult(d));
+        }
+        mag() {
+            return this.dist(new Point(0, 0));
+        }
+        unit() {
+            let mag = this.mag();
+            return new Point(this.x / mag, this.y / mag);
+        }
     }
     exports.Point = Point;
 });

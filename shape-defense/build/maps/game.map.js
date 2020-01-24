@@ -12,6 +12,7 @@ define(["require", "exports", "../rendering/renderable.parent", "../helpers/poin
             this.monsters = [];
             this.waves = [];
             this.activeWave = 0;
+            this.playing = false;
         }
         getGrid() {
             return this.grid;
@@ -94,6 +95,26 @@ define(["require", "exports", "../rendering/renderable.parent", "../helpers/poin
         }
         convertGridToPixel(point) {
             return point.add(new point_1.Point(0, 1)).mult(this.cellWidth).add(this.gridOrigin);
+        }
+        spawnEnemy() {
+            let wave = this.waves[this.activeWave];
+            let spawn = wave != undefined ? wave.getNextSpawn() : null;
+            while (null === spawn) {
+                if (++this.activeWave >= this.waves.length) {
+                    return this;
+                }
+                wave = this.waves[this.activeWave];
+                spawn = wave.getNextSpawn();
+            }
+            this.monsters.push(spawn);
+            return this;
+        }
+        progressMonsters() {
+            this.monsters.map(monster => monster.move());
+            return this;
+        }
+        progressTowers() {
+            return this;
         }
     }
     exports.GameMap = GameMap;

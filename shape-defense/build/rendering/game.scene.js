@@ -60,6 +60,7 @@ define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "..
             let level1 = new level_one_1.LevelOne(window.innerWidth - rightbarWidth, window.innerHeight - topbarHeight);
             level1.attachParent(this.mapPanel);
             this.topButtonLayer.addItem(level1);
+            this.level1 = level1;
             return this;
         }
         initializePanel(panel, layers) {
@@ -82,6 +83,14 @@ define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "..
             }
             let relativePos = position.sub(this.topbarPanel.getOffset());
             this.buttonHover(this.menuButton, relativePos);
+        }
+        activate() {
+            super.activate();
+            this.level1.start();
+        }
+        deactivate() {
+            super.deactivate();
+            this.level1.stop();
         }
     }
     exports.GameScene = GameScene;

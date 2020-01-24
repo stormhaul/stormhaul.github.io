@@ -31,10 +31,10 @@ export class Wave
         }
     }
 
-    getNextSpawn(): Monster
+    getNextSpawn(): Monster|null
     {
         if (this.spawnCounter >= this.monsters.length) {
-            // Wave End Event
+            return null;
         }
 
         return this.monsters[this.spawnCounter++];

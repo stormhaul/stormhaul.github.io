@@ -1,4 +1,4 @@
-define(["require", "exports", "./game.map", "../helpers/grid", "./path", "../helpers/point", "../helpers/a.star", "../towers/square.tower", "../monsters/triangle.monster", "../monsters/wave"], function (require, exports, game_map_1, grid_1, path_1, point_1, a_star_1, square_tower_1, triangle_monster_1, wave_1) {
+define(["require", "exports", "./game.map", "../helpers/grid", "./path", "../helpers/point", "../helpers/a.star", "../towers/square.tower", "../monsters/triangle.monster", "../monsters/wave", "../monsters/timer"], function (require, exports, game_map_1, grid_1, path_1, point_1, a_star_1, square_tower_1, triangle_monster_1, wave_1, timer_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     class LevelOne extends game_map_1.GameMap {
@@ -10,7 +10,7 @@ define(["require", "exports", "./game.map", "../helpers/grid", "./path", "../hel
             this.towers = [];
             this.grid = new grid_1.Grid(cols, rows);
             this.setupTestMaze(cols, rows, cellWidth);
-            let path = this.waypoints.getFullPath(this.grid);
+            let path = this.waypoints.getFullPath(this.grid).map(item => this.convertGridToPixel(item));
             path.map(item => this.convertGridToPixel(item));
             let mons = [];
             for (let i = 0; i < 10; i++) {
@@ -19,9 +19,14 @@ define(["require", "exports", "./game.map", "../helpers/grid", "./path", "../hel
                     .add(new point_1.Point(0.5, 0.5))), path));
             }
             let wave = new wave_1.Wave(mons);
-            this.monsters.push(wave.getNextSpawn());
+            this.waveTimer = new timer_1.Timer(0, 1, 10, this.spawnEnemy.bind(this));
+            this.waves = [wave];
+            this.activeWave = 0;
+            this.loop();
         }
         setup() {
+            this.start();
+            setTimeout(() => { this.stop(); }, 10000);
             return this;
         }
         setupTestMaze(cols, rows, cellWidth) {
@@ -87,9 +92,7 @@ define(["require", "exports", "./game.map", "../helpers/grid", "./path", "../hel
                 let x = Math.floor(Math.random() * cols);
                 let y = Math.floor(Math.random() * rows);
                 let p = new point_1.Point(x, y);
-                if (contains(points, p)) {
-                }
-                else {
+                if (!contains(points, p)) {
                     points.push(p);
                 }
             }
@@ -97,9 +100,23 @@ define(["require", "exports", "./game.map", "../helpers/grid", "./path", "../hel
         }
         start() {
             this.deltaTime();
+            this.playing = true;
+            console.log(this.monsters);
             return this;
         }
         stop() {
+            this.playing = false;
+            console.log(this.monsters);
+            return this;
+        }
+        loop() {
+            if (this.playing) {
+                this.deltaTime();
+                this.waveTimer.tick();
+                this.progressMonsters();
+                this.progressTowers();
+            }
+            setTimeout(this.loop.bind(this), 50);
             return this;
         }
         checkPath() {

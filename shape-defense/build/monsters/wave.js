@@ -20,6 +20,7 @@ define(["require", "exports"], function (require, exports) {
         }
         getNextSpawn() {
             if (this.spawnCounter >= this.monsters.length) {
+                return null;
             }
             return this.monsters[this.spawnCounter++];
         }

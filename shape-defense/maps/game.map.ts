@@ -7,6 +7,7 @@ import {AStar} from '../helpers/a.star';
 import {Tower} from '../towers/tower';
 import {Monster} from '../monsters/monster';
 import {Wave} from '../monsters/wave';
+import {Timer} from '../monsters/timer';
 
 export abstract class GameMap extends RenderableParent
 {
@@ -21,6 +22,8 @@ export abstract class GameMap extends RenderableParent
     protected monsters: Array<Monster>;
     protected waves: Array<Wave>;
     protected activeWave: number;
+    protected waveTimer: Timer;
+    protected playing: boolean;
 
     /**
      * Note, each grid index refers to the top left corner of the cell for the purposes of rendering.
@@ -44,6 +47,7 @@ export abstract class GameMap extends RenderableParent
         this.monsters   = [];
         this.waves      = [];
         this.activeWave = 0;
+        this.playing    = false;
     }
 
     // Runs any initialization needed to revert map to base state
@@ -188,5 +192,34 @@ export abstract class GameMap extends RenderableParent
     protected convertGridToPixel(point: Point): Point
     {
         return point.add(new Point(0,1)).mult(this.cellWidth).add(this.gridOrigin);//.add(this.getParentOffset());
+    }
+
+    protected spawnEnemy(): this
+    {
+        let wave = this.waves[this.activeWave];
+
+        let spawn = wave != undefined ? wave.getNextSpawn() : null;
+        while (null === spawn) {
+            if (++this.activeWave >= this.waves.length) {
+                return this;
+            }
+
+            wave  = this.waves[this.activeWave];
+            spawn = wave.getNextSpawn();
+        }
+        this.monsters.push(spawn);
+
+        return this;
+    }
+
+    protected progressMonsters(): this
+    {
+        this.monsters.map(monster => monster.move());
+        return this;
+    }
+
+    protected progressTowers(): this
+    {
+        return this;
     }
 }

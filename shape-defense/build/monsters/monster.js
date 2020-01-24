@@ -6,13 +6,14 @@ define(["require", "exports", "../helpers/point", "../helpers/angle", "../render
             super();
             this.position = position;
             this.path = path;
+            this.currentPathTarget = 0;
             this.speed = speed;
             this.health = health;
             this.maxHealth = health;
             this.liveCost = liveCost;
             this.goldValue = goldValue;
             this.armor = armor;
-            this.direction = new angle_1.Angle(Math.atan2(path[1].y - path[0].y, path[1].x - path[0].x) * 180 / Math.PI - 90);
+            this.direction = new angle_1.Angle(Math.atan2(path[this.currentPathTarget + 1].y - path[this.currentPathTarget].y, path[this.currentPathTarget + 1].x - path[this.currentPathTarget].x) * 180 / Math.PI - 90);
             console.log(this);
         }
         setDirection(angle) {
@@ -23,6 +24,24 @@ define(["require", "exports", "../helpers/point", "../helpers/angle", "../render
             return this.direction;
         }
         move() {
+            let target = this.path[this.currentPathTarget];
+            if (!target) {
+                return;
+            }
+            let dist = target.dist(this.position);
+            let leftover = dist;
+            if (dist < this.speed) {
+                leftover = this.speed - dist;
+                this.position = target;
+            }
+            if (leftover != dist) {
+                target = this.path[++this.currentPathTarget];
+                if (!target) {
+                    return;
+                }
+            }
+            this.position = this.position.toward(target, leftover);
+            this.direction = new angle_1.Angle(Math.atan2(target.y - this.position.y, target.x - this.position.x) * 180 / Math.PI - 90);
         }
         hit(damage) {
             this.health -= damage;

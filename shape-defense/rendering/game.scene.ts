@@ -28,6 +28,7 @@ export class GameScene extends Scene
     private mapGameViewLayer: Layer;
 
     private menuButton: Button;
+    private level1: LevelOne;
 
     constructor(mouse: Mouse)
     {
@@ -161,6 +162,7 @@ export class GameScene extends Scene
         );
         level1.attachParent(this.mapPanel);
         this.topButtonLayer.addItem(level1);
+        this.level1 = level1;
 
         return this;
     }
@@ -173,10 +175,12 @@ export class GameScene extends Scene
     {
         this.addPanel(panel);
 
-        layers.map(layer =>
-                   {
-                       panel.addLayer(layer);
-                   });
+        layers.map(
+            layer =>
+            {
+                panel.addLayer(layer);
+            }
+        );
 
         return this;
     }
@@ -197,5 +201,19 @@ export class GameScene extends Scene
         }
         let relativePos = position.sub(this.topbarPanel.getOffset());
         this.buttonHover(this.menuButton, relativePos);
+    }
+
+    activate(): void
+    {
+        super.activate();
+
+        this.level1.start();
+    }
+
+    deactivate(): void
+    {
+        super.deactivate();
+
+        this.level1.stop();
     }
 }

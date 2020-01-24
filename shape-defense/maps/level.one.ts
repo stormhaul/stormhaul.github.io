@@ -5,9 +5,9 @@ import {Point} from '../helpers/point';
 import {AStar} from '../helpers/a.star';
 import {Tower} from '../towers/tower';
 import {SquareTower} from '../towers/square.tower';
-import {Monster} from '../monsters/monster';
 import {TriangleMonster} from '../monsters/triangle.monster';
 import {Wave} from '../monsters/wave';
+import {Timer} from '../monsters/timer';
 
 export class LevelOne extends GameMap
 {
@@ -28,7 +28,7 @@ export class LevelOne extends GameMap
         this.setupTestMaze(cols, rows, cellWidth);
         // this.setUpRandomMaze(cols, rows, cellWidth);
 
-        let path = this.waypoints.getFullPath(this.grid);
+        let path = this.waypoints.getFullPath(this.grid).map(item => this.convertGridToPixel(item));
         path.map(item => this.convertGridToPixel(item));
 
         let mons = [];
@@ -46,12 +46,18 @@ export class LevelOne extends GameMap
         }
         let wave = new Wave(mons);
 
-        this.monsters.push(wave.getNextSpawn());
+        this.waveTimer = new Timer(0, 1, 10, this.spawnEnemy.bind(this));
+
+        this.waves      = [wave];
+        this.activeWave = 0;
+
+        this.loop();
     }
 
     public setup(): this
     {
-
+        this.start();
+        setTimeout(() => {this.stop()}, 10000);
         return this;
     }
 
@@ -122,12 +128,14 @@ export class LevelOne extends GameMap
         let contains = (arr, item) =>
         {
             let found = false;
-            arr.map((i) =>
-                    {
-                        if (i.dist(item) <= 2) {
-                            found = true;
-                        }
-                    });
+            arr.map(
+                (i) =>
+                {
+                    if (i.dist(item) <= 2) {
+                        found = true;
+                    }
+                }
+            );
 
             return found;
         };
@@ -151,13 +159,30 @@ export class LevelOne extends GameMap
     {
         // calls deltatime to reset time in case we paused
         this.deltaTime();
+        this.playing = true;
+        console.log(this.monsters);
 
         return this;
     }
 
     public stop(): this
     {
+        this.playing = false;
+        console.log(this.monsters);
 
+        return this;
+    }
+
+    public loop(): this
+    {
+        if (this.playing) {
+            this.deltaTime();
+            this.waveTimer.tick();
+            this.progressMonsters();
+            this.progressTowers();
+        }
+
+        setTimeout(this.loop.bind(this), 50);
         return this;
     }
 
