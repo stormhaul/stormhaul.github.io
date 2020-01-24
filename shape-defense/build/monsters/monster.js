@@ -29,18 +29,16 @@ define(["require", "exports", "../helpers/point", "../helpers/angle", "../render
                 return;
             }
             let dist = target.dist(this.position);
-            let leftover = dist;
+            let speed = this.speed;
             if (dist < this.speed) {
-                leftover = this.speed - dist;
-                this.position = target;
-            }
-            if (leftover != dist) {
+                speed -= dist;
                 target = this.path[++this.currentPathTarget];
-                if (!target) {
-                    return;
-                }
             }
-            this.position = this.position.toward(target, leftover);
+            if (!target) {
+                console.log('escaped');
+                return;
+            }
+            this.position = this.position.toward(target, speed);
             this.direction = new angle_1.Angle(Math.atan2(target.y - this.position.y, target.x - this.position.x) * 180 / Math.PI - 90);
         }
         hit(damage) {
@@ -53,8 +51,8 @@ define(["require", "exports", "../helpers/point", "../helpers/angle", "../render
         render(context, offset) {
             let barWidth = 20;
             let barOffset = 15;
-            context.rect(this.position.sub(new point_1.Point(barWidth / 2, barOffset)), barWidth, 2, 0, true, 'red', false, '');
-            context.rect(this.position.sub(new point_1.Point(barWidth / 2, barOffset)), Math.min(barWidth * this.health / this.maxHealth, barWidth), 2, 0, true, 'green', false, '');
+            context.rect(this.position.sub(new point_1.Point(barWidth / 2, barOffset)).add(offset), barWidth, 2, 0, true, 'red', false, '');
+            context.rect(this.position.sub(new point_1.Point(barWidth / 2, barOffset)).add(offset), Math.min(barWidth * this.health / this.maxHealth, barWidth), 2, 0, true, 'green', false, '');
         }
         attacked(amount) {
             this.health -= amount;

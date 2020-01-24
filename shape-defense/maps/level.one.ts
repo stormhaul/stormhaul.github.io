@@ -17,8 +17,8 @@ export class LevelOne extends GameMap
      */
     constructor(width: number, height: number)
     {
-        let cols      = 20;
-        let rows      = 20;
+        let cols      = 10;
+        let rows      = 10;
         let cellWidth = Math.floor(Math.min((width - 10) / cols, (height - 10) / rows));
         super(width, height, cellWidth, cols, rows);
 
@@ -38,7 +38,6 @@ export class LevelOne extends GameMap
                     this.convertGridToPixel(
                         this.waypoints
                             .getRoot()
-                            .add(new Point(0.5, 0.5))
                     ),
                     path
                 )
@@ -56,8 +55,8 @@ export class LevelOne extends GameMap
 
     public setup(): this
     {
-        this.start();
-        setTimeout(() => {this.stop()}, 10000);
+        // this.start();
+        // setTimeout(() => {this.stop()}, 10000);
         return this;
     }
 
@@ -141,7 +140,7 @@ export class LevelOne extends GameMap
         };
 
         let points = [];
-        while (points.length < 3) {
+        while (points.length < 10) {
             let x = Math.floor(Math.random() * cols);
             let y = Math.floor(Math.random() * rows);
 

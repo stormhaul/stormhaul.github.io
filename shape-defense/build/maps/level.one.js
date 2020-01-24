@@ -3,8 +3,8 @@ define(["require", "exports", "./game.map", "../helpers/grid", "./path", "../hel
     Object.defineProperty(exports, "__esModule", { value: true });
     class LevelOne extends game_map_1.GameMap {
         constructor(width, height) {
-            let cols = 20;
-            let rows = 20;
+            let cols = 10;
+            let rows = 10;
             let cellWidth = Math.floor(Math.min((width - 10) / cols, (height - 10) / rows));
             super(width, height, cellWidth, cols, rows);
             this.towers = [];
@@ -15,8 +15,7 @@ define(["require", "exports", "./game.map", "../helpers/grid", "./path", "../hel
             let mons = [];
             for (let i = 0; i < 10; i++) {
                 mons.push(new triangle_monster_1.TriangleMonster(this.convertGridToPixel(this.waypoints
-                    .getRoot()
-                    .add(new point_1.Point(0.5, 0.5))), path));
+                    .getRoot()), path));
             }
             let wave = new wave_1.Wave(mons);
             this.waveTimer = new timer_1.Timer(0, 1, 10, this.spawnEnemy.bind(this));
@@ -25,8 +24,6 @@ define(["require", "exports", "./game.map", "../helpers/grid", "./path", "../hel
             this.loop();
         }
         setup() {
-            this.start();
-            setTimeout(() => { this.stop(); }, 10000);
             return this;
         }
         setupTestMaze(cols, rows, cellWidth) {
@@ -88,7 +85,7 @@ define(["require", "exports", "./game.map", "../helpers/grid", "./path", "../hel
                 return found;
             };
             let points = [];
-            while (points.length < 3) {
+            while (points.length < 10) {
                 let x = Math.floor(Math.random() * cols);
                 let y = Math.floor(Math.random() * rows);
                 let p = new point_1.Point(x, y);

@@ -183,15 +183,20 @@ export abstract class GameMap extends RenderableParent
     private renderMonsters(context: Context, offset: Point): void
     {
         this.monsters.map(
-            monster => {
-                monster.render(context, offset);
+            monster =>
+            {
+                monster.render(context,
+                               offset !== undefined
+                               ? offset.add(new Point(this.cellWidth / 2, this.cellWidth / 2))
+                               : new Point(this.cellWidth / 2, this.cellWidth / 2)
+                );
             }
-        )
+        );
     }
 
     protected convertGridToPixel(point: Point): Point
     {
-        return point.add(new Point(0,1)).mult(this.cellWidth).add(this.gridOrigin);//.add(this.getParentOffset());
+        return point.add(new Point(0, 1)).mult(this.cellWidth).add(this.gridOrigin).add(this.getParentOffset());
     }
 
     protected spawnEnemy(): this

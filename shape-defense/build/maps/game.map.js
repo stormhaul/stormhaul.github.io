@@ -90,11 +90,13 @@ define(["require", "exports", "../rendering/renderable.parent", "../helpers/poin
         }
         renderMonsters(context, offset) {
             this.monsters.map(monster => {
-                monster.render(context, offset);
+                monster.render(context, offset !== undefined
+                    ? offset.add(new point_1.Point(this.cellWidth / 2, this.cellWidth / 2))
+                    : new point_1.Point(this.cellWidth / 2, this.cellWidth / 2));
             });
         }
         convertGridToPixel(point) {
-            return point.add(new point_1.Point(0, 1)).mult(this.cellWidth).add(this.gridOrigin);
+            return point.add(new point_1.Point(0, 1)).mult(this.cellWidth).add(this.gridOrigin).add(this.getParentOffset());
         }
         spawnEnemy() {
             let wave = this.waves[this.activeWave];

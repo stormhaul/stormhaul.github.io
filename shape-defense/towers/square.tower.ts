@@ -1,18 +1,30 @@
-import {Tower} from "./tower";
-import {Context} from "../rendering/context";
-import {Point} from "../helpers/point";
+import {Tower} from './tower';
+import {Context} from '../rendering/context';
+import {Point} from '../helpers/point';
 
-export class SquareTower extends Tower{
+export class SquareTower extends Tower
+{
     private sideLength: number;
 
-    constructor(sideLength: number, position: Point) {
+    constructor(sideLength: number, position: Point)
+    {
         super();
 
         this.sideLength = sideLength;
-        this.position = position;
+        this.position   = position;
     }
 
-    render(context: Context, offset: Point): void {
-        context.rect(this.position.add(this.getParentOffset()), this.sideLength, this.sideLength, 1, true, 'purple', true, 'red');
+    render(context: Context, offset: Point): void
+    {
+        context.rect(
+            this.position.add(this.getParentOffset()).add(offset === undefined ? new Point(0, 0) : offset),
+            this.sideLength,
+            this.sideLength,
+            1,
+            true,
+            'purple',
+            true,
+            'red'
+        );
     }
 }

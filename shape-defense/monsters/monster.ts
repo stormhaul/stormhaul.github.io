@@ -66,22 +66,18 @@ export abstract class Monster extends RenderableParent implements AttackableInte
             return;
         }
         let dist = target.dist(this.position);
-        let leftover = dist;
+        let speed = this.speed;
         if (dist < this.speed) {
-            leftover = this.speed - dist;
-            this.position = target;
-        }
-
-        if (leftover != dist) {
+            speed -= dist;
             target = this.path[++this.currentPathTarget];
-
-            if (!target) {
-                // monster escaped
-                return;
-            }
         }
 
-        this.position = this.position.toward(target, leftover);
+        if (!target) {
+            console.log('escaped');
+            return;
+        }
+
+        this.position = this.position.toward(target, speed);
         this.direction         = new Angle(Math.atan2(
             target.y - this.position.y,
             target.x - this.position.x
@@ -110,9 +106,9 @@ export abstract class Monster extends RenderableParent implements AttackableInte
 
         let barWidth  = 20;
         let barOffset = 15;
-        context.rect(this.position.sub(new Point(barWidth / 2, barOffset)), barWidth, 2, 0, true, 'red', false, '');
+        context.rect(this.position.sub(new Point(barWidth / 2, barOffset)).add(offset), barWidth, 2, 0, true, 'red', false, '');
         context.rect(
-            this.position.sub(new Point(barWidth / 2, barOffset)),
+            this.position.sub(new Point(barWidth / 2, barOffset)).add(offset),
             Math.min(barWidth * this.health / this.maxHealth, barWidth),
             2,
             0,
