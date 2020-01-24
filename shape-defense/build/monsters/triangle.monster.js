@@ -7,6 +7,7 @@ define(["require", "exports", "./monster", "./armor/speed.armor"], function (req
         }
         render(context, offset) {
             super.render(context, offset);
+            context.triangle(this.position, 20, this.getDirection(), 1, true, 'yellow', true, 'green');
         }
     }
     exports.TriangleMonster = TriangleMonster;

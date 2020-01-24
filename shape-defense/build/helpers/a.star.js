@@ -33,8 +33,18 @@ define(["require", "exports", "./point"], function (require, exports, point_1) {
                 new point_1.Point(1, 0),
                 new point_1.Point(-1, 0)
             ];
+            let eightVectors = [
+                new point_1.Point(0, 1),
+                new point_1.Point(0, -1),
+                new point_1.Point(1, 0),
+                new point_1.Point(-1, 0),
+                new point_1.Point(-1, -1),
+                new point_1.Point(-1, 1),
+                new point_1.Point(1, -1),
+                new point_1.Point(1, 1)
+            ];
             let neighbors = [];
-            vectors.map((v) => {
+            eightVectors.map((v) => {
                 try {
                     let next = v.add(p);
                     if (grid.get(next) === false) {
@@ -77,7 +87,7 @@ define(["require", "exports", "./point"], function (require, exports, point_1) {
             openSet.splice(openSet.indexOf(current), 1);
             let neighbors = getNeighbors(current);
             neighbors.map((neighbor) => {
-                let tentativeScore = gScore[ptk(current)] + 1;
+                let tentativeScore = gScore[ptk(current)] + h(neighbor);
                 if (tentativeScore < gScore[ptk(neighbor)]) {
                     cameFrom[ptk(neighbor)] = current;
                     gScore[ptk(neighbor)] = tentativeScore;

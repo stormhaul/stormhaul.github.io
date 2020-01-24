@@ -9,6 +9,9 @@ define(["require", "exports", "../rendering/renderable.parent", "../helpers/poin
             this.cellWidth = cellWidth;
             this.cols = cols;
             this.rows = rows;
+            this.monsters = [];
+            this.waves = [];
+            this.activeWave = 0;
         }
         getGrid() {
             return this.grid;
@@ -21,7 +24,9 @@ define(["require", "exports", "../rendering/renderable.parent", "../helpers/poin
         }
         render(context, offset) {
             this.renderGrid(context, offset);
+            this.renderTowers(context, offset);
             this.renderWaypoints(context, offset);
+            this.renderMonsters(context, offset);
         }
         renderGrid(context, offset) {
             let sum = this.gridOrigin.add(this.getParentOffset());
@@ -31,14 +36,35 @@ define(["require", "exports", "../rendering/renderable.parent", "../helpers/poin
             for (let i = 0; i <= this.cols; i++) {
                 context.line(new point_1.Point(sum.x, sum.y + i * this.cellWidth), new point_1.Point(sum.x + this.rows * this.cellWidth, sum.y + i * this.cellWidth), 1, 'white');
             }
-            this.renderTowers(context, offset);
         }
         renderTowers(context, offset) {
             this.towers.map((tower) => {
-                tower.render(context, this.getParentOffset());
+                tower.render(context, offset);
             });
         }
         renderWaypoints(context, offset) {
+            let colors = [
+                'rgba(230, 25,  75,  .4)',
+                'rgba(60,  180, 75,  .4)',
+                'rgba(255, 225, 25,  .4)',
+                'rgba(67,  99,  216, .4)',
+                'rgba(245, 130, 49,  .4)',
+                'rgba(145, 30,  180, .4)',
+                'rgba(70,  240, 240, .4)',
+                'rgba(240, 50,  230, .4)',
+                'rgba(188, 246, 12,  .4)',
+                'rgba(250, 190, 190, .4)',
+                'rgba(0,   128, 128, .4)',
+                'rgba(230, 190, 255, .4)',
+                'rgba(154, 99,  36,  .4)',
+                'rgba(255, 250, 200, .4)',
+                'rgba(128, 0,   128, .4)',
+                'rgba(170, 255, 195, .4)',
+                'rgba(128, 128, 0,   .4)',
+                'rgba(255, 216, 177, .4)',
+                'rgba(0,   117, 117, .4)',
+                'rgba(128, 128, 128, .4)'
+            ];
             let sum = this.gridOrigin.add(this.getParentOffset());
             let cur = this.waypoints.getRoot();
             while (cur) {
@@ -47,22 +73,27 @@ define(["require", "exports", "../rendering/renderable.parent", "../helpers/poin
             }
             let prev = null;
             cur = this.waypoints.getRoot();
+            let ct = 0;
             while (cur) {
                 if (prev != null) {
+                    let sel = colors[ct % colors.length];
+                    ct++;
                     let path = a_star_1.AStar(this.grid, prev, cur);
                     for (let i = 0; i < path.length - 1; i++) {
-                        context.line(path[i].mult(this.cellWidth).add(sum).add(new point_1.Point(this.cellWidth / 2, this.cellWidth / 2)), path[i + 1].mult(this.cellWidth).add(sum).add(new point_1.Point(this.cellWidth / 2, this.cellWidth / 2)), 1, 'green');
+                        context.line(path[i].mult(this.cellWidth).add(sum).add(new point_1.Point(this.cellWidth / 2, this.cellWidth / 2)), path[i + 1].mult(this.cellWidth).add(sum).add(new point_1.Point(this.cellWidth / 2, this.cellWidth / 2)), 1, sel);
                     }
                 }
                 prev = cur;
                 cur = this.waypoints.getNext(cur);
             }
         }
-        convertGridToPixel(point) {
-            return point.mult(this.cellWidth).add(this.gridOrigin).add(this.getParentOffset());
+        renderMonsters(context, offset) {
+            this.monsters.map(monster => {
+                monster.render(context, offset);
+            });
         }
-        convertPixelToGrid(point) {
-            return point.sub(this.getParentOffset()).sub(this.gridOrigin).mult(1 / this.cellWidth);
+        convertGridToPixel(point) {
+            return point.mult(this.cellWidth).add(this.gridOrigin);
         }
     }
     exports.GameMap = GameMap;

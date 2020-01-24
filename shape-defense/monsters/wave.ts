@@ -1,10 +1,12 @@
-import {Monster} from "./monster";
+import {Monster} from './monster';
 
-export class Wave {
+export class Wave
+{
     private monsters: Array<Monster>;
     private spawnCounter: number = 0;
 
-    constructor(monsters: Array<Monster>, randomizeOrder?: boolean) {
+    constructor(monsters: Array<Monster>, randomizeOrder?: boolean)
+    {
         this.monsters = monsters;
 
         if (randomizeOrder) {
@@ -12,24 +14,25 @@ export class Wave {
         }
     }
 
-    randomizeOrder(): void {
+    randomizeOrder(): void
+    {
         let currentIndex = this.monsters.length, temporaryValue, randomIndex;
 
         // While there remain elements to shuffle...
         while (0 !== currentIndex) {
 
             // Pick a remaining element...
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex -= 1;
+            randomIndex = Math.floor(Math.random() * currentIndex--);
 
             // And swap it with the current element.
-            temporaryValue = this.monsters[currentIndex];
+            temporaryValue              = this.monsters[currentIndex];
             this.monsters[currentIndex] = this.monsters[randomIndex];
-            this.monsters[randomIndex] = temporaryValue;
+            this.monsters[randomIndex]  = temporaryValue;
         }
     }
 
-    getNextSpawn(): Monster {
+    getNextSpawn(): Monster
+    {
         if (this.spawnCounter >= this.monsters.length) {
             // Wave End Event
         }

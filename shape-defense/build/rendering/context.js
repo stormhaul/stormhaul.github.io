@@ -42,6 +42,25 @@ define(["require", "exports", "../helpers/point"], function (require, exports, p
                 this.ctx.stroke();
             }
         }
+        triangle(tip, sideLength, angle, borderWidth, fill, fillStyle, stroke, strokeStyle) {
+            this.ctx.fillStyle = fillStyle;
+            this.ctx.strokeStyle = strokeStyle;
+            this.ctx.lineWidth = borderWidth;
+            let height = Math.sqrt(Math.pow(sideLength, 2) - Math.pow(sideLength / 2, 2));
+            let a = tip;
+            let b = tip.add(new point_1.Point(sideLength / 2, -height)).rotateAround(a, angle);
+            let c = tip.add(new point_1.Point(-sideLength / 2, -height)).rotateAround(a, angle);
+            this.ctx.beginPath();
+            this.ctx.moveTo(a.x, a.y);
+            this.ctx.lineTo(b.x, b.y);
+            this.ctx.lineTo(c.x, c.y);
+            if (fill) {
+                this.ctx.fill();
+            }
+            if (stroke) {
+                this.ctx.stroke();
+            }
+        }
         text(text, offset = new point_1.Point(0, 0)) {
             this.ctx.beginPath();
             this.ctx.font = text.getFontSize() + 'px ' + text.getFontFamily();

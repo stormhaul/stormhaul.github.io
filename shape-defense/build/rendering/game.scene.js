@@ -17,12 +17,16 @@ define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "..
             this.topSeparatorLayer = new layer_1.Layer(9);
             this.topTextLayer = new layer_1.Layer(2);
             this.topButtonLayer = new layer_1.Layer(3);
-            this.rightbarPanel = new viewport_panel_1.ViewportPanel(mouse, new point_1.Point(window.innerWidth - rightbarWidth, topbarHeight), rightbarWidth, window.innerHeight - topbarHeight, () => { }, () => { });
+            this.rightbarPanel = new viewport_panel_1.ViewportPanel(mouse, new point_1.Point(window.innerWidth - rightbarWidth, topbarHeight), rightbarWidth, window.innerHeight - topbarHeight, () => {
+            }, () => {
+            });
             this.rightBackgroundLayer = new layer_1.Layer();
             this.rightSeparatorLayer = new layer_1.Layer(9);
             this.rightTextLayer = new layer_1.Layer(2);
             this.rightButtonLayer = new layer_1.Layer(3);
-            this.mapPanel = new viewport_panel_1.ViewportPanel(mouse, new point_1.Point(0, topbarHeight), window.innerWidth - rightbarWidth, window.innerHeight - topbarHeight, () => { }, () => { });
+            this.mapPanel = new viewport_panel_1.ViewportPanel(mouse, new point_1.Point(0, topbarHeight), window.innerWidth - rightbarWidth, window.innerHeight - topbarHeight, () => {
+            }, () => {
+            });
             this.mapBackgroundLayer = new layer_1.Layer();
             this.mapSeparatorLayer = new layer_1.Layer(9);
             this.mapGameViewLayer = new layer_1.Layer(2);

@@ -1,7 +1,8 @@
-import {Grid} from "./grid";
-import {Point} from "./point";
+import {Grid} from './grid';
+import {Point} from './point';
 
-export class SpaceConversion {
+export class SpaceConversion
+{
     private g1: Grid;
     private g2: Grid;
     private ratio: number;
@@ -11,13 +12,15 @@ export class SpaceConversion {
      * @param g2 Target Grid
      * @param ratio ratio of g1 units per g2 unit
      */
-    constructor(g1: Grid, g2: Grid) {
+    constructor(g1: Grid, g2: Grid)
+    {
         this.g1    = g1;
         this.g2    = g2;
         this.ratio = g2.getGranularity() / g1.getGranularity();
     }
 
-    convert(p: Point) {
+    convert(p: Point)
+    {
         return p.mult(this.ratio);
     }
 }

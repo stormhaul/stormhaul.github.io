@@ -13,7 +13,7 @@ export abstract class Monster extends RenderableParent implements AttackableInte
     private maxHealth: number;
     private liveCost: number;
     private goldValue: number;
-    private direction: Angle;
+    private direction: Angle; // 0 degrees starts in positive x axis direction is positive in the clockwise direction.
     private armor: Armor;
 
     /**
@@ -36,6 +36,8 @@ export abstract class Monster extends RenderableParent implements AttackableInte
         this.liveCost = liveCost;
         this.goldValue = goldValue;
         this.armor = armor;
+        this.direction = new Angle(Math.atan2(path[1].y - path[0].y, path[1].x - path[0].x) * 180 / Math.PI - 90);
+        console.log(this);
     }
 
     setDirection(angle: Angle): this {
@@ -69,8 +71,10 @@ export abstract class Monster extends RenderableParent implements AttackableInte
          * @todo draw health bar.
          */
 
-        context.rect(this.position, 50, 2, 0, true, 'red', false, '');
-        context.rect(this.position, Math.min(50 * this.health / this.maxHealth, 50), 2, 0, true, 'green', false, '');
+        let barWidth = 20;
+        let barOffset = 15;
+        context.rect(this.position.sub(new Point(barWidth / 2, barOffset)), barWidth, 2, 0, true, 'red', false, '');
+        context.rect(this.position.sub(new Point(barWidth / 2, barOffset)), Math.min(barWidth * this.health / this.maxHealth, barWidth), 2, 0, true, 'green', false, '');
     }
 
     attacked(amount: number): this {

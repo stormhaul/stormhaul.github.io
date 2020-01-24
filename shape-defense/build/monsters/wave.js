@@ -12,8 +12,7 @@ define(["require", "exports"], function (require, exports) {
         randomizeOrder() {
             let currentIndex = this.monsters.length, temporaryValue, randomIndex;
             while (0 !== currentIndex) {
-                randomIndex = Math.floor(Math.random() * currentIndex);
-                currentIndex -= 1;
+                randomIndex = Math.floor(Math.random() * currentIndex--);
                 temporaryValue = this.monsters[currentIndex];
                 this.monsters[currentIndex] = this.monsters[randomIndex];
                 this.monsters[randomIndex] = temporaryValue;
