@@ -1,0 +1,1 @@
+{"version":3,"file":"circle.shape.js","sourceRoot":"./src/","sources":["core/math/circle.shape.ts"],"names":[],"mappings":";;;IAGA,MAAa,WAAY,SAAQ,aAAK;QAIlC,YAAY,QAAgB,EAAE,MAAc;YAExC,KAAK,CAAC,QAAQ,CAAC,CAAC;YAChB,IAAI,CAAC,OAAO,GAAG,MAAM,CAAC;QAC1B,CAAC;QAED,IAAI,MAAM;YAEN,OAAO,IAAI,CAAC,OAAO,CAAC;QACxB,CAAC;KACJ;IAdD,kCAcC"}

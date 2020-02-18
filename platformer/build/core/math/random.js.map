@@ -1,0 +1,1 @@
+{"version":3,"file":"random.js","sourceRoot":"./src/","sources":["core/math/random.ts"],"names":[],"mappings":";;;IAAA,MAAa,MAAM;QAEf;;WAEG;QACH,GAAG,CAAC,KAAa,EAAE,KAAY;YAE3B,OAAO,IAAI,CAAC,KAAK,CAAC,IAAI,CAAC,MAAM,EAAE,GAAG,KAAK,CAAC,GAAG,KAAK,CAAC;QACrD,CAAC;KACJ;IATD,wBASC"}

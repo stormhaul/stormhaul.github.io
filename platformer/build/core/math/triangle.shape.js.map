@@ -1,0 +1,1 @@
+{"version":3,"file":"triangle.shape.js","sourceRoot":"./src/","sources":["core/math/triangle.shape.ts"],"names":[],"mappings":";;;IAGA,MAAa,aAAc,SAAQ,aAAK;QAIpC,IAAI,QAAQ;YAER,OAAO,IAAI,CAAC,SAAS,CAAC;QAC1B,CAAC;QAED,YAAY,QAAgB,EAAE,QAAQ;YAElC,KAAK,CAAC,QAAQ,CAAC,CAAC;YAChB,IAAI,CAAC,SAAS,GAAG,QAAQ,CAAC;QAC9B,CAAC;KACJ;IAdD,sCAcC"}

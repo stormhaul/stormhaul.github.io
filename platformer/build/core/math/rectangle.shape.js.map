@@ -1,0 +1,1 @@
+{"version":3,"file":"rectangle.shape.js","sourceRoot":"./src/","sources":["core/math/rectangle.shape.ts"],"names":[],"mappings":";;;IAGA,MAAa,cAAe,SAAQ,aAAK;QAIrC,IAAI,QAAQ;YAER,OAAO,IAAI,CAAC,SAAS,CAAC;QAC1B,CAAC;QAED,YAAY,QAAgB,EAAE,QAAQ;YAElC,KAAK,CAAC,QAAQ,CAAC,CAAC;YAChB,IAAI,CAAC,SAAS,GAAG,QAAQ,CAAC;QAC9B,CAAC;KACJ;IAdD,wCAcC"}

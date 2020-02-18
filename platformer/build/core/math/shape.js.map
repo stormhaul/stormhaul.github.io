@@ -1,0 +1,1 @@
+{"version":3,"file":"shape.js","sourceRoot":"./src/","sources":["core/math/shape.ts"],"names":[],"mappings":";;;IAEA,MAAsB,KAAK;QAIvB,YAAY,QAAgB;YAExB,IAAI,CAAC,SAAS,GAAG,QAAQ,CAAC;QAC9B,CAAC;QAED,IAAI,QAAQ;YAER,OAAO,IAAI,CAAC,SAAS,CAAC;QAC1B,CAAC;KACJ;IAbD,sBAaC"}
