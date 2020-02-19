@@ -4,8 +4,8 @@ export class Line
 {
     protected _start: Point;
     protected _end: Point;
-    protected _length: number;
-    protected _midpoint: Point;
+    private _length: number;
+    private _midpoint: Point;
 
     constructor(start: Point, end: Point)
     {
@@ -58,5 +58,15 @@ export class Line
     get end(): Point
     {
         return this._end;
+    }
+
+    get length(): number
+    {
+        return this._length;
+    }
+
+    get midpoint(): Point
+    {
+        return this._midpoint;
     }
 }

@@ -1,4 +1,4 @@
-define(["require", "exports", "../geometry/point", "../geometry/line"], function (require, exports, point_1, line_1) {
+define(["require", "exports", "../geometry/point", "../geometry/line", "../geometry/normal"], function (require, exports, point_1, line_1, normal_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     class Context {
@@ -14,8 +14,24 @@ define(["require", "exports", "../geometry/point", "../geometry/line"], function
         clear() {
             this.ctx.clearRect(0, 0, this.ctx.width, this.ctx.height);
         }
+        drawBackgroundGrid() {
+            this.ctx.beginPath();
+            this.ctx.lineWidth = 1;
+            this.ctx.strokeStyle = 'rgba(255, 255, 255, .1)';
+            for (let i = 0; i < this.ctx.width; i += 10) {
+                this.ctx.moveTo(i, 0);
+                this.ctx.lineTo(i, this.ctx.height);
+            }
+            for (let i = 0; i < this.ctx.height; i += 10) {
+                this.ctx.moveTo(0, i);
+                this.ctx.lineTo(this.ctx.width, i);
+            }
+            this.ctx.stroke();
+            this.ctx.closePath();
+        }
         drawPolygons(polys) {
             let normalAxis = [];
+            let normals = [];
             let projections = [];
             if (this.config.polygon.showNormals) {
                 polys.map(polygon => {
@@ -33,33 +49,11 @@ define(["require", "exports", "../geometry/point", "../geometry/line"], function
                         }
                     });
                 });
-                polys.map(polygon => {
-                    normalAxis.map(axis => {
-                        let dots = [];
-                        polygon.vertices.map(vertex => {
-                            dots.push(vertex.projectedOnto(axis));
-                        });
-                        let min = Number.POSITIVE_INFINITY;
-                        let minDot = null;
-                        let max = Number.NEGATIVE_INFINITY;
-                        let maxDot = null;
-                        dots.map(dot => {
-                            let dist = dot.dist(new point_1.Point(this.ctx.width / 2, this.ctx.height / 2));
-                            if (dist < min) {
-                                minDot = dot;
-                                min = dist;
-                            }
-                            if (dist > max) {
-                                maxDot = dot;
-                                max = dist;
-                            }
-                        });
-                        projections.push(new line_1.Line(minDot, maxDot));
-                    });
-                });
+                normals = normalAxis.map(axis => new normal_1.Normal(axis));
+                polys.map(shape => { normals.map(normal => normal.projectPolygon(shape)); });
             }
-            normalAxis.map(axis => this.drawAxis(axis));
-            projections.map((proj, index) => this.drawProjection(proj, this.doesLineSegmentOverlap(proj, projections.filter((p, i) => i !== index))));
+            console.log(normals);
+            this.drawNormals(normals);
             polys.map(p => {
                 this.ctx.beginPath();
                 this.ctx.lineJoin = 'round';
@@ -89,6 +83,16 @@ define(["require", "exports", "../geometry/point", "../geometry/line"], function
                 this.ctx.closePath();
             });
         }
+        drawNormals(normals) {
+            normals.map(normal => {
+                this.drawAxis(normal.line);
+            });
+            normals.map(normal => {
+                normal.projections.map(proj => {
+                    this.drawProjection(proj.line, proj.color);
+                });
+            });
+        }
         drawAxis(axis) {
             this.ctx.beginPath();
             this.ctx.lineWidth = this.config.polygon.lineWidth;
@@ -98,10 +102,10 @@ define(["require", "exports", "../geometry/point", "../geometry/line"], function
             this.ctx.stroke();
             this.ctx.closePath();
         }
-        drawProjection(projection, overlapping = false) {
+        drawProjection(projection, color) {
             this.ctx.beginPath();
             this.ctx.lineWidth = this.config.polygon.lineWidth * 3;
-            this.ctx.strokeStyle = overlapping ? 'red' : 'blue';
+            this.ctx.strokeStyle = color;
             this.ctx.moveTo(projection.start.x, projection.start.y);
             this.ctx.lineTo(projection.end.x, projection.end.y);
             this.ctx.stroke();
@@ -120,9 +124,9 @@ define(["require", "exports", "../geometry/point", "../geometry/line"], function
         doesLineSegmentOverlap(needle, haystack) {
             let overlap = false;
             haystack.map(line => {
-                let vector = line.end.clone().sub(line.start);
-                console.log(vector, needle, vector.dot(needle.end.clone().sub(needle.start)), Math.abs(vector.unit().dot(needle.end.clone().sub(needle.start).unit())), Math.abs(vector.dot(needle.end.clone().sub(needle.start))) == 1, needle.overlaps(line));
-                if (Math.abs(vector.unit().dot(needle.end.clone().sub(needle.start).unit())) == 1 && needle.overlaps(line)) {
+                let vector = line.end.clone().sub(line.start).unit();
+                console.log(vector, needle, vector.dot(needle.end.clone().sub(needle.start).unit()), Math.abs(vector.dot(needle.end.clone().sub(needle.start).unit())), Math.abs(vector.dot(needle.end.clone().sub(needle.start).unit())) == 1, needle.overlaps(line));
+                if (Math.abs(vector.dot(needle.end.clone().sub(needle.start).unit())) == 1 && needle.overlaps(line)) {
                     overlap = true;
                 }
             });

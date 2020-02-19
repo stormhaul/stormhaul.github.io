@@ -37,6 +37,12 @@ define(["require", "exports", "./point"], function (require, exports, point_1) {
         get end() {
             return this._end;
         }
+        get length() {
+            return this._length;
+        }
+        get midpoint() {
+            return this._midpoint;
+        }
     }
     exports.Line = Line;
 });

@@ -2,6 +2,7 @@ import {Config} from '../config';
 import {Polygon} from '../geometry/polygon';
 import {Point} from '../geometry/point';
 import {Line} from '../geometry/line';
+import {Normal} from '../geometry/normal';
 
 export class Context
 {
@@ -25,6 +26,25 @@ export class Context
         this.ctx.clearRect(0, 0, this.ctx.width, this.ctx.height);
     }
 
+    drawBackgroundGrid()
+    {
+        this.ctx.beginPath();
+        this.ctx.lineWidth = 1;
+        this.ctx.strokeStyle = 'rgba(255, 255, 255, .1)';
+
+        for (let i = 0; i < this.ctx.width; i+=10) {
+            this.ctx.moveTo(i, 0);
+            this.ctx.lineTo(i, this.ctx.height);
+        }
+        for (let i = 0; i < this.ctx.height; i+=10) {
+            this.ctx.moveTo(0, i);
+            this.ctx.lineTo(this.ctx.width, i);
+        }
+
+        this.ctx.stroke();
+        this.ctx.closePath();
+    }
+
     /**
      * Draws the polygons, as well as axis+projections if
      * @param polys
@@ -32,6 +52,7 @@ export class Context
     drawPolygons(polys: Polygon[])
     {
         let normalAxis = [];
+        let normals = [];
         let projections = [];
         // Generate unique normals and projections if showing
         if (this.config.polygon.showNormals) {
@@ -53,39 +74,15 @@ export class Context
                 });
             });
 
-            // Projection generation
-            polys.map(polygon => {
-                normalAxis.map(axis => {
-                    let dots = [];
-                    polygon.vertices.map(
-                        vertex => {
-                            dots.push(vertex.projectedOnto(axis));
-                        }
-                    );
+            normals = normalAxis.map(axis => new Normal(axis));
 
-                    let min = Number.POSITIVE_INFINITY;
-                    let minDot = null;
-                    let max = Number.NEGATIVE_INFINITY;
-                    let maxDot = null;
-                    dots.map(dot => {
-                        let dist = dot.dist(new Point(this.ctx.width / 2, this.ctx.height / 2));
-                        if (dist < min) {
-                            minDot = dot;
-                            min = dist
-                        }
-                        if (dist > max) {
-                            maxDot = dot;
-                            max = dist;
-                        }
-                    });
-                    projections.push(new Line(minDot, maxDot));
-                });
-            });
+
+            // Projection generation
+            polys.map(shape => {normals.map(normal => normal.projectPolygon(shape))});
         }
 
         // Draw any axis and projections which were generated
-        normalAxis.map(axis => this.drawAxis(axis));
-        projections.map((proj, index) => this.drawProjection(proj, this.doesLineSegmentOverlap(proj, projections.filter((p, i) => i !== index))));
+        this.drawNormals(normals);
 
         // Draw each polygon
         polys.map(p => {
@@ -123,6 +120,19 @@ export class Context
         });
     }
 
+    drawNormals(normals: Normal[])
+    {
+        normals.map(normal => {
+            this.drawAxis(normal.line);
+        });
+
+        normals.map(normal => {
+            normal.projections.map(proj => {
+                this.drawProjection(proj.line, proj.color);
+            });
+        });
+    }
+
     drawAxis(axis: Line) {
         this.ctx.beginPath();
         this.ctx.lineWidth = this.config.polygon.lineWidth;
@@ -133,11 +143,11 @@ export class Context
         this.ctx.closePath();
     }
 
-    drawProjection(projection: Line, overlapping: boolean = false)
+    drawProjection(projection: Line, color: string)
     {
         this.ctx.beginPath();
         this.ctx.lineWidth = this.config.polygon.lineWidth * 3;
-        this.ctx.strokeStyle = overlapping ? 'red' : 'blue';
+        this.ctx.strokeStyle = color;
         this.ctx.moveTo(projection.start.x, projection.start.y);
         this.ctx.lineTo(projection.end.x, projection.end.y);
         this.ctx.stroke();
@@ -161,15 +171,16 @@ export class Context
     {
         let overlap = false;
         haystack.map(line => {
-            let vector = line.end.clone().sub(line.start);
+            let vector = line.end.clone().sub(line.start).unit();
             console.log(
                 vector,
                 needle,
-                vector.dot(needle.end.clone().sub(needle.start)),
-                Math.abs(vector.unit().dot(needle.end.clone().sub(needle.start).unit())),
-                Math.abs(vector.dot(needle.end.clone().sub(needle.start))) == 1, needle.overlaps(line)
+                vector.dot(needle.end.clone().sub(needle.start).unit()),
+                Math.abs(vector.dot(needle.end.clone().sub(needle.start).unit())),
+                Math.abs(vector.dot(needle.end.clone().sub(needle.start).unit())) == 1,
+                needle.overlaps(line)
             );
-            if (Math.abs(vector.unit().dot(needle.end.clone().sub(needle.start).unit())) == 1 && needle.overlaps(line)) {
+            if (Math.abs(vector.dot(needle.end.clone().sub(needle.start).unit())) == 1 && needle.overlaps(line)) {
                 overlap = true;
             }
         });

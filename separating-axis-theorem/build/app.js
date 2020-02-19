@@ -15,6 +15,7 @@ define(["require", "exports", "./config", "./rendering/context", "./geometry/pol
         }
         loop() {
             this.context.clear();
+            this.context.drawBackgroundGrid();
             this.context.drawPolygons(this.polys);
         }
     }
