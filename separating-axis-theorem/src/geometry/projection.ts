@@ -33,7 +33,7 @@ export class Projection
             intersects = (this.line.start.y <= maxY && this.line.start.y >= minY) || (this.line.end.y <= maxY && this.line.end.y >= minY);
         }
 
-        return parallel === 1 && intersects;
+        return parallel && intersects;
     }
 
     get line(): Line
