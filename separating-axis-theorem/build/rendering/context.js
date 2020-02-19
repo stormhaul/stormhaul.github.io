@@ -52,7 +52,6 @@ define(["require", "exports", "../geometry/point", "../geometry/line", "../geome
                 normals = normalAxis.map(axis => new normal_1.Normal(axis));
                 polys.map(shape => { normals.map(normal => normal.projectPolygon(shape)); });
             }
-            console.log(normals);
             this.drawNormals(normals);
             polys.map(p => {
                 this.ctx.beginPath();

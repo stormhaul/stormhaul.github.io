@@ -14,7 +14,16 @@ define(["require", "exports"], function (require, exports) {
             let parallel = this._unitVector.dot(p.unitVector);
             let minX = Math.min(p.line.start.x, p.line.end.x);
             let maxX = Math.max(p.line.start.x, p.line.end.x);
-            let intersects = (this.line.start.x <= maxX && this.line.start.x >= minX) || (this.line.end.x <= maxX && this.line.end.x >= minX);
+            let verticalLine = this.line.start.x === this.line.end.x;
+            let intersects;
+            if (!verticalLine) {
+                intersects = (this.line.start.x <= maxX && this.line.start.x >= minX) || (this.line.end.x <= maxX && this.line.end.x >= minX);
+            }
+            else {
+                let minY = Math.min(p.line.start.y, p.line.end.y);
+                let maxY = Math.max(p.line.start.y, p.line.end.y);
+                intersects = (this.line.start.y <= maxY && this.line.start.y >= minY) || (this.line.end.y <= maxY && this.line.end.y >= minY);
+            }
             return parallel && intersects;
         }
         get line() {
