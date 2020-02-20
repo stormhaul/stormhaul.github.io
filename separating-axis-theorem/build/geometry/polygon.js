@@ -6,12 +6,28 @@ define(["require", "exports", "./angle", "./line", "./radial.line"], function (r
             this._center = center;
             this._sides = sides;
             this._sideLength = sideLength;
-            this._orientation = new angle_1.Angle(sides % 2 === 1 ? -90 : -45);
+            this._orientation = new angle_1.Angle(Math.floor(Math.random() * 360));
             this._centerAngle = new angle_1.Angle(360 / this._sides);
             this._interiorAngle = new angle_1.Angle(180 * (this._sides - 2));
             this._radius = this._sideLength / (2 * Math.sin(Math.PI / this._sides));
             this._apothem = this._radius * Math.cos(Math.PI / this._sides);
+            this._attachment = null;
             this.generateGeometries();
+        }
+        isBounding(p) {
+            let inside = false;
+            this._vertices.map((vertex, index) => {
+                if (index + 1 === this._vertices.length) {
+                    return;
+                }
+                let x1 = vertex.x, y1 = vertex.y, x2 = this._vertices[index + 1].x, y2 = this._vertices[index + 1].y;
+                let intersect = ((y1 > p.y) != (y2 > p.y))
+                    && (p.x < (x2 - x1) * (p.y - y1) / (y2 - y1) + x1);
+                if (intersect) {
+                    inside = !inside;
+                }
+            });
+            return inside;
         }
         generateGeometries() {
             this._vertices = this.generateVertices();
@@ -42,6 +58,12 @@ define(["require", "exports", "./angle", "./line", "./radial.line"], function (r
             });
             return normals;
         }
+        attach(p) {
+            this._attachment = p.clone().sub(this.center);
+        }
+        detach() {
+            this._attachment = null;
+        }
         get center() {
             return this._center;
         }
@@ -71,6 +93,18 @@ define(["require", "exports", "./angle", "./line", "./radial.line"], function (r
         }
         get normals() {
             return this._normals;
+        }
+        set center(value) {
+            console.log('hello setter');
+            if (this._attachment === null) {
+                console.log('attachment null');
+                this._center = value;
+            }
+            else {
+                console.log('attached');
+                this._center = value.sub(this._attachment);
+            }
+            this.generateGeometries();
         }
     }
     exports.Polygon = Polygon;

@@ -16,21 +16,53 @@ export class Polygon
     private _edges: Line[];
     private _normals: Line[]; // normal for each edge
     private _orientation: Angle; // Initial angle used when generating the vertices 0 is → 90 is ↓
+    private _attachment: Point|null;
 
     constructor(center: Point, sides: number, sideLength: number)
     {
         this._center     = center;
         this._sides      = sides;
         this._sideLength = sideLength;
-        this._orientation = new Angle(sides % 2 === 1 ? -90 : -45);
+        this._orientation = new Angle(Math.floor(Math.random() * 360));//sides % 2 === 1 ? -90 : -45);
 
         this._centerAngle = new Angle(360 / this._sides);
         this._interiorAngle = new Angle(180 * (this._sides - 2));
 
         this._radius = this._sideLength / (2 * Math.sin(Math.PI / this._sides));
         this._apothem = this._radius * Math.cos(Math.PI / this._sides);
+        this._attachment = null;
 
         this.generateGeometries();
+    }
+
+    /**
+     * Checks if polygon is bounding given point.
+     * @param p
+     */
+    isBounding(p: Point): boolean
+    {
+        let inside = false;
+        this._vertices.map(
+            (vertex, index) => {
+                if (index+1 === this._vertices.length) {
+                    return;
+                }
+
+                let x1 = vertex.x,
+                    y1 = vertex.y,
+                    x2 = this._vertices[index+1].x,
+                    y2 = this._vertices[index+1].y;
+
+                let intersect = ((y1 > p.y) != (y2 > p.y))
+                    && (p.x < (x2 - x1) * (p.y - y1) / (y2 - y1) + x1);
+
+                if (intersect) {
+                    inside = !inside;
+                }
+            }
+        );
+
+        return inside;
     }
 
     private generateGeometries()
@@ -78,6 +110,14 @@ export class Polygon
         );
 
         return normals;
+    }
+
+    public attach(p: Point) {
+        this._attachment = p.clone().sub(this.center);
+    }
+
+    public detach() {
+        this._attachment = null;
     }
 
     get center(): Point
@@ -128,5 +168,19 @@ export class Polygon
     get normals(): Line[]
     {
         return this._normals;
+    }
+
+    set center(value: Point)
+    {
+        console.log('hello setter');
+        if (this._attachment === null) {
+            console.log('attachment null');
+            this._center = value;
+        } else {
+            console.log('attached');
+            this._center = value.sub(this._attachment);
+        }
+
+        this.generateGeometries();
     }
 }
