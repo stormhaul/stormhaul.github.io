@@ -23,7 +23,7 @@ export class Polygon
         this._center     = center;
         this._sides      = sides;
         this._sideLength = sideLength;
-        this._orientation = new Angle(Math.floor(Math.random() * 360));//sides % 2 === 1 ? -90 : -45);
+        this._orientation = new Angle(sides % 2 === 1 ? -90 : -45);
 
         this._centerAngle = new Angle(360 / this._sides);
         this._interiorAngle = new Angle(180 * (this._sides - 2));

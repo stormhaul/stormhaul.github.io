@@ -16,22 +16,20 @@ define(["require", "exports", "./line", "./projection"], function (require, expo
             p.vertices.map(vertex => {
                 dots.push(vertex.projectedOnto(this._line));
             });
-            let min = Number.POSITIVE_INFINITY;
-            let minDot = null;
-            let max = Number.NEGATIVE_INFINITY;
-            let maxDot = null;
+            let maxDist = -1;
+            let s = null;
+            let e = null;
             dots.map(dot => {
-                let dist = dot.dist(this._line.midpoint);
-                if (dist < min) {
-                    minDot = dot;
-                    min = dist;
-                }
-                if (dist > max) {
-                    maxDot = dot;
-                    max = dist;
-                }
+                dots.map(d2 => {
+                    let dist = dot.dist(d2);
+                    if (dist > maxDist) {
+                        s = dot;
+                        e = d2;
+                        maxDist = dist;
+                    }
+                });
             });
-            this._projections.push(new projection_1.Projection(new line_1.Line(minDot, maxDot)));
+            this._projections.push(new projection_1.Projection(new line_1.Line(s, e)));
             this._projections.map((projection, index) => {
                 this._projections.map((proj, i) => {
                     if (i === index) {

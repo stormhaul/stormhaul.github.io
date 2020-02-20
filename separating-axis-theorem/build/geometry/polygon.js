@@ -6,7 +6,7 @@ define(["require", "exports", "./angle", "./line", "./radial.line"], function (r
             this._center = center;
             this._sides = sides;
             this._sideLength = sideLength;
-            this._orientation = new angle_1.Angle(Math.floor(Math.random() * 360));
+            this._orientation = new angle_1.Angle(sides % 2 === 1 ? -90 : -45);
             this._centerAngle = new angle_1.Angle(360 / this._sides);
             this._interiorAngle = new angle_1.Angle(180 * (this._sides - 2));
             this._radius = this._sideLength / (2 * Math.sin(Math.PI / this._sides));

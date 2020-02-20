@@ -8,9 +8,9 @@ define(["require", "exports", "./config", "./rendering/context", "./geometry/pol
             this.attached = [];
             let config = new config_1.Config();
             let context = new context_1.Context(config);
-            let poly = new polygon_1.Polygon(new point_1.Point(0, 0), Math.floor(Math.random() * 9) + 3, 100);
-            let poly2 = new polygon_1.Polygon(new point_1.Point(0, 0), Math.floor(Math.random() * 9) + 3, 100);
-            let poly3 = new polygon_1.Polygon(new point_1.Point(0, 0), Math.floor(Math.random() * 9) + 3, 100);
+            let poly = new polygon_1.Polygon(new point_1.Point(0, 0), Math.floor(Math.random() * 5) + 3, 100);
+            let poly2 = new polygon_1.Polygon(new point_1.Point(0, 0), Math.floor(Math.random() * 5) + 3, 100);
+            let poly3 = new polygon_1.Polygon(new point_1.Point(0, 0), Math.floor(Math.random() * 5) + 3, 100);
             let polys = [poly, poly2, poly3];
             this.config = config;
             this.context = context;

@@ -4,8 +4,6 @@ import {Polygon} from './geometry/polygon';
 import {Point} from './geometry/point';
 
 /**
- * @todo when shape overlaps origin, projections only spread over the side of the normals "more" encapsulated instead of whole thing.
- *     this issue also causes some erroneous collision detection. I wonder if it has to do with my normals being split from middle
  * @todo multi shape attachment messes with one of the shapes.
  */
 export class App
@@ -22,9 +20,9 @@ export class App
     {
         let config = new Config();
         let context = new Context(config);
-        let poly = new Polygon(new Point(0, 0), Math.floor(Math.random() * 9) + 3, 100);
-        let poly2 = new Polygon(new Point(0, 0), Math.floor(Math.random() * 9) + 3, 100);
-        let poly3 = new Polygon(new Point(0, 0), Math.floor(Math.random() * 9) + 3, 100);
+        let poly = new Polygon(new Point(0, 0), Math.floor(Math.random() * 5) + 3, 100);
+        let poly2 = new Polygon(new Point(0, 0), Math.floor(Math.random() * 5) + 3, 100);
+        let poly3 = new Polygon(new Point(0, 0), Math.floor(Math.random() * 5) + 3, 100);
 
         let polys = [poly, poly2, poly3];
 
