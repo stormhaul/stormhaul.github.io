@@ -3,6 +3,11 @@ import {Context} from './rendering/context';
 import {Polygon} from './geometry/polygon';
 import {Point} from './geometry/point';
 
+/**
+ * @todo when shape overlaps origin, projections only spread over the side of the normals "more" encapsulated instead of whole thing.
+ *     this issue also causes some erroneous collision detection. I wonder if it has to do with my normals being split from middle
+ * @todo multi shape attachment messes with one of the shapes.
+ */
 export class App
 {
     private config: Config;
