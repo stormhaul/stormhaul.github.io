@@ -5,6 +5,8 @@ import {Point} from './geometry/point';
 
 /**
  * @todo multi shape attachment messes with one of the shapes.
+ * @todo set up structure either to use multiple normal/projection setups or in some other way scalable
+ *     to allow for true collision detection rather than these guides.
  */
 export class App
 {
