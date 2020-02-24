@@ -13,6 +13,9 @@ define(["require", "exports", "../geometry/point", "../geometry/line", "../geome
         }
         clear() {
             this.ctx.clearRect(0, 0, this.ctx.width, this.ctx.height);
+            this.ctx.fillStyle = 'black';
+            this.ctx.rect(0, 0, this.ctx.width, this.ctx.height);
+            this.ctx.fill();
         }
         drawBackgroundGrid() {
             this.ctx.beginPath();
@@ -58,7 +61,7 @@ define(["require", "exports", "../geometry/point", "../geometry/line", "../geome
                 this.ctx.lineJoin = 'round';
                 switch (this.config.polygon.fillOrStroke) {
                     case 'stroke':
-                        this.ctx.strokeStyle = this.config.polygon.color;
+                        this.ctx.strokeStyle = p.colliding ? 'red' : this.config.polygon.color;
                         break;
                     case 'fill':
                         this.ctx.fillStyle = this.config.polygon.color;
@@ -91,6 +94,22 @@ define(["require", "exports", "../geometry/point", "../geometry/line", "../geome
                     this.drawProjection(proj.line, proj.color);
                 });
             });
+            normals.map(normal => {
+                normal.guides.map(guide => {
+                    this.drawGuide(guide);
+                });
+            });
+        }
+        drawGuide(guide) {
+            this.ctx.beginPath();
+            this.ctx.lineWidth = this.config.polygon.lineWidth;
+            this.ctx.strokeStyle = 'white';
+            this.ctx.setLineDash([5]);
+            this.ctx.moveTo(guide.start.x, guide.start.y);
+            this.ctx.lineTo(guide.end.x, guide.end.y);
+            this.ctx.stroke();
+            this.ctx.closePath();
+            this.ctx.setLineDash([]);
         }
         drawAxis(axis) {
             this.ctx.beginPath();

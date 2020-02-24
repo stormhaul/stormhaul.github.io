@@ -8,10 +8,13 @@ define(["require", "exports", "./config", "./rendering/context", "./geometry/pol
             this.attached = [];
             let config = new config_1.Config();
             let context = new context_1.Context(config);
-            let poly = new polygon_1.Polygon(new point_1.Point(0, 0), Math.floor(Math.random() * 5) + 3, 100);
-            let poly2 = new polygon_1.Polygon(new point_1.Point(0, 0), Math.floor(Math.random() * 5) + 3, 100);
+            let poly = new polygon_1.Polygon(new point_1.Point(0, 0), 4, 100);
+            let poly2 = new polygon_1.Polygon(new point_1.Point(0, 0), 3, 100);
             let poly3 = new polygon_1.Polygon(new point_1.Point(0, 0), Math.floor(Math.random() * 5) + 3, 100);
-            let polys = [poly, poly2, poly3];
+            let polys = [
+                new polygon_1.Polygon(new point_1.Point(0, 0), 4, 100),
+                new polygon_1.Polygon(new point_1.Point(0, 0), 4, 100),
+            ];
             this.config = config;
             this.context = context;
             this.polys = polys;
@@ -19,19 +22,35 @@ define(["require", "exports", "./config", "./rendering/context", "./geometry/pol
             document.addEventListener('mousedown', this.mouseDown.bind(this));
             document.addEventListener('mouseup', this.mouseUp.bind(this));
             document.addEventListener('mousemove', this.mouseMove.bind(this));
+            this.checkCollisions();
             this.loop();
         }
+        checkCollisions() {
+            this.polys.map((poly, index) => {
+                let colliding = false;
+                this.polys.map((p, i) => {
+                    if (i === index) {
+                        return;
+                    }
+                    if (poly.isColliding(p)) {
+                        colliding = true;
+                    }
+                });
+                poly.colliding = colliding;
+            });
+        }
         mouseMove(e) {
-            console.log('move', e);
             this.mousePos = new point_1.Point(e.x, e.y);
             if (this.mousePos != null) {
                 this.attached.map(attachment => {
                     attachment.center = this.mousePos;
                 });
+                if (this.attached.length > 0) {
+                    this.checkCollisions();
+                }
             }
         }
         mouseDown(e) {
-            console.log(e);
             this._mouseDown = true;
             this.polys.map(poly => {
                 let point = new point_1.Point(e.x, e.y);
@@ -42,7 +61,6 @@ define(["require", "exports", "./config", "./rendering/context", "./geometry/pol
             });
         }
         mouseUp(e) {
-            console.log(e);
             this._mouseDown = false;
             this.attached.map(attachment => {
                 attachment.detach();

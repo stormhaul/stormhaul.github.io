@@ -2,6 +2,7 @@ import {Point} from './point';
 import {Angle} from './angle';
 import {Line} from './line';
 import {RadialLine} from './radial.line';
+import {Normal} from './normal';
 
 export class Polygon
 {
@@ -17,6 +18,7 @@ export class Polygon
     private _normals: Line[]; // normal for each edge
     private _orientation: Angle; // Initial angle used when generating the vertices 0 is → 90 is ↓
     private _attachment: Point|null;
+    private _colliding: boolean;
 
     constructor(center: Point, sides: number, sideLength: number)
     {
@@ -63,6 +65,56 @@ export class Polygon
         );
 
         return inside;
+    }
+
+    isColliding(p: Polygon): boolean
+    {
+        let normals = [];
+
+        this._normals.map(normal => {
+            if (this.checkNormalsForParallel(normal, normals)) {
+                normals.push(normal);
+            }
+        });
+
+        p.normals.map(normal => {
+            if (this.checkNormalsForParallel(normal, normals)) {
+                normals.push(normal);
+            }
+        });
+
+        let constructedNormals = [];
+        normals.map(normal => {
+            constructedNormals.push(new Normal(normal));
+        });
+
+        constructedNormals.map(normal => {
+            normal.projectPolygon(this);
+            normal.projectPolygon(p);
+        });
+
+        let isColliding = true;
+        constructedNormals.map(normal => {
+            if (!normal.hasCollision()) {
+                // if any of the normals lack a collision, then there is no collision yet.
+                isColliding = false;
+            }
+        });
+
+        return isColliding;
+    }
+
+    private checkNormalsForParallel(needle, haystack): boolean
+    {
+        let notFound = true;
+        haystack.map(line => {
+            let vector = line.end.clone().sub(line.start);
+            if (Math.abs(vector.unit().dot(needle.end.clone().sub(needle.start).unit())) == 1) { // 0 = perpendicular +/- 1 = parallel
+                notFound = false;
+            }
+        });
+
+        return notFound;
     }
 
     private generateGeometries()
@@ -172,15 +224,22 @@ export class Polygon
 
     set center(value: Point)
     {
-        console.log('hello setter');
         if (this._attachment === null) {
-            console.log('attachment null');
             this._center = value;
         } else {
-            console.log('attached');
             this._center = value.sub(this._attachment);
         }
 
         this.generateGeometries();
+    }
+
+    get colliding(): boolean
+    {
+        return this._colliding;
+    }
+
+    set colliding(value: boolean)
+    {
+        this._colliding = value;
     }
 }

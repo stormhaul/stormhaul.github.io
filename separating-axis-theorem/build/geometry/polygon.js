@@ -1,4 +1,4 @@
-define(["require", "exports", "./angle", "./line", "./radial.line"], function (require, exports, angle_1, line_1, radial_line_1) {
+define(["require", "exports", "./angle", "./line", "./radial.line", "./normal"], function (require, exports, angle_1, line_1, radial_line_1, normal_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     class Polygon {
@@ -28,6 +28,44 @@ define(["require", "exports", "./angle", "./line", "./radial.line"], function (r
                 }
             });
             return inside;
+        }
+        isColliding(p) {
+            let normals = [];
+            this._normals.map(normal => {
+                if (this.checkNormalsForParallel(normal, normals)) {
+                    normals.push(normal);
+                }
+            });
+            p.normals.map(normal => {
+                if (this.checkNormalsForParallel(normal, normals)) {
+                    normals.push(normal);
+                }
+            });
+            let constructedNormals = [];
+            normals.map(normal => {
+                constructedNormals.push(new normal_1.Normal(normal));
+            });
+            constructedNormals.map(normal => {
+                normal.projectPolygon(this);
+                normal.projectPolygon(p);
+            });
+            let isColliding = true;
+            constructedNormals.map(normal => {
+                if (!normal.hasCollision()) {
+                    isColliding = false;
+                }
+            });
+            return isColliding;
+        }
+        checkNormalsForParallel(needle, haystack) {
+            let notFound = true;
+            haystack.map(line => {
+                let vector = line.end.clone().sub(line.start);
+                if (Math.abs(vector.unit().dot(needle.end.clone().sub(needle.start).unit())) == 1) {
+                    notFound = false;
+                }
+            });
+            return notFound;
         }
         generateGeometries() {
             this._vertices = this.generateVertices();
@@ -95,16 +133,19 @@ define(["require", "exports", "./angle", "./line", "./radial.line"], function (r
             return this._normals;
         }
         set center(value) {
-            console.log('hello setter');
             if (this._attachment === null) {
-                console.log('attachment null');
                 this._center = value;
             }
             else {
-                console.log('attached');
                 this._center = value.sub(this._attachment);
             }
             this.generateGeometries();
+        }
+        get colliding() {
+            return this._colliding;
+        }
+        set colliding(value) {
+            this._colliding = value;
         }
     }
     exports.Polygon = Polygon;
