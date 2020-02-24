@@ -10,7 +10,9 @@ export class Config
         type: '2d',
         polygon: {
             fillOrStroke: 'stroke', // fill doesn't work. I suspect the multiple moveTo calls is the issue.
-            showNormals: false,
+            showNormals: true,
+            showProjections: true,
+            showProjectionGuides: true,
             color: 'white',
             lineWidth: 1
         }

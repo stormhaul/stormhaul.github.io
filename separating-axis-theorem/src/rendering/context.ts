@@ -129,17 +129,21 @@ export class Context
             this.drawAxis(normal.line);
         });
 
-        normals.map(normal => {
-            normal.projections.map(proj => {
-                this.drawProjection(proj.line, proj.color);
+        if (this.config.polygon.showProjections) {
+            normals.map(normal => {
+                normal.projections.map(proj => {
+                    this.drawProjection(proj.line, proj.color);
+                });
             });
-        });
+        }
 
-        normals.map(normal => {
-            normal.guides.map(guide => {
-                this.drawGuide(guide);
+        if (this.config.polygon.showProjectionGuides) {
+            normals.map(normal => {
+                normal.guides.map(guide => {
+                    this.drawGuide(guide);
+                });
             });
-        });
+        }
     }
 
     drawGuide(guide: Line) {

@@ -12,7 +12,9 @@ define(["require", "exports"], function (require, exports) {
                 type: '2d',
                 polygon: {
                     fillOrStroke: 'stroke',
-                    showNormals: false,
+                    showNormals: true,
+                    showProjections: true,
+                    showProjectionGuides: true,
                     color: 'white',
                     lineWidth: 1
                 }
