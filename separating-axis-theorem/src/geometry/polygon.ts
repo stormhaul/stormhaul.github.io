@@ -6,19 +6,19 @@ import {Normal} from './normal';
 
 export class Polygon
 {
-    private _center: Point;
-    private _sides: number;
-    private _sideLength: number;
-    private _radius: number; // length from center to vertex
-    private _apothem: number; // length from center to midpoint of edges
-    private _interiorAngle: Angle; // Angle Between V1 V2 V3
-    private _centerAngle: Angle; // Angle Between V1 C V2
-    private _vertices: Point[];
-    private _edges: Line[];
-    private _normals: Line[]; // normal for each edge
-    private _orientation: Angle; // Initial angle used when generating the vertices 0 is → 90 is ↓
-    private _attachment: Point|null;
-    private _colliding: boolean;
+    protected _center: Point;
+    protected _sides: number;
+    protected _sideLength: number;
+    protected _radius: number; // length from center to vertex
+    protected _apothem: number; // length from center to midpoint of edges
+    protected _interiorAngle: Angle; // Angle Between V1 V2 V3
+    protected _centerAngle: Angle; // Angle Between V1 C V2
+    protected _vertices: Point[];
+    protected _edges: Line[];
+    protected _normals: Line[]; // normal for each edge
+    protected _orientation: Angle; // Initial angle used when generating the vertices 0 is → 90 is ↓
+    protected _attachment: Point|null;
+    protected _colliding: boolean;
 
     constructor(center: Point, sides: number, sideLength: number)
     {
@@ -104,6 +104,18 @@ export class Polygon
         return isColliding;
     }
 
+    distFurthestFrom(p: Point): number
+    {
+        let max = 0;
+        this._vertices.map(vertex => {
+            let dist = vertex.dist(p);
+            if (dist > max) {
+                max = dist;
+            }
+        });
+        return max;
+    }
+
     private checkNormalsForParallel(needle, haystack): boolean
     {
         let notFound = true;
@@ -124,7 +136,7 @@ export class Polygon
         this._normals = this.generateNormals();
     }
 
-    private generateVertices(): Point[]
+    protected generateVertices(): Point[]
     {
         let vertices = [];
         let angle = this._orientation.clone();
@@ -138,7 +150,7 @@ export class Polygon
         return vertices;
     }
 
-    private generateEdges(): Line[]
+    protected generateEdges(): Line[]
     {
         let edges = [];
 
@@ -151,7 +163,7 @@ export class Polygon
         return edges;
     }
 
-    private generateNormals(): Line[]
+    protected generateNormals(): Line[]
     {
         let normals = [];
 

@@ -29,6 +29,16 @@ export class Context
         this.ctx.fill();
     }
 
+    setCenter(offset: Point)
+    {
+        this.ctx.translate(offset.x, offset.y);
+    }
+
+    resetCenter(offset: Point)
+    {
+        this.ctx.translate(-offset.x, offset.y);
+    }
+
     drawBackgroundGrid()
     {
         this.ctx.beginPath();

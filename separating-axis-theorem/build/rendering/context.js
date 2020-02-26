@@ -17,6 +17,12 @@ define(["require", "exports", "../geometry/point", "../geometry/line", "../geome
             this.ctx.rect(0, 0, this.ctx.width, this.ctx.height);
             this.ctx.fill();
         }
+        setCenter(offset) {
+            this.ctx.translate(offset.x, offset.y);
+        }
+        resetCenter(offset) {
+            this.ctx.translate(-offset.x, offset.y);
+        }
         drawBackgroundGrid() {
             this.ctx.beginPath();
             this.ctx.lineWidth = 1;

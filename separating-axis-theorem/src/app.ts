@@ -2,6 +2,9 @@ import {Config} from './config';
 import {Context} from './rendering/context';
 import {Polygon} from './geometry/polygon';
 import {Point} from './geometry/point';
+import {Player} from './game.objects/player';
+import {RenderRangeController} from './controllers/render.range.controller';
+import {Obstacle} from './game.objects/obstacle';
 
 /**
  * @todo multi shape attachment messes with one of the shapes.
@@ -15,6 +18,9 @@ export class App
     private config: Config;
     private context: Context;
     private polys: Polygon[];
+    private player: Player;
+    private platforms: Obstacle[];
+    private renderRangeController: RenderRangeController;
 
     private _mouseDown = false;
     private mousePos = null;
@@ -30,8 +36,9 @@ export class App
 
         //let polys = [poly, poly2];
         let polys = [
-            new Polygon(new Point(0, 0), 4, 100),
-            new Polygon(new Point(0, 0), 4, 100),
+            // new Polygon(new Point(0, 0), 6, 100),
+            // new Polygon(new Point(0, 0), 6, 100),
+            // new Polygon(new Point(0, 0), 6, 100),
             // new Polygon(new Point(0, 0), 3, 100),
             // new Polygon(new Point(0, 0), 3, 100),
             // new Polygon(new Point(0, 0), 3, 100),
@@ -45,6 +52,16 @@ export class App
         this.polys = polys;
 
         polys.map(poly => this.moveRandomly(poly));
+
+        this.player = new Player(new Point(100, 100));
+        this.renderRangeController = new RenderRangeController(this.player, this.config);
+        this.player.render(context);
+
+        this.platforms = [];
+        this.platforms.push(new Obstacle(new Point(100, 200), [new Polygon(new Point(100, 200), 4, 100)]));
+        this.platforms.map(platform => {
+            platform.render(context);
+        });
 
         // context.drawPolygons(polys);
         document.addEventListener('mousedown', this.mouseDown.bind(this));
@@ -108,9 +125,16 @@ export class App
 
     loop()
     {
+        // this.context.setCenter(this.player.position);
         this.context.clear();
+
         this.context.drawBackgroundGrid();
         this.context.drawPolygons(this.polys);
+        this.player.render(this.context);
+        this.platforms.map(platform => {
+            platform.render(this.context);
+        });
+        // this.context.resetCenter(this.player.position);
 
         requestAnimationFrame(this.loop.bind(this));
     }

@@ -57,6 +57,16 @@ define(["require", "exports", "./angle", "./line", "./radial.line", "./normal"],
             });
             return isColliding;
         }
+        distFurthestFrom(p) {
+            let max = 0;
+            this._vertices.map(vertex => {
+                let dist = vertex.dist(p);
+                if (dist > max) {
+                    max = dist;
+                }
+            });
+            return max;
+        }
         checkNormalsForParallel(needle, haystack) {
             let notFound = true;
             haystack.map(line => {
