@@ -1,4 +1,4 @@
-define(["require", "exports", "./config", "./rendering/context", "./geometry/polygon", "./geometry/point", "./game.objects/player", "./controllers/render.range.controller", "./game.objects/obstacle"], function (require, exports, config_1, context_1, polygon_1, point_1, player_1, render_range_controller_1, obstacle_1) {
+define(["require", "exports", "./config", "./rendering/context", "./geometry/polygon", "./geometry/point", "./game.objects/player", "./controllers/render.range.controller", "./game.objects/obstacle", "./controllers/physics.controller"], function (require, exports, config_1, context_1, polygon_1, point_1, player_1, render_range_controller_1, obstacle_1, physics_controller_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     class App {
@@ -16,14 +16,13 @@ define(["require", "exports", "./config", "./rendering/context", "./geometry/pol
             this.context = context;
             this.polys = polys;
             polys.map(poly => this.moveRandomly(poly));
+            this.physicsController = new physics_controller_1.PhysicsController();
             this.player = new player_1.Player(new point_1.Point(100, 100));
             this.renderRangeController = new render_range_controller_1.RenderRangeController(this.player, this.config);
-            this.player.render(context);
+            this.context.setCenter(this.player.position);
             this.platforms = [];
             this.platforms.push(new obstacle_1.Obstacle(new point_1.Point(100, 200), [new polygon_1.Polygon(new point_1.Point(100, 200), 4, 100)]));
-            this.platforms.map(platform => {
-                platform.render(context);
-            });
+            this.physicsController.register(this.player);
             document.addEventListener('mousedown', this.mouseDown.bind(this));
             document.addEventListener('mouseup', this.mouseUp.bind(this));
             document.addEventListener('mousemove', this.mouseMove.bind(this));
@@ -73,13 +72,16 @@ define(["require", "exports", "./config", "./rendering/context", "./geometry/pol
             this.attached = [];
         }
         loop() {
+            this.physicsController.tick();
             this.context.clear();
+            this.context.resetCenter();
             this.context.drawBackgroundGrid();
             this.context.drawPolygons(this.polys);
             this.player.render(this.context);
             this.platforms.map(platform => {
                 platform.render(this.context);
             });
+            this.context.setCenter(this.player.position);
             requestAnimationFrame(this.loop.bind(this));
         }
         moveRandomly(p) {

@@ -34,7 +34,7 @@ export class Point
 
     mag(): number
     {
-        return Math.sqrt(this.x * this.x + this.y * this.y);
+        return Math.sqrt(this._x * this._x + this._y * this._y);
     }
 
     unit(): Point

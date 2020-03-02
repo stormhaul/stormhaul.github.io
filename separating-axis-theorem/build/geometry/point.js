@@ -22,7 +22,7 @@ define(["require", "exports"], function (require, exports) {
             return this;
         }
         mag() {
-            return Math.sqrt(this.x * this.x + this.y * this.y);
+            return Math.sqrt(this._x * this._x + this._y * this._y);
         }
         unit() {
             let mag = this.mag();

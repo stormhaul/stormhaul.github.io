@@ -5,6 +5,7 @@ import {Point} from './geometry/point';
 import {Player} from './game.objects/player';
 import {RenderRangeController} from './controllers/render.range.controller';
 import {Obstacle} from './game.objects/obstacle';
+import {PhysicsController} from './controllers/physics.controller';
 
 /**
  * @todo multi shape attachment messes with one of the shapes.
@@ -21,6 +22,7 @@ export class App
     private player: Player;
     private platforms: Obstacle[];
     private renderRangeController: RenderRangeController;
+    private physicsController: PhysicsController;
 
     private _mouseDown = false;
     private mousePos = null;
@@ -52,16 +54,20 @@ export class App
         this.polys = polys;
 
         polys.map(poly => this.moveRandomly(poly));
+        this.physicsController = new PhysicsController();
 
         this.player = new Player(new Point(100, 100));
         this.renderRangeController = new RenderRangeController(this.player, this.config);
-        this.player.render(context);
+        this.context.setCenter(this.player.position);
+        // this.player.render(context);
 
         this.platforms = [];
         this.platforms.push(new Obstacle(new Point(100, 200), [new Polygon(new Point(100, 200), 4, 100)]));
-        this.platforms.map(platform => {
-            platform.render(context);
-        });
+        // this.platforms.map(platform => {
+        //     platform.render(context);
+        // });
+
+        this.physicsController.register(this.player);
 
         // context.drawPolygons(polys);
         document.addEventListener('mousedown', this.mouseDown.bind(this));
@@ -125,8 +131,10 @@ export class App
 
     loop()
     {
-        // this.context.setCenter(this.player.position);
+        this.physicsController.tick();
+
         this.context.clear();
+        this.context.resetCenter();
 
         this.context.drawBackgroundGrid();
         this.context.drawPolygons(this.polys);
@@ -134,7 +142,7 @@ export class App
         this.platforms.map(platform => {
             platform.render(this.context);
         });
-        // this.context.resetCenter(this.player.position);
+        this.context.setCenter(this.player.position);
 
         requestAnimationFrame(this.loop.bind(this));
     }

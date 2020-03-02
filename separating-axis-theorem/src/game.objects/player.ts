@@ -2,13 +2,19 @@ import {ObjectParent} from './object.parent';
 import {Point} from '../geometry/point';
 import {Polygon} from '../geometry/polygon';
 import {Context} from '../rendering/context';
+import {ForcibleInterface} from '../physics/forcibleInterface';
+import {Force} from '../physics/force';
 
-export class Player extends ObjectParent
+export class Player extends ObjectParent implements ForcibleInterface
 {
     private _position: Point;
     private _polygons: Polygon[];
     private _velocity: Point;
     private _acceleration: Point;
+    private _mass: number;
+    private _affectedByGravity: boolean = true;
+    private _immobile: boolean          = false;
+    private _clippable: boolean         = true;
 
     constructor(position: Point)
     {
@@ -16,6 +22,7 @@ export class Player extends ObjectParent
         this._position = position;
         this._velocity = new Point(0, 0);
         this._acceleration = new Point(0, 0);
+        this._mass = 100;
         this._generatePolygons();
     }
 
@@ -40,6 +47,24 @@ export class Player extends ObjectParent
             leg3,
             leg4
         ];
+    }
+
+    applyForce(force: Force)
+    {
+        this._acceleration.add(force.vector.clone().mult(force.vector.mag()/this._mass));
+    }
+
+    accelerate()
+    {
+        this._velocity.add(this._acceleration).mult(.9);// wind Resistance .9
+    }
+
+    move()
+    {
+        this._position.add(this._velocity);
+        this._polygons.map(poly => {
+            poly.center = poly.center.clone().add(this._velocity);
+        })
     }
 
     get position(): Point
@@ -75,5 +100,25 @@ export class Player extends ObjectParent
     set acceleration(value: Point)
     {
         this._acceleration = value;
+    }
+
+    get affectedByGravity(): boolean
+    {
+        return this._affectedByGravity;
+    }
+
+    get immobile(): boolean
+    {
+        return this._immobile;
+    }
+
+    get clippable(): boolean
+    {
+        return this._clippable;
+    }
+
+    get mass(): number
+    {
+        return this._mass;
     }
 }

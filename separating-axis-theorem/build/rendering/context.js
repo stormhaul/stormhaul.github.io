@@ -3,6 +3,7 @@ define(["require", "exports", "../geometry/point", "../geometry/line", "../geome
     Object.defineProperty(exports, "__esModule", { value: true });
     class Context {
         constructor(config) {
+            this.offset = new point_1.Point(0, 0);
             this.canvas = document.getElementById(config.canvas.id);
             this.canvas.width = config.canvas.width;
             this.canvas.height = config.canvas.height;
@@ -18,22 +19,21 @@ define(["require", "exports", "../geometry/point", "../geometry/line", "../geome
             this.ctx.fill();
         }
         setCenter(offset) {
+            this.offset = offset;
             this.ctx.translate(offset.x, offset.y);
         }
-        resetCenter(offset) {
-            this.ctx.translate(-offset.x, offset.y);
+        resetCenter() {
+            this.ctx.translate(this.offset.x * -1, this.offset.y * -1);
         }
         drawBackgroundGrid() {
             this.ctx.beginPath();
             this.ctx.lineWidth = 1;
             this.ctx.strokeStyle = 'rgba(255, 255, 255, .1)';
             for (let i = 0; i < this.ctx.width; i += 10) {
-                this.ctx.moveTo(i, 0);
-                this.ctx.lineTo(i, this.ctx.height);
+                this.line(new point_1.Point(i, 0), new point_1.Point(i, this.ctx.height));
             }
             for (let i = 0; i < this.ctx.height; i += 10) {
-                this.ctx.moveTo(0, i);
-                this.ctx.lineTo(this.ctx.width, i);
+                this.line(new point_1.Point(0, i), new point_1.Point(this.ctx.width, i));
             }
             this.ctx.stroke();
             this.ctx.closePath();
@@ -76,8 +76,7 @@ define(["require", "exports", "../geometry/point", "../geometry/line", "../geome
                 }
                 this.ctx.lineWidth = this.config.polygon.lineWidth;
                 p.edges.map(edge => {
-                    this.ctx.moveTo(edge.start.x, edge.start.y);
-                    this.ctx.lineTo(edge.end.x, edge.end.y);
+                    this.line(edge.start, edge.end);
                 });
                 switch (this.config.polygon.fillOrStroke) {
                     case 'stroke':
@@ -115,8 +114,7 @@ define(["require", "exports", "../geometry/point", "../geometry/line", "../geome
             this.ctx.lineWidth = this.config.polygon.lineWidth;
             this.ctx.strokeStyle = 'white';
             this.ctx.setLineDash([5]);
-            this.ctx.moveTo(guide.start.x, guide.start.y);
-            this.ctx.lineTo(guide.end.x, guide.end.y);
+            this.line(guide.start, guide.end);
             this.ctx.stroke();
             this.ctx.closePath();
             this.ctx.setLineDash([]);
@@ -125,8 +123,7 @@ define(["require", "exports", "../geometry/point", "../geometry/line", "../geome
             this.ctx.beginPath();
             this.ctx.lineWidth = this.config.polygon.lineWidth;
             this.ctx.strokeStyle = this.config.polygon.color;
-            this.ctx.moveTo(axis.start.x, axis.start.y);
-            this.ctx.lineTo(axis.end.x, axis.end.y);
+            this.line(axis.start, axis.end);
             this.ctx.stroke();
             this.ctx.closePath();
         }
@@ -134,8 +131,7 @@ define(["require", "exports", "../geometry/point", "../geometry/line", "../geome
             this.ctx.beginPath();
             this.ctx.lineWidth = this.config.polygon.lineWidth * 3;
             this.ctx.strokeStyle = color;
-            this.ctx.moveTo(projection.start.x, projection.start.y);
-            this.ctx.lineTo(projection.end.x, projection.end.y);
+            this.line(projection.start, projection.end);
             this.ctx.stroke();
             this.ctx.closePath();
         }
@@ -159,6 +155,11 @@ define(["require", "exports", "../geometry/point", "../geometry/line", "../geome
                 }
             });
             return overlap;
+        }
+        line(start, end) {
+            let ns = this.offset.clone().add(start), ne = this.offset.clone().add(end);
+            this.ctx.moveTo(ns.x, ns.y);
+            this.ctx.lineTo(ne.x, ne.y);
         }
     }
     exports.Context = Context;

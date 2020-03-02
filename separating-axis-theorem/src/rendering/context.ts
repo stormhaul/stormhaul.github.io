@@ -9,6 +9,7 @@ export class Context
     private canvas;
     private ctx;
     private config;
+    private offset: Point = new Point(0, 0);
 
     constructor(config: Config)
     {
@@ -31,12 +32,13 @@ export class Context
 
     setCenter(offset: Point)
     {
+        this.offset = offset;
         this.ctx.translate(offset.x, offset.y);
     }
 
-    resetCenter(offset: Point)
+    resetCenter()
     {
-        this.ctx.translate(-offset.x, offset.y);
+        this.ctx.translate(this.offset.x * -1, this.offset.y * -1);
     }
 
     drawBackgroundGrid()
@@ -46,12 +48,16 @@ export class Context
         this.ctx.strokeStyle = 'rgba(255, 255, 255, .1)';
 
         for (let i = 0; i < this.ctx.width; i+=10) {
-            this.ctx.moveTo(i, 0);
-            this.ctx.lineTo(i, this.ctx.height);
+            this.line(
+                new Point(i, 0),
+                new Point(i, this.ctx.height)
+            );
         }
         for (let i = 0; i < this.ctx.height; i+=10) {
-            this.ctx.moveTo(0, i);
-            this.ctx.lineTo(this.ctx.width, i);
+            this.line(
+                new Point(0, i),
+                new Point(this.ctx.width, i)
+            );
         }
 
         this.ctx.stroke();
@@ -115,8 +121,7 @@ export class Context
 
             p.edges.map(
                 edge => {
-                    this.ctx.moveTo(edge.start.x, edge.start.y);
-                    this.ctx.lineTo(edge.end.x, edge.end.y);
+                    this.line(edge.start, edge.end);
                 }
             );
 
@@ -161,8 +166,7 @@ export class Context
         this.ctx.lineWidth = this.config.polygon.lineWidth;
         this.ctx.strokeStyle = 'white';
         this.ctx.setLineDash([5]);
-        this.ctx.moveTo(guide.start.x, guide.start.y);
-        this.ctx.lineTo(guide.end.x, guide.end.y);
+        this.line(guide.start, guide.end);
         this.ctx.stroke();
         this.ctx.closePath();
         this.ctx.setLineDash([]);
@@ -172,8 +176,7 @@ export class Context
         this.ctx.beginPath();
         this.ctx.lineWidth = this.config.polygon.lineWidth;
         this.ctx.strokeStyle = this.config.polygon.color;
-        this.ctx.moveTo(axis.start.x, axis.start.y);
-        this.ctx.lineTo(axis.end.x, axis.end.y);
+        this.line(axis.start, axis.end);
         this.ctx.stroke();
         this.ctx.closePath();
     }
@@ -183,8 +186,7 @@ export class Context
         this.ctx.beginPath();
         this.ctx.lineWidth = this.config.polygon.lineWidth * 3;
         this.ctx.strokeStyle = color;
-        this.ctx.moveTo(projection.start.x, projection.start.y);
-        this.ctx.lineTo(projection.end.x, projection.end.y);
+        this.line(projection.start, projection.end);
         this.ctx.stroke();
         this.ctx.closePath();
     }
@@ -221,5 +223,13 @@ export class Context
         });
 
         return overlap;
+    }
+
+    private line(start: Point, end: Point)
+    {
+        let ns = this.offset.clone().add(start),
+            ne = this.offset.clone().add(end);
+        this.ctx.moveTo(ns.x, ns.y);
+        this.ctx.lineTo(ne.x, ne.y);
     }
 }

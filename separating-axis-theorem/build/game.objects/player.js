@@ -4,9 +4,13 @@ define(["require", "exports", "./object.parent", "../geometry/point", "../geomet
     class Player extends object_parent_1.ObjectParent {
         constructor(position) {
             super();
+            this._affectedByGravity = true;
+            this._immobile = false;
+            this._clippable = true;
             this._position = position;
             this._velocity = new point_1.Point(0, 0);
             this._acceleration = new point_1.Point(0, 0);
+            this._mass = 100;
             this._generatePolygons();
         }
         render(context) {
@@ -26,6 +30,18 @@ define(["require", "exports", "./object.parent", "../geometry/point", "../geomet
                 leg3,
                 leg4
             ];
+        }
+        applyForce(force) {
+            this._acceleration.add(force.vector.clone().mult(force.vector.mag() / this._mass));
+        }
+        accelerate() {
+            this._velocity.add(this._acceleration).mult(.9);
+        }
+        move() {
+            this._position.add(this._velocity);
+            this._polygons.map(poly => {
+                poly.center = poly.center.clone().add(this._velocity);
+            });
         }
         get position() {
             return this._position;
@@ -47,6 +63,18 @@ define(["require", "exports", "./object.parent", "../geometry/point", "../geomet
         }
         set acceleration(value) {
             this._acceleration = value;
+        }
+        get affectedByGravity() {
+            return this._affectedByGravity;
+        }
+        get immobile() {
+            return this._immobile;
+        }
+        get clippable() {
+            return this._clippable;
+        }
+        get mass() {
+            return this._mass;
         }
     }
     exports.Player = Player;
