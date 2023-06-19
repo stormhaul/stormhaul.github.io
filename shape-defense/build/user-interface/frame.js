@@ -1,6 +1,7 @@
 define(["require", "exports", "../rendering/renderable.parent", "../helpers/point"], function (require, exports, renderable_parent_1, point_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Frame = void 0;
     class Frame extends renderable_parent_1.RenderableParent {
         constructor(position, width, height, color = null) {
             super();

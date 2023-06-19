@@ -1,6 +1,7 @@
 define(["require", "exports", "../../user-interface/conditional.subscriber", "../renderable.parent"], function (require, exports, conditional_subscriber_1, renderable_parent_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.ViewportPanel = void 0;
     class ViewportPanel extends renderable_parent_1.RenderableParent {
         constructor(mouse, offset, width, height, moveHandler, clickHandler) {
             super();

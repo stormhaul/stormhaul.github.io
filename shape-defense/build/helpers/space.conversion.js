@@ -1,6 +1,7 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.SpaceConversion = void 0;
     class SpaceConversion {
         constructor(g1, g2) {
             this.g1 = g1;

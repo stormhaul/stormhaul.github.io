@@ -1,6 +1,7 @@
 define(["require", "exports", "./tower", "../helpers/point"], function (require, exports, tower_1, point_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.SquareTower = void 0;
     class SquareTower extends tower_1.Tower {
         constructor(sideLength, position) {
             super();

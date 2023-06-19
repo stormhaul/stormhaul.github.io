@@ -1,6 +1,7 @@
 define(["require", "exports", "../rendering/renderable.parent", "../helpers/point", "../helpers/a.star"], function (require, exports, renderable_parent_1, point_1, a_star_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.GameMap = void 0;
     class GameMap extends renderable_parent_1.RenderableParent {
         constructor(width, height, cellWidth, cols, rows) {
             super();
@@ -68,9 +69,11 @@ define(["require", "exports", "../rendering/renderable.parent", "../helpers/poin
             ];
             let sum = this.gridOrigin.add(this.getParentOffset());
             let cur = this.waypoints.getRoot();
+            let i = 0;
             while (cur) {
-                context.circle(cur.mult(this.cellWidth).add(sum).add(new point_1.Point(this.cellWidth / 2, this.cellWidth / 2)), this.cellWidth / 3, 0, true, 'blue', false, '');
+                context.circle(cur.mult(this.cellWidth).add(sum).add(new point_1.Point(this.cellWidth / 2, this.cellWidth / 2)), this.cellWidth / 3, 0, true, colors[i % colors.length], false, '');
                 cur = this.waypoints.getNext(cur);
+                i++;
             }
             let prev = null;
             cur = this.waypoints.getRoot();
@@ -79,7 +82,7 @@ define(["require", "exports", "../rendering/renderable.parent", "../helpers/poin
                 if (prev != null) {
                     let sel = colors[ct % colors.length];
                     ct++;
-                    let path = a_star_1.AStar(this.grid, prev, cur);
+                    let path = (0, a_star_1.AStar)(this.grid, prev, cur);
                     for (let i = 0; i < path.length - 1; i++) {
                         context.line(path[i].mult(this.cellWidth).add(sum).add(new point_1.Point(this.cellWidth / 2, this.cellWidth / 2)), path[i + 1].mult(this.cellWidth).add(sum).add(new point_1.Point(this.cellWidth / 2, this.cellWidth / 2)), 1, sel);
                     }

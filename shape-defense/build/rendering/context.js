@@ -1,6 +1,7 @@
 define(["require", "exports", "../helpers/point"], function (require, exports, point_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Context = void 0;
     class Context {
         constructor(ctx) {
             this.ctx = ctx;

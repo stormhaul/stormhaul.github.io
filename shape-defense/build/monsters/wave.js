@@ -1,6 +1,7 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Wave = void 0;
     class Wave {
         constructor(monsters, randomizeOrder) {
             this.spawnCounter = 0;

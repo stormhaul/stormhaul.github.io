@@ -1,6 +1,7 @@
 define(["require", "exports", "../rendering/renderable.parent", "../helpers/point", "./button", "./text.element", "../events/event", "../events/value.payload"], function (require, exports, renderable_parent_1, point_1, button_1, text_element_1, event_1, value_payload_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Slider = void 0;
     class Slider extends renderable_parent_1.RenderableParent {
         constructor(uniqueId, min, max, step, position, width, height, defaultValue = 100) {
             super();

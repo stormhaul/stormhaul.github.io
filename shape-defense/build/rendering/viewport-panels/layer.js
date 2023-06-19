@@ -1,6 +1,7 @@
 define(["require", "exports", "../renderable.parent"], function (require, exports, renderable_parent_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Layer = void 0;
     class Layer extends renderable_parent_1.RenderableParent {
         constructor(priority) {
             super();

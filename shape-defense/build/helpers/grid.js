@@ -1,6 +1,7 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Grid = void 0;
     class Grid {
         constructor(cols, rows, granularity) {
             this.grid = {};

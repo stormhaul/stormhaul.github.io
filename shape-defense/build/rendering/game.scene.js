@@ -1,6 +1,7 @@
 define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "../helpers/point", "./viewport-panels/layer", "../user-interface/frame", "../user-interface/button", "../user-interface/text.element", "../maps/level.one"], function (require, exports, scene_1, viewport_panel_1, point_1, layer_1, frame_1, button_1, text_element_1, level_one_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.GameScene = void 0;
     class GameScene extends scene_1.Scene {
         constructor(mouse) {
             super(mouse);
@@ -12,12 +13,12 @@ define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "..
         initializeLayers(mouse) {
             let topbarHeight = 50;
             let rightbarWidth = 50;
-            this.topbarPanel = new viewport_panel_1.ViewportPanel(mouse, new point_1.Point(0, 0), window.innerWidth, topbarHeight, this.topbarMoveHandler.bind(this), this.topbarClickHandler.bind(this));
+            this.topBarPanel = new viewport_panel_1.ViewportPanel(mouse, new point_1.Point(0, 0), window.innerWidth, topbarHeight, this.topBarMoveHandler.bind(this), this.topBarClickHandler.bind(this));
             this.topBackgroundLayer = new layer_1.Layer();
             this.topSeparatorLayer = new layer_1.Layer(9);
             this.topTextLayer = new layer_1.Layer(2);
             this.topButtonLayer = new layer_1.Layer(3);
-            this.rightbarPanel = new viewport_panel_1.ViewportPanel(mouse, new point_1.Point(window.innerWidth - rightbarWidth, topbarHeight), rightbarWidth, window.innerHeight - topbarHeight, () => {
+            this.rightBarPanel = new viewport_panel_1.ViewportPanel(mouse, new point_1.Point(window.innerWidth - rightbarWidth, topbarHeight), rightbarWidth, window.innerHeight - topbarHeight, () => {
             }, () => {
             });
             this.rightBackgroundLayer = new layer_1.Layer();
@@ -31,13 +32,13 @@ define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "..
             this.mapSeparatorLayer = new layer_1.Layer(9);
             this.mapGameViewLayer = new layer_1.Layer(2);
             this
-                .initializePanel(this.topbarPanel, [
+                .initializePanel(this.topBarPanel, [
                 this.topBackgroundLayer,
                 this.topSeparatorLayer,
                 this.topTextLayer,
                 this.topButtonLayer
             ])
-                .initializePanel(this.rightbarPanel, [
+                .initializePanel(this.rightBarPanel, [
                 this.rightBackgroundLayer,
                 this.rightSeparatorLayer,
                 this.rightTextLayer,
@@ -49,10 +50,10 @@ define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "..
                 this.mapGameViewLayer
             ]);
             let topFrame = new frame_1.Frame(new point_1.Point(1.5, 1.5), window.innerWidth - 3, topbarHeight - 3);
-            topFrame.attachParent(this.topbarPanel);
+            topFrame.attachParent(this.topBarPanel);
             this.topSeparatorLayer.addItem(topFrame);
             let rightFrame = new frame_1.Frame(new point_1.Point(1.5, 1.5), rightbarWidth - 3, window.innerHeight - topbarHeight - 3);
-            rightFrame.attachParent(this.rightbarPanel);
+            rightFrame.attachParent(this.rightBarPanel);
             this.rightSeparatorLayer.addItem(rightFrame);
             let mapFrame = new frame_1.Frame(new point_1.Point(1.5, 1.5), window.innerWidth - rightbarWidth - 3, window.innerHeight - topbarHeight - 3, '#222');
             mapFrame.attachParent(this.mapPanel);
@@ -70,18 +71,18 @@ define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "..
             });
             return this;
         }
-        topbarClickHandler(position) {
+        topBarClickHandler(position) {
             if (!this.active) {
                 return;
             }
-            let relativePos = position.sub(this.topbarPanel.getOffset());
+            let relativePos = position.sub(this.topBarPanel.getOffset());
             this.buttonClick(this.menuButton, relativePos);
         }
-        topbarMoveHandler(position) {
+        topBarMoveHandler(position) {
             if (!this.active) {
                 return;
             }
-            let relativePos = position.sub(this.topbarPanel.getOffset());
+            let relativePos = position.sub(this.topBarPanel.getOffset());
             this.buttonHover(this.menuButton, relativePos);
         }
         activate() {

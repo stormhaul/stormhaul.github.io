@@ -107,10 +107,12 @@ export abstract class GameMap extends RenderableParent
 
     private renderTowers(context: Context, offset: Point): void
     {
-        this.towers.map((tower) =>
-                        {
-                            tower.render(context, offset);
-                        });
+        this.towers.map(
+            (tower) =>
+            {
+                tower.render(context, offset);
+            }
+        );
     }
 
     private renderWaypoints(context: Context, offset: Point): void

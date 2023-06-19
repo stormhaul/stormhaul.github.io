@@ -1,6 +1,7 @@
 define(["require", "exports", "./game.map", "../helpers/grid", "./path", "../helpers/point", "../helpers/a.star", "../towers/square.tower", "../monsters/triangle.monster", "../monsters/wave", "../monsters/timer"], function (require, exports, game_map_1, grid_1, path_1, point_1, a_star_1, square_tower_1, triangle_monster_1, wave_1, timer_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.LevelOne = void 0;
     class LevelOne extends game_map_1.GameMap {
         constructor(width, height) {
             let cols = 10;
@@ -124,8 +125,8 @@ define(["require", "exports", "./game.map", "../helpers/grid", "./path", "../hel
                     cur = null;
                     continue;
                 }
-                console.log(a_star_1.AStar(this.grid, cur, next));
-                if (null === a_star_1.AStar(this.grid, cur, next)) {
+                console.log((0, a_star_1.AStar)(this.grid, cur, next));
+                if (null === (0, a_star_1.AStar)(this.grid, cur, next)) {
                     return false;
                 }
                 cur = next;

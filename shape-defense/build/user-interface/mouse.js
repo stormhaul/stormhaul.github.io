@@ -1,6 +1,7 @@
 define(["require", "exports", "../helpers/point"], function (require, exports, point_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Mouse = void 0;
     class Mouse {
         constructor() {
             this.clickSubscribers = [];

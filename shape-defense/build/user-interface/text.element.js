@@ -1,6 +1,7 @@
 define(["require", "exports", "../helpers/point", "../rendering/renderable.parent"], function (require, exports, point_1, renderable_parent_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.TextElement = void 0;
     class TextElement extends renderable_parent_1.RenderableParent {
         constructor() {
             super();

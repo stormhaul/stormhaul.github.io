@@ -1,6 +1,7 @@
 define(["require", "exports", "../helpers/point", "../helpers/angle", "../rendering/renderable.parent"], function (require, exports, point_1, angle_1, renderable_parent_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Monster = void 0;
     class Monster extends renderable_parent_1.RenderableParent {
         constructor(position, path, speed, health, liveCost, goldValue, armor) {
             super();

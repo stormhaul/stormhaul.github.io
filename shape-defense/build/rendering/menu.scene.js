@@ -1,6 +1,7 @@
 define(["require", "exports", "./scene", "./viewport-panels/layer", "./viewport-panels/viewport.panel", "../helpers/point", "../user-interface/button", "../user-interface/text.element", "../user-interface/backdrop"], function (require, exports, scene_1, layer_1, viewport_panel_1, point_1, button_1, text_element_1, backdrop_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.MenuScene = void 0;
     class MenuScene extends scene_1.Scene {
         constructor(mouse) {
             super(mouse);

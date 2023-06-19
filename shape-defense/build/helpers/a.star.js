@@ -1,6 +1,7 @@
 define(["require", "exports", "./point"], function (require, exports, point_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.AStar = void 0;
     function AStar(grid, start, goal) {
         let ptk = (p) => {
             return p.x + ',' + p.y;

@@ -1,6 +1,7 @@
 define(["require", "exports", "../helpers/a.star"], function (require, exports, a_star_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Path = void 0;
     class Path {
         constructor(waypoints) {
             if (waypoints.length < 2) {
@@ -26,7 +27,7 @@ define(["require", "exports", "../helpers/a.star"], function (require, exports, 
         getFullPath(grid) {
             let points = [];
             for (let i = 0; i < this.points.length - 1; i++) {
-                points.push(...a_star_1.AStar(grid, this.points[i], this.points[i + 1]));
+                points.push(...(0, a_star_1.AStar)(grid, this.points[i], this.points[i + 1]));
             }
             return points;
         }

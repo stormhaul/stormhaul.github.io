@@ -1,6 +1,7 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Timer = void 0;
     class Timer {
         constructor(start, increment, eventIncrement, event) {
             this.start = start;
