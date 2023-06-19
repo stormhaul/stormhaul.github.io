@@ -50,11 +50,11 @@ export class GameScene extends Scene
         this.menuButton.attachParent(this.topButtonLayer);
         this.topButtonLayer.addItem(this.menuButton);
 
-        this.goldResource = new Gold(new Point(5, 5), 500);
+        this.goldResource = new Gold(new Point(105, 5), 500);
         this.goldResource.attachParent(this.topButtonLayer);
         this.topButtonLayer.addItem(this.goldResource);
 
-        this.livesResource = new Lives(new Point(105, 5), 20);
+        this.livesResource = new Lives(new Point(5, 5), 20);
         this.livesResource.attachParent(this.topButtonLayer);
         this.topButtonLayer.addItem(this.livesResource);
     }

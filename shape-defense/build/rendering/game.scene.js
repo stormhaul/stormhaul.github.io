@@ -9,10 +9,10 @@ define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "..
             this.menuButton = new button_1.Button(new point_1.Point(window.innerWidth - 42 - 3, 5), 40, 40, new text_element_1.TextElement().setValue('Menu'), new Event('menu.button.clicked'));
             this.menuButton.attachParent(this.topButtonLayer);
             this.topButtonLayer.addItem(this.menuButton);
-            this.goldResource = new gold_1.Gold(new point_1.Point(5, 5), 500);
+            this.goldResource = new gold_1.Gold(new point_1.Point(105, 5), 500);
             this.goldResource.attachParent(this.topButtonLayer);
             this.topButtonLayer.addItem(this.goldResource);
-            this.livesResource = new lives_1.Lives(new point_1.Point(105, 5), 20);
+            this.livesResource = new lives_1.Lives(new point_1.Point(5, 5), 20);
             this.livesResource.attachParent(this.topButtonLayer);
             this.topButtonLayer.addItem(this.livesResource);
         }
