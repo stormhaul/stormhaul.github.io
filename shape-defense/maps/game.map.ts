@@ -158,6 +158,8 @@ export abstract class GameMap extends RenderableParent
             i++;
         }
 
+        // @todo contemplate a method to make the current segment of the path the monsters are on more visible than others
+        // inverting doesn't work as it would make the first path override everything
         let prev = null;
         cur      = this.waypoints.getRoot();
         let ct   = 0;
