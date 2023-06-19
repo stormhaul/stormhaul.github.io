@@ -51,7 +51,7 @@ function init() {
 	document.dispatchEvent(new Event('nextTurn'));
 
 	let func = function() {
-		setTimeout(function(){requestAnimationFrame(func)}, 500);
+		setTimeout(function(){requestAnimationFrame(func)}, 15);
 		// requestAnimationFrame(func);
 
 		grid.iterate(ctx);
