@@ -10,13 +10,13 @@ import {LevelOne} from '../maps/level.one';
 
 export class GameScene extends Scene
 {
-    private topbarPanel: ViewportPanel;
+    private topBarPanel: ViewportPanel;
     private topBackgroundLayer: Layer;
     private topSeparatorLayer: Layer;
     private topTextLayer: Layer;
     private topButtonLayer: Layer;
 
-    private rightbarPanel: ViewportPanel;
+    private rightBarPanel: ViewportPanel;
     private rightBackgroundLayer: Layer;
     private rightSeparatorLayer: Layer;
     private rightTextLayer: Layer;
@@ -56,20 +56,20 @@ export class GameScene extends Scene
         let topbarHeight  = 50;
         let rightbarWidth = 50;
 
-        this.topbarPanel        = new ViewportPanel(
+        this.topBarPanel        = new ViewportPanel(
             mouse,
             new Point(0, 0),
             window.innerWidth,
             topbarHeight,
-            this.topbarMoveHandler.bind(this),
-            this.topbarClickHandler.bind(this)
+            this.topBarMoveHandler.bind(this),
+            this.topBarClickHandler.bind(this)
         );
         this.topBackgroundLayer = new Layer();
         this.topSeparatorLayer  = new Layer(9);
         this.topTextLayer       = new Layer(2);
         this.topButtonLayer     = new Layer(3);
 
-        this.rightbarPanel        = new ViewportPanel(
+        this.rightBarPanel        = new ViewportPanel(
             mouse,
             new Point(
                 window.innerWidth - rightbarWidth,
@@ -107,7 +107,7 @@ export class GameScene extends Scene
 
         this
             .initializePanel(
-                this.topbarPanel,
+                this.topBarPanel,
                 [
                     this.topBackgroundLayer,
                     this.topSeparatorLayer,
@@ -116,7 +116,7 @@ export class GameScene extends Scene
                 ]
             )
             .initializePanel(
-                this.rightbarPanel,
+                this.rightBarPanel,
                 [
                     this.rightBackgroundLayer,
                     this.rightSeparatorLayer,
@@ -134,13 +134,13 @@ export class GameScene extends Scene
             );
 
         let topFrame = new Frame(new Point(1.5, 1.5), window.innerWidth - 3, topbarHeight - 3);
-        topFrame.attachParent(this.topbarPanel);
+        topFrame.attachParent(this.topBarPanel);
         this.topSeparatorLayer.addItem(
             topFrame
         );
 
         let rightFrame = new Frame(new Point(1.5, 1.5), rightbarWidth - 3, window.innerHeight - topbarHeight - 3);
-        rightFrame.attachParent(this.rightbarPanel);
+        rightFrame.attachParent(this.rightBarPanel);
         this.rightSeparatorLayer.addItem(
             rightFrame
         );
@@ -185,21 +185,21 @@ export class GameScene extends Scene
         return this;
     }
 
-    topbarClickHandler(position: Point): void
+    topBarClickHandler(position: Point): void
     {
         if (!this.active) {
             return;
         }
-        let relativePos = position.sub(this.topbarPanel.getOffset());
+        let relativePos = position.sub(this.topBarPanel.getOffset());
         this.buttonClick(this.menuButton, relativePos);
     }
 
-    topbarMoveHandler(position: Point): void
+    topBarMoveHandler(position: Point): void
     {
         if (!this.active) {
             return;
         }
-        let relativePos = position.sub(this.topbarPanel.getOffset());
+        let relativePos = position.sub(this.topBarPanel.getOffset());
         this.buttonHover(this.menuButton, relativePos);
     }
 
