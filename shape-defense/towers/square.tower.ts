@@ -16,7 +16,7 @@ export class SquareTower extends Tower
 
     render(context: Context, offset: Point): void
     {
-        // @todo the offset add via sidelength/2 + 2 is in response to the towers being rendered halfway down the cell.
+        // @todo the offset add via sideLength/2 + 2 is in response to the towers being rendered halfway down the cell.
         // This should be fixed in the long term by figuring out the cell render dimensions and using the
         // difference between that and our tower dimensions to shift dynamically to the center.
         context.rect(
