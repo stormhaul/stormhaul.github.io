@@ -1,4 +1,4 @@
-define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "../helpers/point", "./viewport-panels/layer", "../user-interface/frame", "../user-interface/button", "../user-interface/text.element", "../maps/level.one", "../player/resources/gold", "../player/resources/lives"], function (require, exports, scene_1, viewport_panel_1, point_1, layer_1, frame_1, button_1, text_element_1, level_one_1, gold_1, lives_1) {
+define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "../helpers/point", "./viewport-panels/layer", "../user-interface/frame", "../user-interface/button", "../user-interface/text.element", "../maps/level.one", "../player/resources/gold", "../player/resources/lives", "../player/resources/wave"], function (require, exports, scene_1, viewport_panel_1, point_1, layer_1, frame_1, button_1, text_element_1, level_one_1, gold_1, lives_1, wave_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.GameScene = void 0;
@@ -15,6 +15,9 @@ define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "..
             this.livesResource = new lives_1.Lives(new point_1.Point(5, 5), 20);
             this.livesResource.attachParent(this.topButtonLayer);
             this.topButtonLayer.addItem(this.livesResource);
+            this.wavesCounter = new wave_1.Wave(new point_1.Point(205, 5), 1);
+            this.wavesCounter.attachParent(this.topButtonLayer);
+            this.topButtonLayer.addItem(this.wavesCounter);
         }
         initializeLayers(mouse) {
             let topbarHeight = 50;

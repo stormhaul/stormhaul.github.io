@@ -27,7 +27,7 @@ export abstract class ResourceParent extends RenderableParent
             Math.floor(
                 Math.max(
                     0,
-                    this.maximumDigits - Math.max(0, Math.log10(this.value))
+                    this.maximumDigits - Math.max(1, Math.log10(this.value))
                 )
             )
         );

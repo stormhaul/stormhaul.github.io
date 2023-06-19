@@ -9,6 +9,7 @@ import {TextElement} from '../user-interface/text.element';
 import {LevelOne} from '../maps/level.one';
 import {Gold} from "../player/resources/gold";
 import {Lives} from "../player/resources/lives";
+import {Wave} from "../player/resources/wave";
 
 export class GameScene extends Scene
 {
@@ -31,6 +32,7 @@ export class GameScene extends Scene
 
     private goldResource: Gold;
     private livesResource: Lives;
+    private wavesCounter: Wave;
     private menuButton: Button;
     private level1: LevelOne;
 
@@ -57,6 +59,10 @@ export class GameScene extends Scene
         this.livesResource = new Lives(new Point(5, 5), 20);
         this.livesResource.attachParent(this.topButtonLayer);
         this.topButtonLayer.addItem(this.livesResource);
+
+        this.wavesCounter = new Wave(new Point(205, 5), 1);
+        this.wavesCounter.attachParent(this.topButtonLayer);
+        this.topButtonLayer.addItem(this.wavesCounter);
     }
 
     /**
