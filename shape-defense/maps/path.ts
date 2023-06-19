@@ -14,19 +14,23 @@ export class Path
         }
 
         let allUnique = true;
-        waypoints.map((waypoint, i) =>
-                      {
-                          waypoints.map((wp2, j) =>
-                                        {
-                                            if (i === j) {
-                                                return;
-                                            }
+        waypoints.map(
+            (waypoint, i) =>
+            {
+                waypoints.map(
+                    (wp2, j) =>
+                    {
+                        if (i === j) {
+                            return;
+                        }
 
-                                            if (waypoint.is(wp2)) {
-                                                allUnique = false;
-                                            }
-                                        });
-                      });
+                        if (waypoint.is(wp2)) {
+                            allUnique = false;
+                        }
+                    }
+                );
+            }
+        );
 
         if (!allUnique) {
             throw new Error('Waypoints must be unique.');
