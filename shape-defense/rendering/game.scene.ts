@@ -7,6 +7,8 @@ import {Frame} from '../user-interface/frame';
 import {Button} from '../user-interface/button';
 import {TextElement} from '../user-interface/text.element';
 import {LevelOne} from '../maps/level.one';
+import {Gold} from "../player/resources/gold";
+import {Lives} from "../player/resources/lives";
 
 export class GameScene extends Scene
 {
@@ -27,6 +29,8 @@ export class GameScene extends Scene
     private mapSeparatorLayer: Layer;
     private mapGameViewLayer: Layer;
 
+    private goldResource: Gold;
+    private livesResource: Lives;
     private menuButton: Button;
     private level1: LevelOne;
 
@@ -45,6 +49,14 @@ export class GameScene extends Scene
         );
         this.menuButton.attachParent(this.topButtonLayer);
         this.topButtonLayer.addItem(this.menuButton);
+
+        this.goldResource = new Gold(new Point(5, 5), 500);
+        this.goldResource.attachParent(this.topButtonLayer);
+        this.topButtonLayer.addItem(this.goldResource);
+
+        this.livesResource = new Lives(new Point(105, 5), 20);
+        this.livesResource.attachParent(this.topButtonLayer);
+        this.topButtonLayer.addItem(this.livesResource);
     }
 
     /**

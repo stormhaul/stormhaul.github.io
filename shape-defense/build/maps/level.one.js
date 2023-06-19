@@ -75,7 +75,7 @@ define(["require", "exports", "./game.map", "../helpers/grid", "./path", "../hel
                 new point_1.Point(9, 9)
             ]);
         }
-        setUpRandomMaze(cols, rows, cellWidth) {
+        setupRandomMaze(cols, rows, cellWidth) {
             let contains = (arr, item) => {
                 let found = false;
                 arr.map((i) => {

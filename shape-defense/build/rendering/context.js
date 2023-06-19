@@ -62,6 +62,24 @@ define(["require", "exports", "../helpers/point"], function (require, exports, p
                 this.ctx.stroke();
             }
         }
+        heart(topLeftCorner, width, height, color) {
+            this.ctx.beginPath();
+            this.ctx.fillStyle = color;
+            this.ctx.strokeStyle = color;
+            this.ctx.lineWidth = 1;
+            let kx = topLeftCorner.x;
+            let ky = topLeftCorner.y;
+            this.ctx.moveTo(kx, ky + height / 4);
+            this.ctx.quadraticCurveTo(kx, ky, kx + width / 4, ky);
+            this.ctx.quadraticCurveTo(kx + width / 2, ky, kx + width / 2, ky + height / 4);
+            this.ctx.quadraticCurveTo(kx + width / 2, ky, kx + width * 3 / 4, ky);
+            this.ctx.quadraticCurveTo(kx + width, ky, kx + width, ky + height / 4);
+            this.ctx.quadraticCurveTo(kx + width, ky + height / 2, kx + width * 3 / 4, ky + height * 3 / 4);
+            this.ctx.lineTo(kx + width / 2, ky + height);
+            this.ctx.lineTo(kx + width / 4, ky + height * 3 / 4);
+            this.ctx.quadraticCurveTo(kx, ky + height / 2, kx, ky + height / 4);
+            this.ctx.fill();
+        }
         text(text, offset = new point_1.Point(0, 0)) {
             this.ctx.beginPath();
             this.ctx.font = text.getFontSize() + 'px ' + text.getFontFamily();

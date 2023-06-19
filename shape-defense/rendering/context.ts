@@ -103,6 +103,29 @@ export class Context
         // this.ctx.restore();
     }
 
+    heart(topLeftCorner: Point, width, height, color)
+    {
+        this.ctx.beginPath();
+
+        this.ctx.fillStyle   = color;
+        this.ctx.strokeStyle = color;
+        this.ctx.lineWidth   = 1;
+
+        let kx = topLeftCorner.x;
+        let ky = topLeftCorner.y;
+        this.ctx.moveTo(kx, ky + height / 4); // move to leftmost portion of heart
+        this.ctx.quadraticCurveTo(kx, ky, kx + width / 4, ky); // move to topmost of the left portion
+        this.ctx.quadraticCurveTo(kx + width / 2, ky, kx + width /2, ky + height / 4); // move to cleave point
+        this.ctx.quadraticCurveTo(kx + width / 2, ky, kx + width * 3 / 4, ky); // move to topmost of the right portion
+        this.ctx.quadraticCurveTo(kx + width, ky, kx + width, ky + height / 4); // Move to rightmost portion
+        this.ctx.quadraticCurveTo(kx + width, ky + height / 2, kx + width * 3 / 4, ky + height * 3 / 4); // move to bottom right turn in
+        this.ctx.lineTo(kx + width / 2, ky + height); // Line to tip
+        this.ctx.lineTo(kx + width / 4, ky + height * 3 / 4); // Line to bottom left turn in
+        this.ctx.quadraticCurveTo(kx, ky + height / 2, kx, ky + height / 4); // Line to complete
+
+        this.ctx.fill();
+    }
+
     text(text: TextElement, offset: Point = new Point(0, 0))
     {
         this.ctx.beginPath();

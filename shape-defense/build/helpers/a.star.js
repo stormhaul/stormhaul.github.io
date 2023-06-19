@@ -45,7 +45,7 @@ define(["require", "exports", "./point"], function (require, exports, point_1) {
                 new point_1.Point(1, 1)
             ];
             let neighbors = [];
-            eightVectors.map((v) => {
+            vectors.map((v) => {
                 try {
                     let next = v.add(p);
                     if (grid.get(next) === false) {

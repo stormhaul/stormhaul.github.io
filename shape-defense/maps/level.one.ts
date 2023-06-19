@@ -26,7 +26,7 @@ export class LevelOne extends GameMap
         this.grid   = new Grid(cols, rows);
 
         this.setupTestMaze(cols, rows, cellWidth);
-        // this.setUpRandomMaze(cols, rows, cellWidth);
+        // this.setupRandomMaze(cols, rows, cellWidth);
 
         let path = this.waypoints.getFullPath(this.grid).map(item => this.convertGridToPixel(item));
         path.map(item => this.convertGridToPixel(item));
@@ -122,7 +122,7 @@ export class LevelOne extends GameMap
         );
     }
 
-    private setUpRandomMaze(cols, rows, cellWidth): void
+    private setupRandomMaze(cols, rows, cellWidth): void
     {
         let contains = (arr, item) =>
         {

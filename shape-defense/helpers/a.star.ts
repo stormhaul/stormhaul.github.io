@@ -59,7 +59,7 @@ export function AStar(grid: Grid, start: Point, goal: Point): Array<Point>|null 
         ];
 
         let neighbors = [];
-        eightVectors.map((v: Point) => {
+        vectors.map((v: Point) => {
             try {
                 let next = v.add(p);
 

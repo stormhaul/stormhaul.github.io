@@ -1,4 +1,4 @@
-define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "../helpers/point", "./viewport-panels/layer", "../user-interface/frame", "../user-interface/button", "../user-interface/text.element", "../maps/level.one"], function (require, exports, scene_1, viewport_panel_1, point_1, layer_1, frame_1, button_1, text_element_1, level_one_1) {
+define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "../helpers/point", "./viewport-panels/layer", "../user-interface/frame", "../user-interface/button", "../user-interface/text.element", "../maps/level.one", "../player/resources/gold", "../player/resources/lives"], function (require, exports, scene_1, viewport_panel_1, point_1, layer_1, frame_1, button_1, text_element_1, level_one_1, gold_1, lives_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.GameScene = void 0;
@@ -9,6 +9,12 @@ define(["require", "exports", "./scene", "./viewport-panels/viewport.panel", "..
             this.menuButton = new button_1.Button(new point_1.Point(window.innerWidth - 42 - 3, 5), 40, 40, new text_element_1.TextElement().setValue('Menu'), new Event('menu.button.clicked'));
             this.menuButton.attachParent(this.topButtonLayer);
             this.topButtonLayer.addItem(this.menuButton);
+            this.goldResource = new gold_1.Gold(new point_1.Point(5, 5), 500);
+            this.goldResource.attachParent(this.topButtonLayer);
+            this.topButtonLayer.addItem(this.goldResource);
+            this.livesResource = new lives_1.Lives(new point_1.Point(105, 5), 20);
+            this.livesResource.attachParent(this.topButtonLayer);
+            this.topButtonLayer.addItem(this.livesResource);
         }
         initializeLayers(mouse) {
             let topbarHeight = 50;
