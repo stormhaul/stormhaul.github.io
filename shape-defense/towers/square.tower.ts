@@ -20,7 +20,7 @@ export class SquareTower extends Tower
         // This should be fixed in the long term by figuring out the cell render dimensions and using the
         // difference between that and our tower dimensions to shift dynamically to the center.
         context.rect(
-            this.position.add(this.getParentOffset()).add(offset === undefined ? new Point(0, 0) : offset).add(new Point(0, this.sideLength*-1/2 - 2)),
+            this.position.add(this.getParentOffset()).add(offset === undefined ? new Point(0, 0) : offset).add(new Point(0, this.sideLength/2 + 4)),
             this.sideLength,
             this.sideLength,
             1,

@@ -9,7 +9,7 @@ define(["require", "exports", "./tower", "../helpers/point"], function (require,
             this.position = position;
         }
         render(context, offset) {
-            context.rect(this.position.add(this.getParentOffset()).add(offset === undefined ? new point_1.Point(0, 0) : offset).add(new point_1.Point(0, this.sideLength * -1 / 2 - 2)), this.sideLength, this.sideLength, 1, true, 'purple', true, 'red');
+            context.rect(this.position.add(this.getParentOffset()).add(offset === undefined ? new point_1.Point(0, 0) : offset).add(new point_1.Point(0, this.sideLength / 2 + 4)), this.sideLength, this.sideLength, 1, true, 'purple', true, 'red');
         }
     }
     exports.SquareTower = SquareTower;

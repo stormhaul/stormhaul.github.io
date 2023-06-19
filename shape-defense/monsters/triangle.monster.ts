@@ -17,7 +17,7 @@ export class TriangleMonster extends Monster
          * @todo draw triangle using Monster direction and position.
          */
         context.triangle(
-            this.position.add(offset),
+            this.position.add(offset).add(new Point(0, 50)),
             20,
             this.getDirection(),
             1,

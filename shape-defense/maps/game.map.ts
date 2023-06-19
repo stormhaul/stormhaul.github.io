@@ -198,9 +198,12 @@ export abstract class GameMap extends RenderableParent
         );
     }
 
-    protected convertGridToPixel(point: Point): Point
+    protected convertGridToPixel(point: Point, center: boolean = false): Point
     {
-        return point.add(new Point(0, 1)).mult(this.cellWidth).add(this.gridOrigin).add(this.getParentOffset());
+        return point.add(new Point(0, 0))
+            .mult(this.cellWidth)
+            .add(this.gridOrigin)
+            .add(this.getParentOffset());
     }
 
     protected spawnEnemy(): this

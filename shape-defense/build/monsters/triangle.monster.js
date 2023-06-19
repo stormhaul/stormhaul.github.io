@@ -1,4 +1,4 @@
-define(["require", "exports", "./monster", "./armor/speed.armor"], function (require, exports, monster_1, speed_armor_1) {
+define(["require", "exports", "./monster", "../helpers/point", "./armor/speed.armor"], function (require, exports, monster_1, point_1, speed_armor_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.TriangleMonster = void 0;
@@ -8,7 +8,7 @@ define(["require", "exports", "./monster", "./armor/speed.armor"], function (req
         }
         render(context, offset) {
             super.render(context, offset);
-            context.triangle(this.position.add(offset), 20, this.getDirection(), 1, true, 'yellow', true, 'green');
+            context.triangle(this.position.add(offset).add(new point_1.Point(0, 50)), 20, this.getDirection(), 1, true, 'yellow', true, 'green');
         }
     }
     exports.TriangleMonster = TriangleMonster;
