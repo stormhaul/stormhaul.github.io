@@ -140,18 +140,20 @@ export abstract class GameMap extends RenderableParent
         let sum    = this.gridOrigin.add(this.getParentOffset());
 
         let cur = this.waypoints.getRoot();
+        let i = 0;
         while (cur) {
             context.circle(
                 cur.mult(this.cellWidth).add(sum).add(new Point(this.cellWidth / 2, this.cellWidth / 2)),
                 this.cellWidth / 3,
                 0,
                 true,
-                'blue',
+                colors[i % colors.length],
                 false,
                 ''
             );
 
             cur = this.waypoints.getNext(cur);
+            i++;
         }
 
         let prev = null;
