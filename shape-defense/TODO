@@ -1,0 +1,1 @@
+Somehow the commit that added target acquisition introduced a bug where mobs disappear after reaching the green waypoint.
