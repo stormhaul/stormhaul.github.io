@@ -122,6 +122,10 @@ define(["require", "exports", "../rendering/renderable.parent", "../helpers/poin
             return this;
         }
         progressTowers() {
+            this.towers.map(tower => {
+                tower.setTarget(this.monsters)
+                    .attackTarget();
+            });
             return this;
         }
     }

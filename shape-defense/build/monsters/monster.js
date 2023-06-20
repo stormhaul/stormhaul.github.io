@@ -62,6 +62,13 @@ define(["require", "exports", "../helpers/point", "../helpers/angle", "../render
         getArmorType() {
             return this.armor;
         }
+        getHealth() {
+            return this.health;
+        }
+        getNearnessToEscapeValue() {
+            let x = this.path.length;
+            return 1 / Math.max(1, (x - this.currentPathTarget)) * Math.max(1, this.maxHealth - this.health);
+        }
     }
     exports.Monster = Monster;
 });

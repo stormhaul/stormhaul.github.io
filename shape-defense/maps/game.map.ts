@@ -234,6 +234,10 @@ export abstract class GameMap extends RenderableParent
 
     protected progressTowers(): this
     {
+        this.towers.map(tower => {
+            tower.setTarget(this.monsters)
+                .attackTarget();
+        })
         return this;
     }
 }

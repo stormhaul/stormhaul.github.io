@@ -12,6 +12,12 @@ export class SquareTower extends Tower
 
         this.sideLength = sideLength;
         this.position   = position;
+        this.range = 150;
+    }
+
+    attackTarget(): Tower {
+        //
+        return this;
     }
 
     render(context: Context, offset: Point): void

@@ -4,6 +4,7 @@ import {RenderableParent} from '../rendering/renderable.parent';
 import {Context} from '../rendering/context';
 import {AttackableInterface} from './attackable.interface';
 import {Armor} from './armor/armor';
+import {SpaceConversion} from "../helpers/space.conversion";
 
 export abstract class Monster extends RenderableParent implements AttackableInterface
 {
@@ -129,5 +130,20 @@ export abstract class Monster extends RenderableParent implements AttackableInte
     getArmorType(): Armor
     {
         return this.armor;
+    }
+
+    getHealth(): number
+    {
+        return this.health;
+    }
+
+    /**
+     * Currently a simple targeting value system where the shorter the remaining path and the lower the health, the higher
+     * a target priority a mob is. Bigger value = shoot first
+     */
+    getNearnessToEscapeValue(): number
+    {
+        let x = this.path.length;
+        return 1 / Math.max(1, (x - this.currentPathTarget)) * Math.max(1, this.maxHealth - this.health);
     }
 }
